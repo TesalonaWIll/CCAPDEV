@@ -1,0 +1,36 @@
+body {
+    background: #D9D9D9;
+}
+
+header {
+    background-color: white;
+    position: fixed;
+    padding: 10px 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    color: black;
+    height: 62px;
+    display: flex;
+    align-items: center;
+}
+h1 {
+    margin-left: 20px;
+}
+nav .searchBar {
+    margin-left: 40px;
+}
+nav .searchBar1 {
+    width: 650px; 
+    background-color: #D9D9D9; 
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+    border-radius: 20px; 
+    border: 1px black solid; */
+    padding: 7px;
+    margin: 1px;
+    flex-grow: 9999;
+    font-size: 18px;
+    border-radius: 20px;
+    padding-left: 20px;
+}
