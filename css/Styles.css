@@ -47,16 +47,18 @@ body{
 }
 
 .header {
-    position: fixed;
+
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     padding: 20px 100px;
-    background: transparent;
+    background: blueviolet;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    margin-bottom: 40px;
 }
 .logo{
     font-size: 32px;
@@ -92,3 +94,15 @@ body{
     width: 100%;
 } 
 
+#post {
+    
+display: flex;
+margin: auto;
+width: 770px;
+height: 150px;
+flex-shrink: 0;
+border-radius: 30px;
+background: #FFF;
+padding: 20px;
+
+}
