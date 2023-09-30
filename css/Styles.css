@@ -32,7 +32,10 @@ nav .searchBar1 {
 #logo {
     margin-left: 20px;
 } */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;800;900&display=swap');
+:root {
+    font-family: "Poppins", sans-serif;
+}
 * {
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -99,10 +102,21 @@ body{
 display: flex;
 margin: auto;
 width: 770px;
-height: 150px;
+min-height: 150px;
 flex-shrink: 0;
 border-radius: 30px;
 background: #FFF;
 padding: 20px;
-
+}
+#postedBy{
+    font-weight: lighter;
+    font-size: smaller;
+}
+#message {
+    padding-bottom: 40px;
+}
+#comments {
+    color: gray;
+    margin: auto;
+    font-size:small;
 }
