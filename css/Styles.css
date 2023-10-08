@@ -96,11 +96,15 @@ body{
 .navbar a:hover::before {
     width: 100%;
 } 
+.container{
+    display: flex;
+    width: auto;
+}
 
 #post {
     
-display: flex;
-margin: auto;
+flex: 2;
+margin: 10px;
 width: 770px;
 min-height: 150px;
 flex-shrink: 0;
@@ -122,8 +126,17 @@ padding: 20px;
 }
 
 #popular{
-    float: right;
-    margin-right: 10px;
+    flex: 1;
+    position: sticky;
+    margin: 10px;
+    margin-right: 10%;
+
     border-style: solid;
     border-width: 1px;
+    border-left-style: none;
+    border-right-style: none;
+}
+#empty{
+    flex: 1;
+    margin: 10px;
 }
