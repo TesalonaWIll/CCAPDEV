@@ -293,3 +293,245 @@ padding: 20px;
     text-decoration: none;
   }
   
+  /* styles.css */
+
+/* Styles for the .signup container */
+.signup {
+    width: 438px;
+    height: 577px;
+    left: 847px;
+    top: 223px;
+    position: absolute;
+  }
+  
+  /* Styles for the .signR1 element */
+  .signR1 {
+    width: 438px;
+    height: 577px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: white;
+    border-radius: 10px;
+  }
+  
+  /* Styles for the .CreateAnAccount element */
+  .SignCreateAnAccount {
+    width: 317px;
+    height: 67px;
+    left: 60px;
+    top: 23px;
+    position: absolute;
+    text-align: center;
+    color: #01211C;
+    font-size: 25px;
+    font-family: Poppins;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+  
+  /* Styles for the .signG1 container and its children */
+  .signG1 {
+    width: 316px;
+    height: 46.47px;
+    left: 61px;
+    top: 142px;
+    position: absolute;
+  }
+  
+  /* Styles for the .Rectangle9 element within .signG1 */
+  .Rectangle9 {
+    width: 316px;
+    height: 46.47px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    border-bottom: 3px #01211C solid;
+  }
+  
+  /* Styles for the .SignUsername element within .signG1 */
+  .SignUsername {
+    width: 143px;
+    height: 30px;
+    left: 10px;
+    top: 8px;
+    position: absolute;
+    color: rgba(1, 33, 28, 0.60);
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    letter-spacing: 3.20px;
+    word-wrap: break-word;
+    border: none;
+  }
+  
+  /* Styles for the .signG2 container and its children */
+  .signG2 {
+    width: 316px;
+    height: 46.47px;
+    left: 61px;
+    top: 217px;
+    position: absolute;
+  }
+  
+  /* Styles for the .signR2 element within .signG2 */
+  .signR2 {
+    width: 316px;
+    height: 46.47px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    border-bottom: 3px #01211C solid;
+  }
+  
+  /* Styles for the .SignEmail element within .signG2 */
+  .SignEmail {
+    width: 102px;
+    height: 30.14px;
+    left: 10px;
+    top: 7.54px;
+    position: absolute;
+    color: rgba(1, 33, 28, 0.60);
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    letter-spacing: 3.20px;
+    word-wrap: break-word;
+    border: none;
+  }
+  
+  /* Styles for the .signG3 container and its children */
+  .signG3 {
+    width: 316px;
+    height: 46.47px;
+    left: 61px;
+    top: 292px;
+    position: absolute;
+  }
+  
+  /* Styles for the .signR2 element within .signG3 */
+  .signR2 {
+    width: 316px;
+    height: 46.47px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    border-bottom: 3px #01211C solid;
+
+  }
+  
+  /* Styles for the .SignPassword element within .signG3 */
+  .SignPassword {
+    width: 125px;
+    height: 30px;
+    left: 10px;
+    top: 8px;
+    position: absolute;
+    color: rgba(1, 33, 28, 0.60);
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    letter-spacing: 3.20px;
+    border: none;
+    word-wrap: break-word;
+  }
+  .SignCPassword {
+    width: 221px;
+    height: 30px;
+    left: 10px; 
+    top: 8px; 
+    position: absolute; 
+    color: rgba(1, 33, 28, 0.60); 
+    font-size: 16px; 
+    font-family: Poppins; 
+    font-weight: 600; 
+    letter-spacing: 3.20px; 
+    border: none;
+    word-wrap: break-word
+    
+  }
+  
+  /* Styles for the .signG4 container and its children */
+  .signG4 {
+    width: 316px;
+    height: 46.47px;
+    left: 61px;
+    top: 367px;
+    position: absolute;
+  }
+  
+  /* Styles for the .signR2 element within .signG4 */
+  .signR2 {
+    width: 316px;
+    height: 46.47px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    border-bottom: 3px #01211C solid;
+  }
+  
+  /* Styles for the .ConfirmPassword element within .signG4 */
+  .ConfirmPassword {
+    width: 221px;
+    height: 30px;
+    left: 10px;
+    top: 8px;
+    position: absolute;
+    color: rgba(1, 33, 28, 0.60);
+    font-size: 16px;
+    font-family: Poppins;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 3.20px;
+    word-wrap: break-word;
+  }
+  
+  /* Styles for the .signG5 container and its children */
+  .signG5 {
+    width: 203px;
+    height: 62.79px;
+    left: 117px;
+    top: 465px;
+    position: absolute;
+  }
+  
+  /* Styles for the .signR3 element within .signG5 */
+  .signR3 {
+    width: 203px;
+    height: 62.79px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #01211C;
+    border-radius: 5px;
+  }
+  
+  /* Styles for the .SignUp element within .signG5 */
+  .SignUp {
+    width: 104px;
+    height: 30px;
+    left: 50px;
+    top: 16.05px;
+    position: absolute;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    letter-spacing: 3.20px;
+    word-wrap: break-word;
+  }
+  
+  /* Styles for the .ComeHopInTheFun element */
+  .ComeHopInTheFun {
+    left: 133px;
+    top: 78px;
+    position: absolute;
+    text-align: center;
+    color: #34393F;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    word-wrap: break-word;
+  }
+  
