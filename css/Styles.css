@@ -212,7 +212,7 @@ body{
     border-radius: 30px;
 }
 #profile-bio-container {
-    width: 56.0625rem;
+    width: 100%;
     height: 12.5625rem;;
     border-radius: 0px 0px 30px 30px;
     border-top: 3px solid #01211C;
@@ -531,8 +531,10 @@ h3 {
 }
 
 /**media queries**/
+/**
 @media screen and (min-width: 1024px) and (max-width: 1919px) {
     .profile-background{
         height: 200px;
     }
 }
+**/
