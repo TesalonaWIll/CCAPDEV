@@ -197,7 +197,7 @@ body{
 .spritesheet {
     background-image: url("../Spritesheet.png");
     background-repeat: no-repeat;
-    background-size: 192px 124px;
+    background-size: 192px 185px;
 }
 #profile {
     margin: auto;
@@ -207,7 +207,7 @@ body{
     background-image: url("../356983640_298429026074056_4341380167329184315_n.jpg");
     background-repeat: no-repeat;
     background-position: -339px -447px;
-    width: 900px;
+    width: 99%;
     height: 400px;
     border-radius: 30px;
 }
@@ -251,14 +251,22 @@ body{
     left: 2.44rem;
     color: #fff;
 }
-#edit-profile {
-    width: 56px;
-    height: 56px;
-    background-position: 0px -61px;
+#edit-profile-icon {
     position: relative;
     left: 51.44rem;
     top: .87rem;
     z-index: 4;
+}
+.edit-profile {
+    width: 56px;
+    height: 56px;
+    background-position: 0px -61px;
+}
+.edit-profile:hover {
+    background-position: 0px -121px;
+}
+.edit-profile:active {
+    background-position: -65px -121px;
 }
 .separator {
     display: flex;
@@ -400,6 +408,18 @@ h3 {
 #avatar-label {
     margin-top: 65px !important;
 }
+#edit-avatar {
+    position: relative;
+    top: 45px;
+    left: 45px;
+    display: none;
+}
+#edit-banner {
+    position: relative;
+    top: 45%;
+    left: 45%;
+    display: none;
+}
 .edit-profile-pic {
     background-image: url("../mikunakano.jpg");
     background-size: contain;
@@ -408,6 +428,18 @@ h3 {
     height: 9.375rem;
     border-radius: 150px;
     border: 3px solid #01211C;
+}
+.edit-profile-pic:hover #edit-avatar{
+    display: block;
+}
+.edit-profile-pic:active #edit-avatar{
+    background-position: -65px -121px;
+}
+.profile-background:hover #edit-banner{
+    display: block;
+}
+.profile-background:active #edit-banner{
+    background-position: -65px -121px;
 }
 .secondary-button {
     color: #ACFDE8;
@@ -419,6 +451,7 @@ h3 {
     padding: 0 0.8rem 0 0.8rem;
     text-align: center;
     max-width: fit-content;
+    background-color: #ffffff00;
 }
 .secondary-button:hover {
     border: 3px solid #01211C;
@@ -465,4 +498,41 @@ h3 {
     letter-spacing: .0625;
     width: 205px;
     margin: 9px 81px 0 65px;
+}
+#bio-label {
+    margin-right: 186px !important;
+    margin-top: 25px !important;
+}
+#bio-input {
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-left: 8px;
+    width: 98%;
+    height: 80px;
+    resize: none;
+}
+#bio-input:focus {
+    outline: 3px solid #01211C;
+}
+.primary-button {
+    height: 50px;
+    padding: 10px 22px 10px 22px;
+    background-color: #FFF;
+    color: #01211C;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+}
+.primary-button:hover {
+    background-color: #d4d4d4;
+}
+.primary-button:active {
+    background-color: #adadad;
+}
+
+/**media queries**/
+@media screen and (min-width: 1024px) and (max-width: 1919px) {
+    .profile-background{
+        height: 200px;
+    }
 }
