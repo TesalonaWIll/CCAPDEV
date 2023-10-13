@@ -90,7 +90,7 @@ body{
     outline: 0px solid black;
 }
 .search-icon {
-    background-image: url("../Spritesheet.png");
+    background-image: url("../src/images/Spritesheet.png");
     width: 32px;
     height: 32px;
     background-position: -80px -1px;
@@ -192,16 +192,16 @@ body{
     margin: 10px;
 }
 .spritesheet {
-    background-image: url("../Spritesheet.png");
+    background-image: url("../src/images/Spritesheet.png");
     background-repeat: no-repeat;
-    background-size: 192px 185px;
+    background-size: 277px 308px;
 }
 #profile {
     margin: auto;
     width: 897px;
 }
 .profile-background {
-    background-image: url("../356983640_298429026074056_4341380167329184315_n.jpg");
+    background-image: url("../src/images/356983640_298429026074056_4341380167329184315_n.jpg");
     background-repeat: no-repeat;
     background-position: -339px -447px;
     width: 99%;
@@ -219,7 +219,7 @@ body{
     z-index: 1;
 }
 .profile-pic {
-    background-image: url("../mikunakano.jpg");
+    background-image: url("../src/images/mikunakano.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     width: 9.375rem;
@@ -418,7 +418,7 @@ h3 {
     display: none;
 }
 .edit-profile-pic {
-    background-image: url("../mikunakano.jpg");
+    background-image: url("../src/images/mikunakano.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     width: 9.375rem;
