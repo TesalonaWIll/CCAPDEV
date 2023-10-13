@@ -265,6 +265,23 @@ body{
 .edit-profile:active {
     background-position: -65px -121px;
 }
+#edit-post-icon {
+    position: relative;
+    left: 45.5rem;
+    top: -4rem;
+    z-index: 4;
+}
+.edit-post {
+    width: 32px;
+    height: 32px; 
+    background-position: -134px -121px;
+}
+.edit-post:hover {
+    background-position: -166px -121px;
+}
+.edit-post:active {
+    background-position: -198px -121px;
+}
 .separator {
     display: flex;
     justify-content: center;
