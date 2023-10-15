@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../images/AvatarLogo.png";
 
-class Header extends React.Component {
+class HeaderAlt extends React.Component {
   render() {
     return (
       <header className="header">
@@ -15,8 +15,12 @@ class Header extends React.Component {
           <input type="text" placeholder="Search..." />
         </div>
         <nav className="navbar">
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/notifications" className="icon">
+            <div className="spritesheet" id="notif"></div>
+          </NavLink>
+          <NavLink to="/profile" className="icon">
+            <div className="spritesheet user"></div>
+          </NavLink>
           <NavLink to="/faq">FAQ</NavLink>
         </nav>
       </header>
@@ -24,4 +28,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default HeaderAlt;

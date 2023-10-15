@@ -1,48 +1,85 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-class Login extends React.Component {
-  render() {
-    return (
-      <div id="homePage">
-        <div class="something">
-          <span id="one">
-            <div class="welcome">Welcome to Ribbit!</div>
-            <div class="welDisc">
-              Ribbit is a General Community something blabla enter
-              <br /> some other dummy text i dont know what to write
-            </div>
-          </span>
-        </div>
-        <div class="login">
-          <div class="Group5">
-            <div class="Rectangle8"></div>
-            <div class="HopRightIn">Hop Right In!</div>
-            <div class="LoginWithYourAccount">Login with your account</div>
-            <div class="Group2">
-              <div class="Rectangle9"></div>
-              <input class="Username" placeholder="Username" />
-            </div>
-            <div class="Group1">
-              <div class="Rectangle10"></div>
-              <input type="password" class="Password" placeholder="Password" />
-            </div>
-            <div class="Group3">
-              <div class="Rectangle11"></div>
-              <div class="Login">LOGIN</div>
-            </div>
+function Login({ setLoginTrue }) {
+  return (
+    <div className="container-fluid">
+      <div className="row p-5">
+        <div className="col-7 d-flex flex-column align-content-center justify-content-center">
+          <div className="welcome">Welcome to Ribbit!</div>
+          <div className="welDisc">
+            Ribbit is a General Community something blabla enter <br />
+            some other dummy text i dont know what to write
           </div>
         </div>
-        <div class="Group4">
-          <div class="Line1"></div>
-          <div class="Rectangle12"></div>
-          <div class="Or">OR</div>
+
+        <div className="col-5 d-flex flex-column align-items-center">
+          <div className="Login">
+            <div className="HopRightIn">Hop Right In!</div>
+            <div className="LoginWithYourAccount">Login with your account</div>
+
+            <div className="d-flex flex-column align-items-center mt-48">
+              <div className="input-field mt-4 mb-4">
+                <input type="text" required spellCheck="false" maxLength="60" />
+                <label>Username</label>
+              </div>
+
+              <div className="input-field mt-4">
+                <input
+                  type="password"
+                  required
+                  spellCheck="false"
+                  maxLength="60"
+                />
+                <label>Password</label>
+              </div>
+            </div>
+
+            <div className="d-flex justify-content-around extra-buttons mt-2">
+              <form>
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  value="true"
+                  className="my-auto checkmark"
+                />
+                <label htmlFor="remember">Remember me</label>
+              </form>
+
+              <NavLink to="/">Forgot Password?</NavLink>
+            </div>
+
+            <div className="d-flex justify-content-center mt-48">
+              <NavLink to="/">
+                <button
+                  onClick={() => {
+                    setLoginTrue(true);
+                    console.log("clicked");
+                  }}
+                  className="main-button"
+                  id="login-button">
+                  LOGIN
+                </button>
+              </NavLink>
+            </div>
+          </div>
+
+          <div
+            className="d-flex align-content-center justify-content-center mt-4"
+            id="Group-1">
+            <div className="flex-fill separator-3 my-auto"></div>
+            <div className="Or me-4 ms-4">OR</div>
+            <div className="flex-fill separator-3 my-auto"></div>
+          </div>
+
+          <NavLink to="/register" className="CreateAnAccount mt-4">
+            Create An Account
+          </NavLink>
         </div>
-        <a class="CreateAnAccount" href="SignUpPage.html">
-          Create an account
-        </a>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Login;

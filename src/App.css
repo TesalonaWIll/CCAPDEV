@@ -31,21 +31,25 @@ nav .searchBar1 {
     margin-left: 20px;
 } */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;800;900&display=swap');
+
 :root {
     font-family: "Poppins", sans-serif;
 }
+
 * {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     min-height: 100vh;
     background-color: #95D5B5 !important;
     background-size: cover;
     background-position: center;
 }
+
 .header {
     position: sticky;
     top: 0;
@@ -60,17 +64,20 @@ body{
     margin-bottom: 49px;
     height: 5rem;
 }
+
 #logo-image {
     width: 52px;
     height: 52px;
     margin-right: 18px;
 }
-.logo{
+
+.logo {
     font-size: 32px;
     color: #fff;
     text-decoration: none;
     font-weight: 700;
 }
+
 .searchbar {
     width: 445px;
     height: 47px;
@@ -78,6 +85,7 @@ body{
     border-radius: 30px;
     display: flex;
 }
+
 .searchbar input {
     width: 370px;
     height: 47px;
@@ -86,17 +94,20 @@ body{
     border: none;
     font-size: 16px;
 }
+
 .searchbar input:focus {
     outline: 0px solid black;
 }
+
 .search-icon {
-    background-image: url("images/Spritesheet.png");
+    background-image: url("../src/images/Spritesheet.png");
     width: 32px;
     height: 32px;
     background-position: -80px -1px;
     margin-left: 12px;
     margin-top: 6px;
 }
+
 .navbar a {
     position: relative;
     font-size: 18px;
@@ -105,7 +116,8 @@ body{
     text-decoration: none;
     margin-left: 30px;
 }
-.navbar a::before{
+
+.navbar a::before {
     content: '';
     position: absolute;
     top: 100%;
@@ -115,26 +127,32 @@ body{
     background: #fff;
     transition: .3s;
 }
+
 .navbar a:hover::before {
     width: 100%;
-} 
+}
+
 .navbar a.icon:hover::before {
     width: 0%;
 }
-.container{
+
+.container {
     display: flex;
     width: auto;
 }
+
 #notif {
     width: 40px;
     height: 40px;
     background-position: 0px 0px;
 }
+
 .user {
     width: 40px;
     height: 40px;
     background-position: -40px 0px;
 }
+
 /**---------------END OF HEADER---------------------**/
 #post {
     flex: 2;
@@ -146,14 +164,16 @@ body{
     background: #FFF;
     padding: 20px;
 }
-.post-container{
+
+.post-container {
     margin: 0 auto 0 auto;
-    max-width: 57rem !important;
+    width: 100%;
     padding: 0 !important;
 }
+
 .post-wide {
     margin: 0 auto 15px auto;
-    width: 56.0625rem;
+    width: 80%;
     max-height: 25.1875rem;
     overflow-y: hidden;
     border-radius: 30px;
@@ -163,20 +183,23 @@ body{
     flex-direction: column;
     justify-content: flex-start;
 }
-#postedBy{
+
+#postedBy {
     font-weight: lighter;
     font-size: smaller;
 }
+
 #message {
     padding-bottom: 40px;
 }
+
 #comments {
     color: gray;
     margin: auto;
-    font-size:small;
+    font-size: small;
 }
 
-#popular{
+#popular {
     flex: 1;
     position: sticky;
     margin: 10px;
@@ -187,30 +210,36 @@ body{
     border-left-style: none;
     border-right-style: none;
 }
-#empty{
+
+#empty {
     flex: 1;
     margin: 10px;
 }
+
 .spritesheet {
-    background-image: url("images/Spritesheet.png");
+    background-image: url("../src/images/Spritesheet.png");
     background-repeat: no-repeat;
-    background-size: 192px 185px;
+    background-size: 277px 308px;
 }
+
 #profile {
     margin: auto;
     width: 897px;
 }
+
 .profile-background {
-    background-image: url("images/356983640_298429026074056_4341380167329184315_n.jpg");
+    background-image: url("../src/images/356983640_298429026074056_4341380167329184315_n.jpg");
     background-repeat: no-repeat;
     background-position: -339px -447px;
     width: 99%;
     height: 400px;
     border-radius: 30px;
 }
+
 #profile-bio-container {
     width: 100%;
-    height: 12.5625rem;;
+    height: 12.5625rem;
+    ;
     border-radius: 0px 0px 30px 30px;
     border-top: 3px solid #01211C;
     background: #125053;
@@ -218,8 +247,9 @@ body{
     top: -0.25rem;
     z-index: 1;
 }
+
 .profile-pic {
-    background-image: url("images/mikunakano.jpg");
+    background-image: url("../src/images/mikunakano.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     width: 9.375rem;
@@ -231,6 +261,7 @@ body{
     left: 2.44rem;
     z-index: 2;
 }
+
 .username {
     color: #fff;
     font-size: 1.875rem;
@@ -240,6 +271,7 @@ body{
     left: 12.88rem;
     top: 1rem;
 }
+
 .biography {
     width: 51.1875rem;
     height: 4.5rem;
@@ -248,56 +280,81 @@ body{
     left: 2.44rem;
     color: #fff;
 }
+
 #edit-profile-icon {
     position: relative;
     left: 51.44rem;
     top: .87rem;
     z-index: 4;
 }
+
 .edit-profile {
     width: 56px;
     height: 56px;
     background-position: 0px -61px;
 }
+
 .edit-profile:hover {
     background-position: 0px -121px;
 }
+
 .edit-profile:active {
     background-position: -65px -121px;
 }
+
+.edit-post {
+    width: 32px;
+    height: 32px;
+    background-position: -134px -121px;
+}
+
+.edit-post:hover {
+    background-position: -166px -121px;
+}
+
+.edit-post:active {
+    background-position: -198px -121px;
+}
+
 .separator {
+    width: 75%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 4.44rem;
     margin-bottom: .88rem;
-    padding: 0 17rem 0 272px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .filter {
     color: #01211C;
     font-size: 1.1875rem;
     font-weight: 600;
     letter-spacing: 0.05938rem;
 }
+
 .dropdown {
     background-position: -112px -4px;
     width: 23px;
     height: 12px;
-    margin: auto 0 auto 7px;
+    margin: auto 24px auto 8px;
 }
+
 .line-break {
-    width: 715px;
     height: 2px;
     background-color: #01211C;
-    margin: auto 0 auto 21px;
+    margin: auto 0 auto 0;
 }
+
 .user-profile {
-    width: 70px;
+    width: 70px !important;
     height: 70px;
     background-position: -120px -53px;
     margin-right: .52rem;
     margin-left: .4rem;
     padding: 0 !important;
 }
+
 .post-title {
     color: #FFF;
     font-size: 1.5625rem;
@@ -307,6 +364,7 @@ body{
     letter-spacing: 0.07813rem;
     width: 80%;
 }
+
 .post-user {
     color: rgba(255, 255, 255, 0.70);
     font-size: 1rem;
@@ -315,6 +373,7 @@ body{
     letter-spacing: 0.05rem;
     width: 80%;
 }
+
 .category {
     color: #01211C;
     font-size: 1rem;
@@ -326,9 +385,10 @@ body{
     padding: 0 .8rem 0 .8rem;
     margin-right: .52rem;
 }
+
 .post-content {
     margin-top: 1.53rem;
-    width: 50.5rem;
+    width: 100%;
     overflow-y: hidden;
     font-weight: 500;
     background: -webkit-linear-gradient(#ffffff, #ffffff00);
@@ -339,22 +399,27 @@ body{
     line-height: normal;
     letter-spacing: 0.05rem;
 }
+
 .post-wide:hover .post-content {
     -webkit-text-fill-color: #fff;
 }
-.post-wide:hover{
+
+.post-wide:hover {
     background-color: #083E35;
 }
+
 .upvote {
     width: 20px;
     height: 21px;
     background-position: 0px -40px;
 }
+
 .downvote {
     width: 20px;
     height: 21px;
     background-position: -20px -40px;
 }
+
 .comment-link {
     color: #FFF;
     font-size: 1rem;
@@ -362,25 +427,30 @@ body{
     margin-left: 1.1rem;
     text-decoration: none;
 }
+
 .comment-link:hover {
     text-decoration: underline white;
 }
+
 .post-time {
     text-align: right;
     color: #fff;
     font-size: 1rem;
 }
+
 #edit-profile-page {
     background-color: #125053;
     border-radius: 30px;
     padding: 0;
 }
+
 .back-button {
     background-position: -137px -1px;
     width: 30px;
     height: 16px;
     margin-left: 7px;
 }
+
 #edit-title {
     font-weight: 600;
     color: #FFF;
@@ -388,12 +458,15 @@ body{
     letter-spacing: 5%;
     margin-bottom: 0;
 }
+
 .p-44 {
     padding: 44px;
 }
+
 .ms-20 {
     margin-left: 20px;
 }
+
 h3 {
     color: #fff !important;
     font-size: 1.25rem !important;
@@ -402,23 +475,26 @@ h3 {
     letter-spacing: .0625 !important;
     margin: 0 145px 0 65px !important;
 }
+
 #avatar-label {
     margin-top: 65px !important;
 }
+
 #edit-avatar {
     position: relative;
     top: 45px;
     left: 45px;
     display: none;
 }
+
 #edit-banner {
     position: relative;
     top: 45%;
     left: 45%;
     display: none;
 }
+
 .edit-profile-pic {
-    background-image: url("images/mikunakano.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     width: 9.375rem;
@@ -426,18 +502,23 @@ h3 {
     border-radius: 150px;
     border: 3px solid #01211C;
 }
-.edit-profile-pic:hover #edit-avatar{
+
+.edit-profile-pic:hover #edit-avatar {
     display: block;
 }
-.edit-profile-pic:active #edit-avatar{
+
+.edit-profile-pic:active #edit-avatar {
     background-position: -65px -121px;
 }
-.profile-background:hover #edit-banner{
+
+.profile-background:hover #edit-banner {
     display: block;
 }
-.profile-background:active #edit-banner{
+
+.profile-background:active #edit-banner {
     background-position: -65px -121px;
 }
+
 .secondary-button {
     color: #ACFDE8;
     font-size: 1rem;
@@ -450,16 +531,19 @@ h3 {
     max-width: fit-content;
     background-color: #ffffff00;
 }
+
 .secondary-button:hover {
     border: 3px solid #01211C;
     background-color: #96ddc8;
     color: #01211C;
 }
+
 .secondary-button:active {
     background-color: #6fa897;
     color: #01211C;
     border: 3px solid #01211C;
 }
+
 .note {
     color: rgba(204, 246, 225, 0.76);
     font-size: 1rem;
@@ -468,12 +552,14 @@ h3 {
     letter-spacing: .05rem;
     margin-top: .5rem;
 }
+
 .separator-2 {
     width: 99%;
     height: 2px;
     background-color: #01211C;
     margin: 26px auto 39px auto;
 }
+
 .short-input {
     width: 360px;
     height: 45px;
@@ -481,13 +567,16 @@ h3 {
     border: none;
     padding-left: 8px;
 }
+
 .short-input:focus {
     outline: 3px solid #01211C;
 }
+
 #user-label {
     margin-top: 9px !important;
     margin-right: 180px !important;
 }
+
 .password-label {
     color: #fff;
     font-size: 1.25rem;
@@ -496,10 +585,12 @@ h3 {
     width: 205px;
     margin: 9px 81px 0 65px;
 }
+
 #bio-label {
     margin-right: 186px !important;
     margin-top: 25px !important;
 }
+
 #bio-input {
     border-radius: 5px;
     padding-top: 5px;
@@ -508,9 +599,11 @@ h3 {
     height: 80px;
     resize: none;
 }
+
 #bio-input:focus {
     outline: 3px solid #01211C;
 }
+
 .primary-button {
     height: 50px;
     padding: 10px 22px 10px 22px;
@@ -520,9 +613,11 @@ h3 {
     border-radius: 30px;
     font-weight: 600;
 }
+
 .primary-button:hover {
     background-color: #d4d4d4;
 }
+
 .primary-button:active {
     background-color: #adadad;
 }
@@ -530,212 +625,200 @@ h3 {
 /* home page and login page*/
 .welcome {
     font-weight: bold;
-    font-size:60px;
+    font-size: 60px;
     height: auto;
     color: #01211C;
-    /* padding: 60px;
-    font-size:70px;
-    display: flex; */
+    margin-left: 80px;
 }
+
 .welDisc {
     font-weight: bold;
-    font-size:20px;
+    font-size: 20px;
     height: auto;
     color: #01211C;
+    margin-left: 80px;
 }
-#homePage {
-    display: flex;
-    flex-shrink: 0;
-    margin: 35px;
-    padding: 60px;
-    align-items: center;
-    min-height: 60vh;
-}
-.Group5{
-    width: 438px; 
-    height: 469px; 
-    left: 847px; 
-    top: 211px; 
-    position: absolute
-}
-.something{
-    padding-right: 300px;
-    padding: 40px;
-}
-.Rectangle8 {
-    width: 438px;
-    height: 469px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    background: white;
-    border-radius: 10px;
-  }
-  
-  .HopRightIn {
-    left: 104px;
-    top: 50px;
-    position: absolute;
+
+.HopRightIn {
     color: #01211C;
-    font-size: 35px;
+    font-size: 1.875vw;
     font-family: Poppins;
     font-weight: 700;
+    text-align: center;
     word-wrap: break-word;
-  }
-  
-  .LoginWithYourAccount {
-    left: 121px;
-    top: 117px;
-    position: absolute;
+}
+
+#login-form {
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
+}
+
+.LoginWithYourAccount {
     text-align: center;
     color: #34393F;
     font-size: 16px;
     font-family: Poppins;
     font-weight: 600;
     word-wrap: break-word;
-  }
-  
-  .Group2 {
-    width: 316px;
-    height: 37px;
-    left: 61px;
-    top: 186px;
-    position: absolute;
-  }
-  
-  .Rectangle9 {
-    width: 316px;
-    height: 37px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    border-bottom: 3px #01211C solid;
-  }
-  
-  .Username {
-    left: 10px;
-    top: 6px;
-    position: absolute;
-    color: rgba(1, 33, 28, 0.60);
-    font-size: 16px;
-    font-family: Poppins;
-    font-weight: 600;
-    letter-spacing: 3.20px;
-    word-wrap: break-word;
+}
+
+.input-field {
+    position: relative;
+    width: 90%;
+}
+
+.input-field input {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding: 0 15px;
     border: none;
-  }
-  
-  .Group1 {
-    width: 316px;
-    height: 37px;
-    left: 61px;
-    top: 280px;
+    border-bottom: 3px solid #839995;
+    background: transparent;
+    color: #01211C;
+    outline: none;
+}
+
+.input-field label {
     position: absolute;
-  }
-  
-  .Rectangle10 {
-    width: 316px;
-    height: 37px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    border-bottom: 3px #01211C solid;
-  }
-  
-  .Password {
-    left: 10px;
-    top: 6px;
-    position: absolute;
-    color: rgba(1, 33, 28, 0.60);
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #01211C60;
+    font-size: 20px;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-bottom: 3px solid #01211C;
+    color: #01211C;
+}
+
+input:focus~label,
+input:valid~label {
+    top: -8px;
+    left: -5px;
     font-size: 16px;
-    font-family: Poppins;
-    font-weight: 600;
-    letter-spacing: 3.20px;
-    word-wrap: break-word;
-    border: none;
-  }
-  
-  .Group3 {
-    width: 203px;
-    height: 50px;
-    left: 117px;
-    top: 375px;
-    position: absolute;
-  }
-  
-  .Rectangle11 {
-    width: 203px;
-    height: 50px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    background: #01211C;
+    padding: 0 5px;
+    background: none;
+}
+
+.extra-buttons {
+    color: #01211cd8;
+    font-size: 600;
+    letter-spacing: .08px;
+}
+
+.checkmark {
+    border: 3px solid #01211C;
+}
+
+.extra-buttons a {
+    color: #01211cd8;
+}
+
+.main-button {
     border-radius: 5px;
-  }
-  
-  .Login {
-    left: 71px;
-    top: 13px;
-    position: absolute;
-    color: white;
-    font-size: 16px;
-    font-family: Poppins;
-    font-weight: 600;
-    letter-spacing: 3.20px;
-    word-wrap: break-word;
-  }
-.Group4 {
-    width: 390px;
-    height: 49px;
-    left: 871px;
-    top: 710px;
-    position: absolute;
-  }
-  
-  .Line1 {
-    width: 390px;
-    height: 0px;
-    left: 0px;
-    top: 25px;
-    position: absolute;
-    border: 5px rgba(1, 33, 28, 0.74) solid;
-  }
-  
-  .Rectangle12 {
-    width: 83px;
-    height: 49px;
-    left: 153px;
-    top: 0px;
-    position: absolute;
-    background: #95D5B5;
-  }
-  
-  .Or {
-    left: 175px;
-    top: 3px;
-    position: absolute;
+    padding: 12px 68px 12px 68px;
+    background-color: #01211C;
+    color: #fff;
+    border: none;
+    letter-spacing: 3.2px;
+}
+
+.main-button:hover {
+    background-color: #163934;
+}
+
+.main-button:active {
+    background-color: #051614;
+}
+
+.separator-3 {
+    height: 5px;
+    background-color: rgba(1, 33, 28, 0.74);
+}
+
+.Or {
     color: rgba(1, 33, 28, 0.74);
     font-size: 25px;
     font-family: Poppins;
     font-weight: 600;
     letter-spacing: 2.50px;
     word-wrap: break-word;
-  }
-  
-  .CreateAnAccount {
-    left: 911px;
-    top: 767px;
-    position: absolute;
+}
+
+#Group-1 {
+    width: 60%;
+}
+
+.CreateAnAccount {
     color: #083E35;
-    font-size: 30px;
+    font-size: 1.5vw;
     font-family: Poppins;
     font-weight: 600;
     letter-spacing: 1.50px;
     word-wrap: break-word;
-    text-decoration: none;
-  }
-  
-  /* styles.css */
+    text-align: center;
+}
+
+.Login {
+    width: 80%;
+    min-height: 468px;
+    background-color: #fff;
+    color: white;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    word-wrap: break-word;
+    border-radius: 10px;
+    padding: 44px;
+}
+
+.Confirm {
+    width: 80%;
+    min-height: 359px;
+    background-color: #fff;
+    color: white;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    word-wrap: break-word;
+    border-radius: 10px;
+    padding: 44px;
+}
+
+.checkMark {
+    width: 48px;
+    height: 48px;
+    background-position: -170px -0px;
+    padding: 0px;
+    position: relative;
+    align-items: center;
+
+}
+
+.TyForReg {
+    color: #01211C;
+    font-size: 36px;
+    font-family: Poppins;
+    font-weight: 700;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+#goodToGo {
+    color: #01211cd8;
+    font-size: 600;
+    letter-spacing: .08px;
+}
+
+#backToLogin {
+    color: #01211cd8;
+    font-size: 600;
+    letter-spacing: .08px;
+}
 
 /* Styles for the .signup container */
 .signup {
@@ -744,10 +827,10 @@ h3 {
     left: 847px;
     top: 223px;
     position: absolute;
-  }
-  
-  /* Styles for the .signR1 element */
-  .signR1 {
+}
+
+/* Styles for the .signR1 element */
+.signR1 {
     width: 438px;
     height: 577px;
     left: 0px;
@@ -755,10 +838,10 @@ h3 {
     position: absolute;
     background: white;
     border-radius: 10px;
-  }
-  
-  /* Styles for the .CreateAnAccount element */
-  .SignCreateAnAccount {
+}
+
+/* Styles for the .CreateAnAccount element */
+.SignCreateAnAccount {
     width: 317px;
     height: 67px;
     left: 60px;
@@ -770,29 +853,29 @@ h3 {
     font-family: Poppins;
     font-weight: 700;
     word-wrap: break-word;
-  }
-  
-  /* Styles for the .signG1 container and its children */
-  .signG1 {
+}
+
+/* Styles for the .signG1 container and its children */
+.signG1 {
     width: 316px;
     height: 46.47px;
     left: 61px;
     top: 142px;
     position: absolute;
-  }
-  
-  /* Styles for the .Rectangle9 element within .signG1 */
-  .Rectangle9 {
+}
+
+/* Styles for the .Rectangle9 element within .signG1 */
+.Rectangle9 {
     width: 316px;
     height: 46.47px;
     left: 0px;
     top: 0px;
     position: absolute;
     border-bottom: 3px #01211C solid;
-  }
-  
-  /* Styles for the .SignUsername element within .signG1 */
-  .SignUsername {
+}
+
+/* Styles for the .SignUsername element within .signG1 */
+.SignUsername {
     width: 143px;
     height: 30px;
     left: 10px;
@@ -805,29 +888,29 @@ h3 {
     letter-spacing: 3.20px;
     word-wrap: break-word;
     border: none;
-  }
-  
-  /* Styles for the .signG2 container and its children */
-  .signG2 {
+}
+
+/* Styles for the .signG2 container and its children */
+.signG2 {
     width: 316px;
     height: 46.47px;
     left: 61px;
     top: 217px;
     position: absolute;
-  }
-  
-  /* Styles for the .signR2 element within .signG2 */
-  .signR2 {
+}
+
+/* Styles for the .signR2 element within .signG2 */
+.signR2 {
     width: 316px;
     height: 46.47px;
     left: 0px;
     top: 0px;
     position: absolute;
     border-bottom: 3px #01211C solid;
-  }
-  
-  /* Styles for the .SignEmail element within .signG2 */
-  .SignEmail {
+}
+
+/* Styles for the .SignEmail element within .signG2 */
+.SignEmail {
     width: 102px;
     height: 30.14px;
     left: 10px;
@@ -840,19 +923,19 @@ h3 {
     letter-spacing: 3.20px;
     word-wrap: break-word;
     border: none;
-  }
-  
-  /* Styles for the .signG3 container and its children */
-  .signG3 {
+}
+
+/* Styles for the .signG3 container and its children */
+.signG3 {
     width: 316px;
     height: 46.47px;
     left: 61px;
     top: 292px;
     position: absolute;
-  }
-  
-  /* Styles for the .signR2 element within .signG3 */
-  .signR2 {
+}
+
+/* Styles for the .signR2 element within .signG3 */
+.signR2 {
     width: 316px;
     height: 46.47px;
     left: 0px;
@@ -860,10 +943,10 @@ h3 {
     position: absolute;
     border-bottom: 3px #01211C solid;
 
-  }
-  
-  /* Styles for the .SignPassword element within .signG3 */
-  .SignPassword {
+}
+
+/* Styles for the .SignPassword element within .signG3 */
+.SignPassword {
     width: 125px;
     height: 30px;
     left: 10px;
@@ -876,44 +959,44 @@ h3 {
     letter-spacing: 3.20px;
     border: none;
     word-wrap: break-word;
-  }
-  .SignCPassword {
+}
+
+.SignCPassword {
     width: 221px;
     height: 30px;
-    left: 10px; 
-    top: 8px; 
-    position: absolute; 
-    color: rgba(1, 33, 28, 0.60); 
-    font-size: 16px; 
-    font-family: Poppins; 
-    font-weight: 600; 
-    letter-spacing: 3.20px; 
+    left: 10px;
+    top: 8px;
+    position: absolute;
+    color: rgba(1, 33, 28, 0.60);
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    letter-spacing: 3.20px;
     border: none;
     word-wrap: break-word
-    
-  }
-  
-  /* Styles for the .signG4 container and its children */
-  .signG4 {
+}
+
+/* Styles for the .signG4 container and its children */
+.signG4 {
     width: 316px;
     height: 46.47px;
     left: 61px;
     top: 367px;
     position: absolute;
-  }
-  
-  /* Styles for the .signR2 element within .signG4 */
-  .signR2 {
+}
+
+/* Styles for the .signR2 element within .signG4 */
+.signR2 {
     width: 316px;
     height: 46.47px;
     left: 0px;
     top: 0px;
     position: absolute;
     border-bottom: 3px #01211C solid;
-  }
-  
-  /* Styles for the .ConfirmPassword element within .signG4 */
-  .ConfirmPassword {
+}
+
+/* Styles for the .ConfirmPassword element within .signG4 */
+.ConfirmPassword {
     width: 221px;
     height: 30px;
     left: 10px;
@@ -926,19 +1009,19 @@ h3 {
     font-weight: 600;
     letter-spacing: 3.20px;
     word-wrap: break-word;
-  }
-  
-  /* Styles for the .signG5 container and its children */
-  .signG5 {
+}
+
+/* Styles for the .signG5 container and its children */
+.signG5 {
     width: 203px;
     height: 62.79px;
     left: 117px;
     top: 465px;
     position: absolute;
-  }
-  
-  /* Styles for the .signR3 element within .signG5 */
-  .signR3 {
+}
+
+/* Styles for the .signR3 element within .signG5 */
+.signR3 {
     width: 203px;
     height: 62.79px;
     left: 0px;
@@ -946,10 +1029,10 @@ h3 {
     position: absolute;
     background: #01211C;
     border-radius: 5px;
-  }
-  
-  /* Styles for the .SignUp element within .signG5 */
-  .SignUp {
+}
+
+/* Styles for the .SignUp element within .signG5 */
+.SignUp {
     width: 104px;
     height: 30px;
     left: 50px;
@@ -962,10 +1045,10 @@ h3 {
     font-weight: 600;
     letter-spacing: 3.20px;
     word-wrap: break-word;
-  }
-  
-  /* Styles for the .ComeHopInTheFun element */
-  .ComeHopInTheFun {
+}
+
+/* Styles for the .ComeHopInTheFun element */
+.ComeHopInTheFun {
     left: 133px;
     top: 78px;
     position: absolute;
@@ -975,8 +1058,12 @@ h3 {
     font-family: Poppins;
     font-weight: 600;
     word-wrap: break-word;
-  }
-  
+}
+
+.mt-48 {
+    margin-top: 48px;
+}
+
 /**media queries**/
 /**
 @media screen and (min-width: 1024px) and (max-width: 1919px) {
