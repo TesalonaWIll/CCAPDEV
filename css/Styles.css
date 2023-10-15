@@ -167,9 +167,7 @@ body{
     font-weight: lighter;
     font-size: smaller;
 }
-#message {
-    padding-bottom: 40px;
-}
+
 #comments {
     color: gray;
     margin: auto;
@@ -177,15 +175,8 @@ body{
 }
 
 #popular{
-    flex: 1;
     position: sticky;
-    margin: 10px;
-    margin-right: 10%;
-
-    border-style: solid;
-    border-width: 1px;
-    border-left-style: none;
-    border-right-style: none;
+    max-width:15rem;
 }
 #empty{
     flex: 1;
@@ -291,6 +282,9 @@ body{
     font-weight: 600;
     letter-spacing: 0.05938rem;
 }
+#popposts.separator{
+    width: 100%;
+}
 .dropdown {
     background-position: -112px -4px;
     width: 23px;
@@ -302,10 +296,26 @@ body{
     background-color: #01211C;
     margin: auto 0 auto 0;
 }
+.rank {
+    color: black;
+    font-size: 2rem;
+    font-style: bold;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.07813rem;
+}
 .user-profile {
     width: 70px !important;
     height: 70px;
     background-position: -120px -53px;
+    margin-right: .52rem;
+    margin-left: .4rem;
+    padding: 0 !important;
+}
+.user-profile-dark{
+    width: 50px !important;
+    height: 50px;
+    background-position: -225px -0px;
     margin-right: .52rem;
     margin-left: .4rem;
     padding: 0 !important;
