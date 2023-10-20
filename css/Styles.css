@@ -97,6 +97,13 @@ body{
     margin-left: 12px;
     margin-top: 6px;
 }
+.search-icon-post{
+    background-image: url("../src/images/Spritesheet.png");
+    width: 18px;
+    height: 18px;
+    background-position: -80px -1px;
+    margin: 2px;
+}
 .navbar a {
     position: relative;
     font-size: 18px;
@@ -137,14 +144,15 @@ body{
 }
 /**---------------END OF HEADER---------------------**/
 #post {
-    flex: 2;
-    margin: 10px;
-    width: 770px;
-    min-height: 150px;
-    flex-shrink: 0;
-    border-radius: 30px;
-    background: #FFF;
-    padding: 20px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-left: 8px;
+    width: 98%;
+    height: 200px;
+    resize: none;
+}
+#title::placeholder{
+    color: #01211C;
 }
 .post-container{
     margin: 0 auto 0 auto;
@@ -163,6 +171,19 @@ body{
     flex-direction: column;
     justify-content: flex-start;
 }
+.post-title-input{
+    width: 100%;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0 15px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #01211C;
+    outline: none;
+}
+
 #postedBy{
     font-weight: lighter;
     font-size: smaller;
@@ -338,6 +359,17 @@ body{
     width: 80%;
 }
 .category {
+    color: #01211C;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.05rem;
+    background-color: #fff;
+    border-radius: 1.875rem;
+    padding: 0 .8rem 0 .8rem;
+    margin-right: .52rem;
+}
+.category-search{
     color: #01211C;
     font-size: 1rem;
     font-weight: 600;
@@ -533,6 +565,7 @@ h3 {
 #bio-input:focus {
     outline: 3px solid #01211C;
 }
+
 .primary-button {
     height: 50px;
     padding: 10px 22px 10px 22px;
@@ -548,6 +581,24 @@ h3 {
 .primary-button:active {
     background-color: #adadad;
 }
+
+.post-button {
+    height: 50px;
+    padding: 10px 22px 10px 22px;
+    background-color: #B7F6E6;
+    color: #01211C;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+}
+.post-button:hover {
+    background-color: #b7f6e68d;
+}
+.post-button:active {
+    background-color: #adadad;
+}
+
+
 
 /* home page and login page*/
 .welcome {

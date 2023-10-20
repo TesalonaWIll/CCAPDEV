@@ -28,46 +28,32 @@
                 <div class="post-container">
                     <div class="post-wide">
                         <div class="row">
-                            <div class="col-1 spritesheet user-profile"></div>
-                            <div class="col my-auto">
-                                <div class="d-flex justify-content-between">
-                                    <div class="row post-title">Title</div>
-                                    <div class="spritesheet edit-post" id="edit-post-icon"></div>
-                                </div>
-                                <div class="row post-user">username</div>
+                            <div class="d-flex flex-column justify-content-start">
+                                <form>
+                                    <input type="text" id="title" class="post-title-input" maxlength="200" placeholder="Title">
+                                </form>
                             </div>
                         </div>
 
                         <div id="post-categories" class="d-flex justify-content-start mt-3">
-                            <div class="category">Games</div>
+                            <div class="category-search">🔎 Search</div>
                             <div class="category">CS2</div>
                         </div>
-
-                        <div class="post-content">
-                            Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-                            (a week)Monday, Tuesday, Wednesday, Thursday, Friday. Seven days a week. Every hour, every
-                            minute, every second. You know night after night. I'll be lovin' you right, seven days a
-                            week (yeah)
-                            Monday, Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a week)Monday, Tuesday,
-                            Wednesday, Thursday, Friday (oh, oh)Seven days a weekEvery hour, every minute, every
-                            secondYou know night after nightI'll be lovin' you right, seven days a week
-                            Monday, Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a week)Monday, Tuesday,
-                            Wednesday, Thursday, Friday (oh, oh)Seven days a weekEvery hour, every minute, every
-                            secondYou know night after nightI'll be lovin' you right, seven days a week
+                        <div style="color: white; margin: .4rem; font-size: 0.8rem;">* add up to 3 categories</div>
+                        <div>
+                            <form>
+                                <textarea id="post" placeholder="What's up?" maxlength="250"></textarea>
+                            </form>
                         </div>
-
-                        <div class="d-flex justify-content-between mt-4">
-                            <div class="d-flex">
-                                <div class="spritesheet upvote"></div>
-                                <div class="spritesheet downvote"></div>
-                                <a href="#" class="comment-link">5 Comments</a>
-                            </div>
-
-                            <div class="post-time">6 Days Ago</div>
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="post-button">Post It!</button>
                         </div>
                     </div>
-
-
+                    <div class="separator">
+                        <div class="filter">Recent Posts</div>
+                        <div class="spritesheet dropdown"></div>
+                        <div class="line-break flex-fill"></div>
+                    </div>
 
                     <div class="post-wide">
                         <div class="row">
