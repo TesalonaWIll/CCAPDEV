@@ -385,7 +385,20 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-
+.editing-post {
+    min-height: 100px;
+    max-height: 187px;
+    color:#01211C !important;
+    border-radius: 5px;
+    width: 100%;
+    word-break: break-all;
+    line-height: normal;
+    letter-spacing: 0.05rem;
+    -webkit-text-fill-color: #01211C;
+}
+.editing-post:focus {
+    border: 3px solid #01211C;
+}
 .filter {
     color: #01211C;
     font-size: 1.1875rem;
@@ -677,18 +690,22 @@ h3 {
     text-align: center;
     max-width: fit-content;
     background-color: #ffffff00;
+    -webkit-text-fill-color: #ACFDE8;
 }
 
 .secondary-button:hover {
     border: 3px solid #01211C;
     background-color: #96ddc8;
     color: #01211C;
+    -webkit-text-fill-color: #ACFDE8;
+
 }
 
 .secondary-button:active {
     background-color: #6fa897;
     color: #01211C;
     border: 3px solid #01211C;
+    -webkit-text-fill-color: #ACFDE8;
 }
 
 .note {
@@ -759,6 +776,7 @@ h3 {
     border: none;
     border-radius: 30px;
     font-weight: 600;
+    -webkit-text-fill-color: #01211C;
 }
 
 .primary-button:hover {

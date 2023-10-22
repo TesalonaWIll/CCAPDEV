@@ -1,7 +1,28 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 import { NavLink } from "react-router-dom";
 
 const Profile = () => {
+  const initialContent = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday (a week) Monday, Tuesday, Wednesday, Thursday, Friday. Seven days a week. Every hour, every minute, every second. You know night after night. I'll be lovin' you right, seven days a week (yeah)";
+  const [postContent, setPostContent] = useState(initialContent);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(initialContent);
+  const postRef = useRef(null);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setEditedContent(postContent);
+  };
+
+  const handleSaveClick = () => {
+    setPostContent(editedContent);
+    setIsEditing(false);
+  };
+
+  const handleCancelClick = () => {
+    setPostContent(initialContent);
+    setIsEditing(false);
+  }
+    
   return (
     <div className="container-fluid">
       <div className="row px-5">
@@ -40,239 +61,66 @@ const Profile = () => {
                 <div className="col-1 spritesheet user-profile"></div>
                 <div className="col my-auto">
                   <div className="d-flex justify-content-between">
-                    <div className="row post-title">Title</div>
-                    <div
-                      className="spritesheet edit-post"
-                      id="edit-post-icon"></div>
-                  </div>
-                  <div className="row post-user">username</div>
+                    <div className="row post-title">Seven Days A Week</div>
+                    <div className="dropdown">
+                      <button className="btn spritesheet edit-post" type="button" id="edit-post-icon" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                      <ul className="dropdown-menu" aria-labelledby="change-post">
+                        <li>
+                          <div className="dropdown-item d-flex align-items-center p-2" onClick={handleEditClick}>
+                            <div className="spritesheet edit-icon me-3"></div>
+                            Edit
+                          </div>
+                        </li>
+
+                        <li>
+                          <div className="dropdown-item d-flex align-items-center p-2">
+                            <div className="spritesheet delete-icon me-3"></div>
+                            Delete
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    </div>
+                  <div className="row post-user">@ailajanelle</div>
                 </div>
               </div>
 
               <div
                 id="post-categories"
                 className="d-flex justify-content-start mt-3">
-                <div className="category">Games</div>
-                <div className="category">CS2</div>
-              </div>
-
-              <div className="post-content">
-                Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-                (a week)Monday, Tuesday, Wednesday, Thursday, Friday. Seven days
-                a week. Every hour, every minute, every second. You know night
-                after night. I'll be lovin' you right, seven days a week (yeah)
-                Monday, Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a
-                week)Monday, Tuesday, Wednesday, Thursday, Friday (oh, oh)Seven
-                days a weekEvery hour, every minute, every secondYou know night
-                after nightI'll be lovin' you right, seven days a week Monday,
-                Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a
-                week)Monday, Tuesday, Wednesday, Thursday, Friday (oh, oh)Seven
-                days a weekEvery hour, every minute, every secondYou know night
-                after nightI'll be lovin' you right, seven days a week
-              </div>
-
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex">
-                  <div className="spritesheet upvote"></div>
-                  <div className="spritesheet downvote"></div>
-                  <NavLink to="/" className="comment-link">
-                    5 Comments
-                  </NavLink>
-                </div>
-
-                <div className="post-time">6 Days Ago</div>
-              </div>
-            </div>
-
-            <div className="post-wide">
-              <div className="row">
-                <div className="col-1 spritesheet user-profile"></div>
-                <div className="col my-auto">
-                  <div className="d-flex justify-content-between">
-                    <div className="row post-title">Title</div>
-                    <div
-                      className="spritesheet edit-post"
-                      id="edit-post-icon"></div>
-                  </div>
-                  <div className="row post-user">username</div>
-                </div>
-              </div>
-
-              <div
-                id="post-categories"
-                className="d-flex justify-content-start mt-3">
-                <div className="category">Valorant</div>
-                <div className="category">Discord</div>
-                <div className="category">E-girls</div>
-              </div>
-
-              <div className="post-content">
-                Not funny I didn't laugh. Your joke is so bad I would have
-                preferred the joke went over my head and you gave up re-telling
-                me the joke. To be honest this is a horrid attempt at trying to
-                get a laugh out of me. Not a chuckle, not a hehe, not even a
-                subtle burst of air out of my esophagus. Science says before you
-                laugh your brain preps your face muscles but I didn't even feel
-                the slightest twitch. 0/10 this joke is so bad I cannot believe
-                anyone legally allowed you to be creative at all. The amount of
-                brain power you must have put into that joke has the potential
-                to power every house on Earth. Get a personality and learn how
-                to make jokes, read a book. I'm not saying this to be funny I
-                genuinely mean it on how this is just bottom barrel
-                embarrassment at comedy. You've single handedly killed humor and
-                every comedic act on the planet. I'm so disappointed that
-                society has failed as a whole in being able to teach you how to
-                be funny. Honestly if I put in all my power and time to try and
-                make your joke funny it would require Einstein himself to build
-                a device to strap me into so I can be connected to the energy of
-                a billion stars to do it, and even then all that joke would get
-                from people is a subtle scuff. You're lucky I still have the
-                slightest of empathy for you after telling that joke otherwise I
-                would have committed every war crime in the book just to prevent
-                you from attempting any humor ever again. We should put that
-                joke in text books so future generations can be wary of becoming
-                such an absolute comedic failure. Im disappointed, hurt, and
-                outright offended that my precious time has been wasted in my
-                brain understanding that joke.
-              </div>
-
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex">
-                  <div className="spritesheet upvote"></div>
-                  <div className="spritesheet downvote"></div>
-                  <NavLink to="/" className="comment-link">
-                    5 Comments
-                  </NavLink>
-                </div>
-
-                <div className="post-time">6 Days Ago</div>
-              </div>
-            </div>
-
-            <div className="post-wide">
-              <div className="row">
-                <div className="col-1 spritesheet user-profile"></div>
-                <div className="col my-auto">
-                  <div className="d-flex justify-content-between">
-                    <div className="row post-title">Title</div>
-                    <div
-                      className="spritesheet edit-post"
-                      id="edit-post-icon"></div>
-                  </div>
-                  <div className="row post-user">username</div>
-                </div>
-              </div>
-
-              <div
-                id="post-categories"
-                className="d-flex justify-content-start mt-3">
+                <div className="category">K-pop</div>
                 <div className="category">Music</div>
-                <div className="category">Spotify</div>
               </div>
 
-              <div className="post-content">
-                Shawty had them apple bottom jeans (jeans) Boots with the fur
-                (with the fur) The whole club was lookin' at her She hit the
-                floor (she hit the floor) Next thing you know Shawty got low,
-                low, low, low, low, low, low, low Them baggy sweat pants and the
-                Reeboks with the straps (with the straps) She turned around and
-                gave that big booty a slap (hey) She hit the floor (she hit the
-                floor) Next thing you know Shawty got low, low, low, low, low,
-                low, low, low
-              </div>
-
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex">
-                  <div className="spritesheet upvote"></div>
-                  <div className="spritesheet downvote"></div>
-                  <NavLink to="#" className="comment-link">
-                    5 Comments
-                  </NavLink>
-                </div>
-
-                <div className="post-time">6 Days Ago</div>
-              </div>
-            </div>
-
-            <div className="post-wide">
-              <div className="row">
-                <div className="col-1 spritesheet user-profile"></div>
-                <div className="col my-auto">
-                  <div className="d-flex justify-content-between">
-                    <div className="row post-title">Title</div>
-                    <div
-                      className="spritesheet edit-post"
-                      id="edit-post-icon"></div>
+              <div className="post-content" ref={postRef}>
+                {isEditing ? (
+                <div className="d-flex flex-column">
+                  <div>
+                    <textarea
+                      className="editing-post"
+                      value={editedContent}
+                      onChange={(e) => setEditedContent(e.target.value)}
+                    />
                   </div>
-                  <div className="row post-user">username</div>
-                </div>
-              </div>
-
-              <div
-                id="post-categories"
-                className="d-flex justify-content-start mt-3">
-                <div className="category">Games</div>
-                <div className="category">CS2</div>
-              </div>
-
-              <div className="post-content">
-                Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-              </div>
-
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex">
-                  <div className="spritesheet upvote"></div>
-                  <div className="spritesheet downvote"></div>
-                  <NavLink to="#" className="comment-link">
-                    5 Comments
-                  </NavLink>
-                </div>
-
-                <div className="post-time">6 Days Ago</div>
-              </div>
-            </div>
-
-            <div className="post-wide">
-              <div className="row">
-                <div className="col-1 spritesheet user-profile"></div>
-                <div className="col my-auto">
-                  <div className="d-flex justify-content-between">
-                    <div className="row post-title">Title</div>
-                    <div
-                      className="spritesheet edit-post"
-                      id="edit-post-icon"></div>
+                  <div className="d-flex justify-content-end">
+                    <button className="primary-button me-3" onClick={handleSaveClick}>Save</button>
+                    <button className="secondary-button" onClick={handleCancelClick}>Cancel</button>
                   </div>
-                  <div className="row post-user">username</div>
                 </div>
-              </div>
-
-              <div
-                id="post-categories"
-                className="d-flex justify-content-start mt-3">
-                <div className="category">Games</div>
-                <div className="category">CS2</div>
-              </div>
-
-              <div className="post-content">
-                Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-                (a week)Monday, Tuesday, Wednesday, Thursday, Friday. Seven days
-                a week. Every hour, every minute, every second. You know night
-                after night. I'll be lovin' you right, seven days a week (yeah)
-                Monday, Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a
-                week)Monday, Tuesday, Wednesday, Thursday, Friday (oh, oh)Seven
-                days a weekEvery hour, every minute, every secondYou know night
-                after nightI'll be lovin' you right, seven days a week Monday,
-                Tuesday, Wednesday, Thursday, FridaySaturday, Sunday (a
-                week)Monday, Tuesday, Wednesday, Thursday, Friday (oh, oh)Seven
-                days a weekEvery hour, every minute, every secondYou know night
-                after nightI'll be lovin' you right, seven days a week
+                
+                  ) : (
+                    <div>
+                      {postContent}
+                    </div>
+                  )}
+                
               </div>
 
               <div className="d-flex justify-content-between mt-4">
                 <div className="d-flex">
                   <div className="spritesheet upvote"></div>
                   <div className="spritesheet downvote"></div>
-                  <NavLink to="/" className="comment-link">
+                  <NavLink to="/profile" className="comment-link">
                     5 Comments
                   </NavLink>
                 </div>
@@ -280,6 +128,8 @@ const Profile = () => {
                 <div className="post-time">6 Days Ago</div>
               </div>
             </div>
+
+            
           </div>
         </div>
 
