@@ -2,7 +2,6 @@
 CCAPDEV MACHINE PROJECT
 
 To start the application:
-
-open the terminal in the root of the directory.
-run npm install.
-run npm start.
+1. open the terminal in the root of the directory.
+2. run npm install.
+3. run npm start.
