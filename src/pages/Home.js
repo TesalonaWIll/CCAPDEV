@@ -28,7 +28,7 @@ const Home = ({ post, setPost }) => {
         <div className="col-3"></div>
         <div className="col-6">
           <div className="post-container">
-            <div className="post-wide">
+            <div className="post-wide remove-hover">
               <div className="row">
                 <div className="d-flex flex-column justify-content-start">
                   <form>
@@ -65,14 +65,14 @@ const Home = ({ post, setPost }) => {
                 </form>
               </div>
               <div className="d-flex justify-content-center mb-2">
-                <button type="button" className="post-button">
+                <button type="button" className="primary-button">
                   Post It!
                 </button>
               </div>
             </div>
             <div className="separator">
               <div className="filter">Recent Posts</div>
-              <div className="spritesheet dropdown"></div>
+              <div className="spritesheet category-button"></div>
               <div className="line-break flex-fill"></div>
             </div>
 
@@ -135,81 +135,79 @@ const Home = ({ post, setPost }) => {
               );
             })}
           </div>
-
-          <div className="col-3">
-            <div id="popular">
+        </div>
+        <div className="col-3">
+            <div className="popular">
               <div className="separator" id="popposts">
                 <div className="filter" style={{ fontSize: "1.6rem" }}>
                   Popular posts
                 </div>
                 <div className="line-break flex-fill"></div>
               </div>
-              <div className="row">
-                <div className="col-1 rank">1</div>
-                <div className="col-2 spritesheet user-profile-dark"></div>
-                <div className="col my-auto">
-                  <div className="d-flex justify-content-between">
-                    <div className="row post-title" style={{ color: "black" }}>
-                      Title
+
+              <div className="d-flex">
+                <div className="rank">1</div>
+                <div className="d-flex flex-column">
+                  <div className="d-flex align-items-center mb-1">
+                    <div className="spritesheet user-profile-dark"></div>
+                    <div className="d-flex flex-column align-items-start">
+                      <div className="popular-title">Eve, Psyche & The Bluebeard's wife</div>
+                      <div className="popular-user">@LESSERAFIM</div>
                     </div>
                   </div>
-                  <div className="row post-user" style={{ color: "black" }}>
-                    student
+                  <div id="post-categories" className="d-flex justify-content-start mt-1">
+                    <div className="category">Music</div>
+                    <div className="category">K-pop</div>
                   </div>
-                </div>
-              </div>
-
-              <div
-                id="post-categories"
-                className="d-flex justify-content-start mt-3"
-              >
-                <div className="category">Games</div>
-                <div className="category">CS2</div>
-              </div>
-              <div id="content">
-                <div id="message">
-                  i checked my bfs phone and saw sa chat na he complimented this
-                  girl with her new look lmao is that ok?
-                </div>
-
-                <div className="line-break flex-fill"></div>
-              </div>
-              <div id="popular">
-                <div className="row">
-                  <div className="col-1 rank">2</div>
-                  <div className="col-2 spritesheet user-profile-dark"></div>
-                  <div className="col my-auto">
-                    <div className="d-flex justify-content-between">
-                      <div
-                        className="row post-title"
-                        style={{ color: "black" }}
-                      >
-                        Title
-                      </div>
-                    </div>
-                    <div className="row post-user" style={{ color: "black" }}>
-                      student
+                
+                  
+                  <div className="popular-content-container">
+                    <div className="popular-content">
+                    I'm a mess, mess, mess, mess, mess, mess, mess
+                    I'm a mess, mess, mess, mess, mess, mess, mess
+                    I'm a mess in distress
+                    But we're still the best dressed
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="line-break flex-fill mt-2 mb-3"></div>
 
-                <div
-                  id="post-categories"
-                  className="d-flex justify-content-start mt-3"
-                >
-                  <div className="category">Games</div>
-                  <div className="category">CS2</div>
-                </div>
-                <div id="content">
-                  <div id="message">
-                    i checked my bfs phone and saw sa chat na he complimented
-                    this girl with her new look lmao is that ok?
+              <div className="d-flex">
+                <div className="rank">2</div>
+                <div className="d-flex flex-column">
+                  <div className="d-flex align-items-center mb-1">
+                    <div className="spritesheet user-profile-dark"></div>
+                    <div className="d-flex flex-column align-items-start">
+                      <div className="popular-title">Motivation Monday</div>
+                      <div className="popular-user">@mandythemotivator</div>
+                    </div>
+                  </div>
+                  <div id="post-categories" className="d-flex justify-content-start mt-1">
+                    <div className="category">Casual</div>
+                    <div className="category">General</div>
+                  </div>
+                
+                  
+                  <div className="popular-content-container">
+                    <div className="popular-content">
+                    Waking up to another beautiful day with a cup of steaming hot coffee in hand. ☕️ There's something magical about the early morning tranquility. 🌅
+                    <br></br>
+                    <br></br>
+                    Spent the weekend exploring a hidden gem in the countryside. 🌳 Nature has a way of rejuvenating the soul. If you haven't taken a break in a while, I highly recommend it. 🚗
+                    <br></br>
+                    <br></br>
+                    Now it's back to the hustle. Time to conquer those Monday goals! 💪
+
+                    #MondayMotivation #NatureLover #MorningCoffee
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="line-break flex-fill mt-2 mb-3"></div>
+
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

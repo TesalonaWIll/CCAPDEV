@@ -123,7 +123,6 @@ body {
     color: #fff;
     font-weight: 500;
     text-decoration: none;
-    margin-left: 30px;
 }
 
 .navbar a.dropdown-item::before {
@@ -165,8 +164,46 @@ body {
     height: 40px;
     background-position: -40px 0px;
 }
-
+.dropdown-item.active {
+    background-color: #125053 !important;
+}
 /**---------------END OF HEADER---------------------**/
+
+
+/**HOMEPAGE - POPULAR SECTION**/
+.popular-title {
+    font-size: 18px;
+    color: #01211C;
+    font-weight: 700;
+}
+.popular-user {
+    color: rgba(1, 33, 28, 0.70);
+    font-size: 16px;
+    font-weight: 500;
+}
+.popular {
+    position: sticky;
+    max-width: 27rem;
+}
+.popular-content-container {
+    width: 100%;
+    border-left: 5px solid #01211C;
+    background: linear-gradient(180deg, #67AD98 0%, rgba(103, 173, 152, 0.00) 100%);
+    padding-left: 8px;
+    padding-top: 6px;
+    margin: 8px 0 12px 0;
+}
+.popular-content {
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    background: linear-gradient(180deg, #01211C 0%, rgba(1, 33, 28, 0.00) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    max-height: 200px;
+}
+/**HOMEPAGE - POPULAR SECTION**/
+
 #post {
     border-radius: 5px;
     padding-top: 5px;
@@ -175,11 +212,13 @@ body {
     height: 200px;
     resize: none;
 }
+#post::placeholder{
+    color: #125053c9;
 
-#title::placeholder {
-    color: #01211C;
 }
-
+#post:focus {
+    outline: 4px solid #01211C;
+}
 .post-container {
     margin: 0 auto 0 auto;
     width: 100%;
@@ -199,12 +238,27 @@ body {
     flex-direction: column;
     justify-content: flex-start;
 }
-
 .post-title-input {
     width: 100%;
     height: 40px;
     font-size: 1.5em;
-    font-weight: bold;
+    padding: 0 15px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    outline: none;
+    font-weight: 600;
+    color: #01211C;
+}
+#title::placeholder {
+    font-weight: 600;
+    color: #125053c9;
+}
+.post-title-input:focus {
+    width: 100%;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: 600;
     padding: 0 15px;
     border: none;
     border-radius: 10px;
@@ -212,7 +266,6 @@ body {
     color: #01211C;
     outline: none;
 }
-
 #postedBy {
     font-weight: lighter;
     font-size: smaller;
@@ -222,11 +275,6 @@ body {
     color: gray;
     margin: auto;
     font-size: small;
-}
-
-#popular {
-    position: sticky;
-    max-width: 15rem;
 }
 
 #empty {
@@ -321,15 +369,13 @@ body {
 }
 
 .edit-post {
-    width: 32px;
-    height: 32px;
-    background-position: -136px, -150px;
+    width: 44px;
+    height: 34px;
+    background-position: -130px -132px;
 }
-
 .edit-post:hover {
-    background-position: -189px -133px;
+    background-position: -183px -132px;
 }
-
 .separator {
     width: 75%;
     display: flex;
@@ -349,6 +395,7 @@ body {
 
 #popposts.separator {
     width: 100%;
+    margin-top: 0rem !important;
 }
 
 .line-break {
@@ -368,8 +415,8 @@ body {
 
 .user-profile {
     width: 70px !important;
-    height: 70px;
-    background-position: -120px -53px;
+    height: 60px;
+    background-position: -120px -58px;
     margin-right: .52rem;
     margin-left: .4rem;
     padding: 0 !important;
@@ -426,7 +473,12 @@ body {
     padding: 0 .8rem 0 .8rem;
     margin-right: .52rem;
 }
-
+.category-button {
+    background-position: -112px -4px;
+    width: 23px;
+    height: 12px;
+    margin: auto 24px auto 8px;
+}
 .post-content {
     margin-top: 1.53rem;
     width: 100%;
@@ -447,6 +499,10 @@ body {
 
 .post-wide:hover {
     background-color: #083E35;
+}
+
+.remove-hover .post-wide:hover {
+    background: #125053;
 }
 
 #like-count {
@@ -697,7 +753,7 @@ h3 {
 
 .primary-button {
     height: 50px;
-    padding: 10px 22px 10px 22px;
+    padding: 10px 22px 10px 22px !important;
     background-color: #FFF;
     color: #01211C;
     border: none;

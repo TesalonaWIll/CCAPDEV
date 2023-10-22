@@ -21,8 +21,8 @@ const Header = () => {
       </div>
       <nav className="navbar">
         <NavLink to="/login">Login</NavLink>
-        <NavLink to="/register">Register</NavLink>
-        <NavLink to="/faq">FAQ</NavLink>
+        <NavLink className="ms-4" to="/register">Register</NavLink>
+        <NavLink className="ms-4" to="/faq">FAQ</NavLink>
       </nav>
     </header>
   );

@@ -33,36 +33,15 @@ const HeaderAlt = ({ setIsLoggedIn }) => {
           <div className="spritesheet" id="notif"></div>
         </NavLink>
         <div className="dropdown ms-4">
-          <button
-            className="btn spritesheet user"
-            type="button"
-            id="user-menu"
-            onClick={(e) => handleDropdown(open)}
-          ></button>
-          {open && (
-            <ul>
-              <li>
-                <NavLink className="dropdown-item" to="/profile">
-                  Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="dropdown-item" to="/edit-profile">
-                  Settings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="dropdown-item"
-                  to="/"
-                  onClick={!setIsLoggedIn}
-                >
-                  Sign Out
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </div>
+                <button className="btn spritesheet user" type="button" id="user-menu" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                </button>
+                <ul className="dropdown-menu dropdown-menu-lg-end mt-4">
+                    <li><NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/edit-profile">Settings</NavLink></li>
+                    <li><NavLink className="dropdown-item" to="/" onClick={!setIsLoggedIn}>Sign Out</NavLink></li>
+                </ul>
+            </div>
         <NavLink to="#" className="ms-4">
           FAQ
         </NavLink>
