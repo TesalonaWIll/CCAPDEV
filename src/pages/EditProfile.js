@@ -6,7 +6,7 @@ import { useState } from "react";
 const EditProfile = () => {
   const [profilePic, setProfilePic] = useState(iconDP);
   const onClear = () => {
-    //form.current.value = "";
+    setProfilePic(null);
   };
   return (
     <div className="container-fluid">
@@ -18,7 +18,8 @@ const EditProfile = () => {
             <div className="d-flex justify-content-between mb-5">
               <NavLink
                 className="spritesheet back-button my-auto"
-                to="/profile"></NavLink>
+                to="/profile"
+              ></NavLink>
               <h2 id="edit-title">Edit Profile</h2>
               <div></div>
             </div>
@@ -30,15 +31,18 @@ const EditProfile = () => {
               <div className="d-flex flex-column justify-content-between">
                 <div
                   className="edit-profile-pic"
-                  style={{ backgroundImage: `url(${profilePic})` }}>
+                  style={{ backgroundImage: `url(${profilePic})` }}
+                >
                   <div
                     className="spritesheet edit-profile"
-                    id="edit-avatar"></div>
+                    id="edit-avatar"
+                  ></div>
                 </div>
                 <button
                   type="button"
                   className="secondary-button mt-4"
-                  onClick={() => setProfilePic(null)}>
+                  onClick={() => setProfilePic(null)}
+                >
                   Remove Avatar
                 </button>
                 <div className="note">Optimal Size: 150px x 150px</div>
@@ -56,7 +60,8 @@ const EditProfile = () => {
                   <div className="profile-background">
                     <div
                       className="spritesheet edit-profile"
-                      id="edit-banner"></div>
+                      id="edit-banner"
+                    ></div>
                   </div>
                   <button type="button" className="secondary-button mt-4">
                     Remove Banner
@@ -138,7 +143,8 @@ const EditProfile = () => {
                   <textarea
                     id="bio-input"
                     placeholder="Bio"
-                    maxLength="250"></textarea>
+                    maxLength="250"
+                  ></textarea>
                 </form>
                 <div className="note">Maximum Characters: 150</div>
               </div>
@@ -150,13 +156,15 @@ const EditProfile = () => {
               <button
                 type="button"
                 className="primary-button me-4"
-                id="apply-changes">
+                id="apply-changes"
+              >
                 Apply Changes
               </button>
               <button
                 onClick={() => onClear()}
                 className="secondary-button"
-                id="clear-changes">
+                id="clear-changes"
+              >
                 Clear Changes
               </button>
             </div>

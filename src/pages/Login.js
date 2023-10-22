@@ -58,7 +58,8 @@ function Login({ setLoginTrue }) {
                     console.log("clicked");
                   }}
                   className="main-button"
-                  id="login-button">
+                  id="login-button"
+                >
                   LOGIN
                 </button>
               </NavLink>
@@ -67,7 +68,8 @@ function Login({ setLoginTrue }) {
 
           <div
             className="d-flex align-content-center justify-content-center mt-4"
-            id="Group-1">
+            id="Group-1"
+          >
             <div className="flex-fill separator-3 my-auto"></div>
             <div className="Or me-4 ms-4">OR</div>
             <div className="flex-fill separator-3 my-auto"></div>
