@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
 const ViewPost = ({ post, setPost, comment, setComment }) => {
   const { id } = useParams();
   const currentPost = post.find((post) => post.id === parseInt(id));
+  const updatedCommentRef = useRef();
 
   post.forEach((post) => {
     post.comments = [];
@@ -44,7 +46,6 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
       return comment;
     });
     setComment(newComments);
-    console.log(newComments);
   };
 
   const handleCommentDownvote = (id) => {
@@ -55,7 +56,32 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
       return comment;
     });
     setComment(newComments);
-    console.log(comment);
+  };
+
+  const changeEditMode = (id) => {
+    id = id - 1;
+    setComment((prevComment) => {
+      const newComment = [...prevComment];
+      newComment[id] = {
+        ...newComment[id],
+        isInEditMode: !newComment[id].isInEditMode,
+      };
+      updatedCommentRef.value = newComment[id].commentContent;
+      return newComment;
+    });
+  };
+
+  const handleCommentEdit = (id) => {
+    id = id - 1;
+    setComment((prevComment) => {
+      const newComment = [...prevComment];
+      newComment[id] = {
+        ...newComment[id],
+        commentContent: updatedCommentRef.current.value,
+        isInEditMode: !newComment[id].isInEditMode,
+      };
+      return newComment;
+    });
   };
 
   return (
@@ -152,28 +178,41 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
                           aria-labelledby="change-post"
                         >
                           <li>
-                            <a
+                            <div
                               className="dropdown-item d-flex align-items-center p-2"
-                              href="/"
+                              onClick={() => changeEditMode(comment.id)}
                             >
                               <div className="spritesheet edit-icon me-3"></div>
                               Edit
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a
-                              className="dropdown-item d-flex align-items-center p-2"
-                              href="/"
-                            >
+                            <div className="dropdown-item d-flex align-items-center p-2">
                               <div className="spritesheet delete-icon me-3"></div>
                               Delete
-                            </a>
+                            </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="row view-comment-content">
-                      {comment.commentContent}
+                      {comment.isInEditMode ? (
+                        <>
+                          <input
+                            type="text"
+                            defaultValue={comment.commentContent}
+                            ref={updatedCommentRef}
+                          />
+                          <button onClick={() => handleCommentEdit(comment.id)}>
+                            Save
+                          </button>
+                          <button onClick={() => changeEditMode(comment.id)}>
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        comment.commentContent
+                      )}
                     </div>
                     <div className="d-flex justify-content-between mt-3">
                       <div className="d-flex">
