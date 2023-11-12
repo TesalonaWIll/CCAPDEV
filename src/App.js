@@ -15,6 +15,8 @@ import SearchComment from "./pages/SearchComment";
 import SearchPost from "./pages/SearchPost";
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,6 +35,8 @@ function App() {
           <Route path="/" element={<Home post={post} setPost={setPost} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact-us" element={<Contact />} />
           <Route
             path="/login"
             element={<Login setLoginTrue={setLoginTrue} />}

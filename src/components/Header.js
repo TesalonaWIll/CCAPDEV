@@ -11,18 +11,22 @@ const Header = () => {
   };
   return (
     <header className="header">
-      <NavLink to="/" className="logo">
-        <img src={logo} id="logo-image" alt="ribbit logo" />
-        Ribbit
-      </NavLink>
+      <div>
+        <NavLink to="/" className="logo">
+          <img src={logo} id="logo-image" alt="ribbit logo" />
+          Home
+        </NavLink>
+      </div>
+      
       <div className="searchbar" onKeyDown={(e) => handleKeyPress(e)}>
         <div className="search-icon"></div>
         <input type="text" placeholder="Search..." />
       </div>
       <nav className="navbar">
-        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink className="ms-4" to="/contact-us">Help</NavLink>
+        <NavLink className="ms-4" to="/login">Login</NavLink>
         <NavLink className="ms-4" to="/register">Register</NavLink>
-        <NavLink className="ms-4" to="/faq">FAQ</NavLink>
       </nav>
     </header>
   );

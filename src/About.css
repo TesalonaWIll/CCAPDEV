@@ -1,0 +1,86 @@
+.rec-container {
+    position: relative;
+    top: -20px;
+}
+.a_Rec1 {
+    width: 522px;
+    height: 93px;
+    background-color: #1F4A23;
+    position: relative;
+    z-index: 2;
+    font-size: 60px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.90);
+    text-align: center;
+}
+.a_Rec2 {
+    width: 522px;
+    height: 93px;
+    background-color: rgba(31, 74, 35, 0.60);
+    position: relative;
+    z-index: 1;
+    top: -72px;
+    left: -18px;
+}
+img {
+    width: 255px;
+    height: 207px;
+}
+p {
+    color: #032715;
+    font-size: 24px;
+    text-align: center;
+    padding: 0 250px 0 250px;
+    z-index: 3;
+    position: relative;
+    top: -50px;
+}
+.mt-10 {
+    margin-top: 10%;
+}
+.mb-9 {
+    margin-bottom: 9%;
+}
+.icon-container {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    background-color: rgba(204, 246, 225, 0.85);
+}
+.to-do-container {
+    width: 50%;
+}
+#about-comment {
+    background-position: -152px -231px;
+    width: 79.481px;
+    height: 79.481px;
+    position: relative;
+    top: 34.26px;
+    left: 33px;
+}
+#about-post {
+    background-position: -233px -231px;
+    width: 70.481px;
+    height: 79.481px;
+    position: relative;
+    top: 34.26px;
+    left: 40px;
+}
+#about-vote {
+    background-position: -304px -223px;
+    width: 79.481px;
+    height: 81px;
+    position: relative;
+    top: 34.26px;
+    left: 34px;
+}
+.text-box_1 {
+    width: 210px;
+    font-size: 20px;
+    color: #032715;
+}
+.text-box_2 {
+    width: 310px;
+    font-size: 20px;
+    color: #032715;
+}
