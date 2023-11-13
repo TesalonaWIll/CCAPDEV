@@ -9,17 +9,37 @@ import Confirmation from "./components/Confirmation";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import ViewPost from "./pages/ViewPost";
-import posts from "./components/Posts";
 import comments from "./components/Comments";
 import SearchComment from "./pages/SearchComment";
 import SearchPost from "./pages/SearchPost";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { db } from "./config/firebase";
+import { getDocs, collection } from "firebase/firestore";
 
 function App() {
+  const postsCollectionRef = collection(db, "posts");
+  const [post, setPost] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [post, setPost] = useState(posts);
   const [comment, setComment] = useState(comments);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const data = await getDocs(postsCollectionRef);
+        const posts = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          postTime: doc.data().postTime.toDate().toDateString(),
+        }));
+        setPost(posts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getPosts();
+  });
 
   const setLoginTrue = (val = Boolean) => {
     setIsLoggedIn(val);

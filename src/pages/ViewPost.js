@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const ViewPost = ({ post, setPost, comment, setComment }) => {
   const { id } = useParams();
-  const currentPost = post.find((post) => post.id === parseInt(id));
+  const currentPost = post.find((post) => post.id === id);
   const updatedCommentRef = useRef();
 
   post.forEach((post) => {
