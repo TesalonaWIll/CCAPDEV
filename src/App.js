@@ -9,7 +9,6 @@ import Confirmation from "./components/Confirmation";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
 import ViewPost from "./components/ViewPost";
-import comments from "./components/Comments";
 import SearchComment from "./components/SearchComment";
 import SearchPost from "./components/SearchPost";
 import { getPosts } from "./controller/PostController";
