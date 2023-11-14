@@ -12,39 +12,23 @@ import ViewPost from "./components/ViewPost";
 import comments from "./components/Comments";
 import SearchComment from "./components/SearchComment";
 import SearchPost from "./components/SearchPost";
+import { getPosts } from "./controller/PostController";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { db } from "./config/firebase";
-import { getDocs, collection } from "firebase/firestore";
 
 function App() {
-  const postsCollectionRef = collection(db, "posts");
   const [post, setPost] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [comment, setComment] = useState(comments);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        // Get the data from the database
-        const data = await getDocs(postsCollectionRef);
-
-        // Convert the data to the format we want
-        const posts = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-          postTime: doc.data().postTime.toDate().toDateString(),
-        }));
-
-        // Set the state of the posts array to the data from the database
-        setPost(posts);
-      } catch (error) {
-        console.log(error);
-      }
+    const fetchPosts = async () => {
+      const posts = await getPosts();
+      setPost(posts);
     };
 
-    getPosts();
-  });
+    fetchPosts();
+  }, []);
 
   const setLoginTrue = (val = Boolean) => {
     setIsLoggedIn(val);
