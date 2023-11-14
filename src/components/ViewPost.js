@@ -6,10 +6,12 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
   const currentPost = post.find((post) => post.id === id);
   const updatedCommentRef = useRef();
 
+  // Reset comments
   post.forEach((post) => {
     post.comments = [];
   });
 
+  // Add comments to posts
   post.forEach((post) => {
     comment.forEach((comment) => {
       if (comment.postId === post.id) {
@@ -18,6 +20,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     });
   });
 
+  // Handle post downvote
   const handleUpvote = (id) => {
     const newPosts = post.map((post) => {
       if (post.id === id) {
@@ -28,6 +31,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     setPost(newPosts);
   };
 
+  // Handle post upvote
   const handleDownvote = (id) => {
     const newPosts = post.map((post) => {
       if (post.id === id) {
@@ -38,6 +42,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     setPost(newPosts);
   };
 
+  // Handle comment upvote
   const handleCommentUpvote = (id) => {
     const newComments = comment.map((comment) => {
       if (comment.id === id) {
@@ -48,6 +53,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     setComment(newComments);
   };
 
+  // Handle comment downvote
   const handleCommentDownvote = (id) => {
     const newComments = comment.map((comment) => {
       if (comment.id === id) {
@@ -58,6 +64,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     setComment(newComments);
   };
 
+  // Handle comment edit
   const changeEditMode = (id) => {
     id = id - 1;
     setComment((prevComment) => {
@@ -71,6 +78,7 @@ const ViewPost = ({ post, setPost, comment, setComment }) => {
     });
   };
 
+  // Handle comment edit
   const handleCommentEdit = (id) => {
     id = id - 1;
     setComment((prevComment) => {

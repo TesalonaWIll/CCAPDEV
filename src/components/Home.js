@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Home = ({ post, setPost }) => {
+  // Handle post upvote
   const handleUpvote = (id) => {
     const newPosts = post.map((post) => {
       if (post.id === id) {
@@ -12,6 +13,7 @@ const Home = ({ post, setPost }) => {
     setPost(newPosts);
   };
 
+  // Handle post upvote
   const handleDownvote = (id) => {
     const newPosts = post.map((post) => {
       if (post.id === id) {
