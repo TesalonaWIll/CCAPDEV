@@ -28,6 +28,7 @@ const Home = ({ post, setPost }) => {
   const handlePostLink = (event) => {
     const postId = event.currentTarget.dataset.key;
     if (event.target === event.currentTarget || event.target.classList.contains('post-content') || event.target.classList.contains('post-title')) {
+      event.stopPropagation();
       console.log("Post ID:", postId);
       navigate(`/view-post/${postId}`, {replace: true});
     }
