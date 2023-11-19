@@ -1,28 +1,28 @@
-// import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../images/AvatarLogo.png";
+import { NavLink, useNavigate } from "react-router-dom";
+import { handleSignOut } from "../controller/AuthController";
+import { handlePostSearch } from "../controller/PostController";
 
-const HeaderAlt = ({ setIsLoggedIn }) => {
+const HeaderAlt = () => {
   const navigate = useNavigate();
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      navigate("/searchpost");
-    }
-  };
+
   return (
     <header className="header">
       <NavLink to="/" className="logo">
         <img src={logo} id="logo-image" alt="logo" />
         Ribbit
       </NavLink>
-      <div
-        className="searchbar"
-        onKeyDown={(e) => {
-          handleKeyPress(e);
-        }}
-      >
+      <div className="searchbar">
         <div className="search-icon"></div>
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handlePostSearch(e.target.value, navigate);
+            }
+          }}
+        />
       </div>
       <nav className="navbar">
         <NavLink to="/" className="icon ms-4">
@@ -48,13 +48,14 @@ const HeaderAlt = ({ setIsLoggedIn }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink
+              <button
                 className="dropdown-item"
-                to="/"
-                onClick={!setIsLoggedIn}
+                onClick={() => {
+                  handleSignOut(navigate);
+                }}
               >
                 Sign Out
-              </NavLink>
+              </button>
             </li>
           </ul>
         </div>

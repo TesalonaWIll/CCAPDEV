@@ -1,24 +1,13 @@
 import {
-  fetchUserFromDatabase,
   fetchPostsFromDatabase,
-  fetchCommentsFromDatabase,
+  updatePostContentInDatabase,
 } from "../Model/PostModel";
 import {
   addPostToDatabase,
-  addCommentToDatabase,
   updatePostInDatabase,
-  updateCommentInDatabase,
+  deletePostFromDatabase,
 } from "../Model/PostModel";
-
-export const getUser = async (userID) => {
-  try {
-    const user = await fetchUserFromDatabase(userID);
-    return user;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+import { useCurrentUser } from "./AuthController";
 
 export const getPosts = async () => {
   try {
@@ -41,27 +30,22 @@ export const getCurrentPost = async (postID) => {
   }
 };
 
-export const getComments = async (postID) => {
+export const addPost = async (postTitle, postText, username, userID) => {
   try {
-    const comments = await fetchCommentsFromDatabase(postID);
-    return comments;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
-export const addPost = async (post) => {
-  try {
-    await addPostToDatabase(post);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const addComment = async (comment, postID) => {
-  try {
-    await addCommentToDatabase(comment, postID);
+    const postTime = new Date();
+    const post = {
+      postTitle: postTitle,
+      postContent: postText,
+      postUser: username,
+      postTime: postTime,
+      comments: [],
+      downvoted: false,
+      upvoted: false,
+      upvotedBy: [],
+      downvotedBy: [],
+    };
+    console.log(post, username);
+    await addPostToDatabase(post, userID);
   } catch (error) {
     console.error(error);
   }
@@ -70,6 +54,15 @@ export const addComment = async (comment, postID) => {
 export const updatePost = async (post) => {
   try {
     await updatePostInDatabase(post);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePost = async (postID) => {
+  try {
+    console.log("deleting");
+    await deletePostFromDatabase(postID);
   } catch (error) {
     console.error(error);
   }
@@ -107,47 +100,26 @@ export const handleDownvote = async (postID, userID) => {
   }
 };
 
-export const handleUpvoteComment = async (commentID, userID) => {
+export const handlePostSearch = async (searchTerm, navigate) => {
   try {
-    let comments = await getComments();
-    comments.map((comment) => {
-      if (comment.id === commentID) {
-        comment.upvoted = !comment.upvoted;
-        comment.downvoted = false;
-        comment.upvotedBy.push(userID) && comment.downvotedBy.pop(userID);
-        updateCommentInDatabase(this.comment);
-      }
+    let posts = await getPosts();
+    let searchedPosts = posts.filter((post) => {
+      return (
+        post.postTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.postContent.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     });
+    navigate("/searchpost", { state: { searchedPosts } });
   } catch (error) {
     console.error(error);
   }
 };
 
-export const handleDownvoteComment = async (commentID, userID) => {
+export const handlePostEdit = async (post, newContent) => {
   try {
-    let comments = await getComments();
-    comments.map((comment) => {
-      if (comment.id === commentID) {
-        comment.downvoted = !comment.downvoted;
-        comment.upvoted = false;
-        comment.downvotedBy.push(userID) && comment.upvotedBy.pop(userID);
-        updateCommentInDatabase(this.comment);
-      }
-    });
+    console.log("editing");
+    await updatePostContentInDatabase(post.id, newContent);
   } catch (error) {
     console.error(error);
   }
-};
-
-export const handleCommentChange = (event, setCommentText) => {
-  setCommentText(event.target.value);
-  console.log(event.target.value);
-};
-
-export const handleCommentSubmit = (
-  postID,
-  setCommentText,
-) => {
-  addCommentToDatabase(setCommentText, postID);
-  setCommentText("");
 };

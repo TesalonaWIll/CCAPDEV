@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import {
   getCurrentPost,
-  getComments,
-  addComment,
   handleUpvote,
   handleDownvote,
+} from "../controller/PostController";
+import {
+  getComments,
+  handleEditComment,
   handleUpvoteComment,
   handleDownvoteComment,
-  handleCommentChange,
   handleCommentSubmit,
-} from "../controller/PostController";
+  deleteComment,
+} from "../controller/CommentController";
 
-const ViewPost = () => {
+const ViewPost = ({ username }) => {
+  const commentRef = useRef(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedComment, setEditedComment] = useState("");
   const { id: postID } = useParams();
   const [currentPost, setCurrentPost] = useState(null);
   const [comments, setComments] = useState([]);
@@ -50,17 +55,17 @@ const ViewPost = () => {
                         {currentPost.postTitle}
                       </div>
                     </div>
-                    <div className="row post-user">{currentPost.postUser}</div>
+                    <div className="row post-user">@{currentPost.postUser}</div>
                   </div>
                 </div>
 
-                <div
+                {/* <div
                   id="post-categories"
                   className="d-flex justify-content-start mt-3"
                 >
                   <div className="category">Games</div>
                   <div className="category">CS2</div>
-                </div>
+                </div> */}
 
                 <div className="view-content">{currentPost.postContent}</div>
 
@@ -101,14 +106,12 @@ const ViewPost = () => {
                   type="text"
                   placeholder="Post a reply..."
                   value={commentText}
-                  onChange={(event) =>
-                    handleCommentChange(event, setCommentText)
-                  }
+                  onChange={(e) => setCommentText(e.target.value)}
                 ></textarea>
                 <button
                   className="view-button"
                   onClick={() =>
-                    handleCommentSubmit(postID, commentText, comment)
+                    handleCommentSubmit(postID, username, commentText)
                   }
                 >
                   Comment
@@ -126,7 +129,7 @@ const ViewPost = () => {
                     <div className="col my-auto">
                       <div className="d-flex justify-content-between">
                         <div className="row view-username">
-                          {comment.commentUser}
+                          @{comment.commentUser}
                         </div>
                         <div className="dropdown">
                           <button
@@ -141,13 +144,19 @@ const ViewPost = () => {
                             aria-labelledby="change-post"
                           >
                             <li>
-                              <div className="dropdown-item d-flex align-items-center p-2">
+                              <div
+                                className="dropdown-item d-flex align-items-center p-2"
+                                onClick={() => setEditingCommentId(comment.id)}
+                              >
                                 <div className="spritesheet edit-icon me-3"></div>
                                 Edit
                               </div>
                             </li>
                             <li>
-                              <div className="dropdown-item d-flex align-items-center p-2">
+                              <div
+                                className="dropdown-item d-flex align-items-center p-2"
+                                onClick={() => deleteComment(comment.id)}
+                              >
                                 <div className="spritesheet delete-icon me-3"></div>
                                 Delete
                               </div>
@@ -155,8 +164,32 @@ const ViewPost = () => {
                           </ul>
                         </div>
                       </div>
-                      <div className="row view-comment-content">
-                        {comment.commentContent}
+                      <div
+                        className="row view-comment-content"
+                        ref={commentRef}
+                      >
+                        {editingCommentId === comment.id ? (
+                          <div className="view-edit-comment">
+                            <textarea
+                              className="view-edit-comment"
+                              type="text"
+                              placeholder="Edit your comment..."
+                              value={editedComment}
+                              onChange={(e) => setEditedComment(e.target.value)}
+                            ></textarea>
+                            <button
+                              className="view-button"
+                              onClick={() => {
+                                handleEditComment(comment.id, editedComment);
+                                setEditingCommentId(null);
+                              }}
+                            >
+                              Save
+                            </button>
+                          </div>
+                        ) : (
+                          <div> {comment.commentContent}</div>
+                        )}
                       </div>
                       <div className="d-flex justify-content-between mt-3">
                         <div className="d-flex">
