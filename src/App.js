@@ -11,15 +11,39 @@ import EditProfile from "./components/EditProfile";
 import ViewPost from "./components/ViewPost";
 import SearchComment from "./components/SearchComment";
 import SearchPost from "./components/SearchPost";
-import { getPosts } from "./controller/PostController";
+import {
+  getPosts,
+  getComments,
+  getCurrentPost,
+  getUser,
+} from "./controller/PostController";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 
 function App() {
   const [post, setPost] = useState([]);
+  const [user, setUser] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [currentPost, setCurrentPost] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [comment, setComment] = useState(comments);
+  const { postID } = useParams();
+  const userID = "hFbdmOAT7tKe4QCogqRA";
 
+  // fetch user from database
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser(userID);
+      setUser(user);
+    };
+    fetchUser();
+  });
+
+  // fetch posts from database
   useEffect(() => {
     const fetchPosts = async () => {
       const posts = await getPosts();
@@ -29,6 +53,7 @@ function App() {
     fetchPosts();
   }, []);
 
+  // set login status
   const setLoginTrue = (val = Boolean) => {
     setIsLoggedIn(val);
   };
@@ -38,7 +63,10 @@ function App() {
       <Router>
         {isLoggedIn ? <HeaderAlt element={setIsLoggedIn} /> : <Header />}
         <Routes>
-          <Route path="/" element={<Home post={post} setPost={setPost} />} />
+          <Route
+            path="/"
+            element={<Home post={post} setPost={setPost} user={user} />}
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route
@@ -47,17 +75,7 @@ function App() {
           />
           <Route path="/register" element={<Register />} />
           <Route path="/success" element={<Confirmation />} />
-          <Route
-            path="/view-post/:id"
-            element={
-              <ViewPost
-                post={post}
-                setPost={setPost}
-                comment={comment}
-                setComment={setComment}
-              />
-            }
-          />
+          <Route path="/view-post/:id" element={<ViewPost user={user} />} />
           <Route path="/searchcomment" element={<SearchComment />} />
           <Route path="/searchpost" element={<SearchPost />} />
         </Routes>

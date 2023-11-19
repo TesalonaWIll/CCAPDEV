@@ -1,29 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { handleUpvote, handleDownvote } from "../controller/PostController";
 
-const Home = ({ post, setPost }) => {
-  // Handle post upvote
-  const handleUpvote = (id) => {
-    const newPosts = post.map((post) => {
-      if (post.id === id) {
-        return { ...post, upvoted: !post.upvoted, downvoted: false };
-      }
-      return post;
-    });
-    setPost(newPosts);
-  };
-
-  // Handle post upvote
-  const handleDownvote = (id) => {
-    const newPosts = post.map((post) => {
-      if (post.id === id) {
-        return { ...post, downvoted: !post.downvoted, upvoted: false };
-      }
-      return post;
-    });
-    setPost(newPosts);
-  };
-
+const Home = ({ post }) => { 
   return (
     <div className="container-fluid">
       <div className="row px-5">
@@ -112,7 +91,7 @@ const Home = ({ post, setPost }) => {
                           post.upvoted ? " active" : ""
                         }`}
                         onClick={() => {
-                          handleUpvote(post.id);
+                          handleUpvote(post.id, user.id);
                         }}
                       ></div>
 
@@ -121,7 +100,7 @@ const Home = ({ post, setPost }) => {
                           post.downvoted ? " active" : ""
                         }`}
                         onClick={() => {
-                          handleDownvote(post.id);
+                          handleDownvote(post.id, user.id);
                         }}
                       ></div>
                       <NavLink
