@@ -1,0 +1,93 @@
+.rec-container {
+    position: relative;
+    top: -20px;
+}
+.a_Rec1 {
+    width: 522px;
+    height: 93px;
+    background-color: #1F4A23;
+    position: relative;
+    z-index: 2;
+    font-size: 60px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.90);
+    text-align: center;
+}
+.a_Rec2 {
+    width: 522px;
+    height: 93px;
+    background-color: rgba(31, 74, 35, 0.60);
+    position: relative;
+    z-index: 1;
+    top: -72px;
+    left: -18px;
+}
+img {
+    width: 255px;
+    height: 207px;
+}
+p {
+    padding: 0;
+    width: 372px;
+    color: #032715;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    z-index: 3;
+    position: relative;
+    top: -60px;
+}
+.mt-10 {
+    margin-top: 20%;
+}
+.mb-9 {
+    margin-bottom: 9%;
+}
+.contact-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: #FFF;
+    padding: 40px;
+}
+.text-input {
+    width: 100%;
+    border-radius: 5px;
+    background: #CADAD6;
+    outline: none;
+    padding: 8px 8px 8px 8px;
+    padding-left: 8px;
+    border: none;
+}
+.text-input:focus {
+    outline: 2px solid #032715;
+    border: none;
+}
+h1 {
+    color: #032715;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+}
+.input-container {
+    width: 45%;
+}
+#c_message {
+    border-radius: 5px;
+    width: 100%;
+    height: calc(100% - 210px);
+    resize: none;
+    background-color: #CADAD6;
+    border: none;
+}
+#c_message:focus {
+    outline: 2px solid #032715;
+}
+.pt-10 {
+    padding-top: 5%;
+}
+.contents {
+    height: 100%;
+}

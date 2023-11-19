@@ -48,6 +48,16 @@ const HeaderAlt = ({ setIsLoggedIn }) => {
               </NavLink>
             </li>
             <li>
+              <NavLink className="dropdown-item" to="/about">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="dropdown-item" to="/contact-us">
+                Help
+              </NavLink>
+            </li>
+            <li>
               <NavLink
                 className="dropdown-item"
                 to="/"
@@ -58,9 +68,6 @@ const HeaderAlt = ({ setIsLoggedIn }) => {
             </li>
           </ul>
         </div>
-        <NavLink to="#" className="ms-4">
-          FAQ
-        </NavLink>
       </nav>
     </header>
   );

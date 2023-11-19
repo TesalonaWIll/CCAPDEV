@@ -1,7 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Home = ({ post, setPost }) => {
+  const navigate = useNavigate();
+
   const handleUpvote = (id) => {
     const newPosts = post.map((post) => {
       if (post.id === id) {
@@ -20,6 +23,15 @@ const Home = ({ post, setPost }) => {
       return post;
     });
     setPost(newPosts);
+  };
+
+  const handlePostLink = (event) => {
+    const postId = event.currentTarget.dataset.key;
+    if (event.target === event.currentTarget || event.target.classList.contains('post-content') || event.target.classList.contains('post-title')) {
+      event.stopPropagation();
+      console.log("Post ID:", postId);
+      navigate(`/view-post/${postId}`, {replace: true});
+    }
   };
 
   return (
@@ -78,7 +90,7 @@ const Home = ({ post, setPost }) => {
 
             {post.map((post) => {
               return (
-                <div to="view-post" className="post-wide" key={post.id}>
+                <div className="post-wide" key={post.id} onClick={handlePostLink} data-key={post.id}>
                   <div className="row">
                     <div className="col-1 spritesheet user-profile"></div>
                     <div className="col my-auto">
@@ -103,7 +115,7 @@ const Home = ({ post, setPost }) => {
 
                   <div className="post-content">{post.postContent}</div>
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div className="d-flex justify-content-between mt-4 post-interaction">
                     <div className="d-flex">
                       <div
                         className={`spritesheet upvote${
