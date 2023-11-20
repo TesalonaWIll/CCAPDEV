@@ -114,14 +114,14 @@ export const handleDownvoteComment = async (postID, commentID, userID) => {
       if (comment.id === commentID) {
         if (!checkIfUserDownvotedComment(comment, userID)) {
           comment.downvotedBy.push(userID);
-          const index = comment.downvotedBy.indexOf(userID);
+          const index = comment.upvotedBy.indexOf(userID);
           if (index > -1) {
             comment.upvotedBy.splice(index, 1);
           }
         } else {
           const index = comment.downvotedBy.indexOf(userID);
           if (index > -1) {
-            comment.upvotedBy.splice(index, 1);
+            comment.downvotedBy.splice(index, 1);
           }
         }
         await updateCommentVotesInDatabase(comment);
