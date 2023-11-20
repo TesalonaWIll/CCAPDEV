@@ -7,6 +7,7 @@ import {
   addReplyToDatabase,
   updateCommentInDatabase,
   updateCommentVotesInDatabase,
+  updateReplyInDatabase,
   updateReplyVotesInDatabase,
   deleteCommentFromDatabase,
   deleteReplyFromDatabase,
@@ -76,6 +77,15 @@ export const handleEditComment = async (commentID, editedComment) => {
   try {
     console.log("editing");
     await updateCommentInDatabase(commentID, editedComment);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const handleEditReply = async (replyID, editedReply) => {
+  try {
+    console.log("editing");
+    await updateReplyInDatabase(replyID, editedReply);
   } catch (error) {
     console.error(error);
   }
@@ -152,7 +162,7 @@ export const handleAddReply = async (commentID, reply, username) => {
   }
 };
 
-export const handleUpovteReply = async (commentID, replyID, userID) => {
+export const handleUpvoteReply = async (commentID, replyID, userID) => {
   try {
     let replies = await getReplies(commentID);
     for (let reply of replies) {
@@ -172,6 +182,35 @@ export const handleUpovteReply = async (commentID, replyID, userID) => {
         await updateReplyVotesInDatabase(reply);
       }
     }
+    replies = await getReplies(commentID);
+    return replies;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const handleDownvoteReply = async (commentID, replyID, userID) => {
+  try {
+    let replies = await getReplies(commentID);
+    for (let reply of replies) {
+      if (reply.id === replyID) {
+        if (!checkIfUserDownvotedReply(reply, userID)) {
+          reply.downvotedBy.push(userID);
+          const index = reply.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.upvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = reply.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.downvotedBy.splice(index, 1);
+          }
+        }
+        await updateReplyVotesInDatabase(reply);
+      }
+    }
+    replies = await getReplies(commentID);
+    return replies;
   } catch (error) {
     console.error(error);
   }

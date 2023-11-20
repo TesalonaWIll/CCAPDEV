@@ -64,6 +64,13 @@ export const updateCommentInDatabase = async (commentID, editedComment) => {
   window.location.reload();
 };
 
+export const updateReplyInDatabase = async (replyID, editedReply) => {
+  const repliesRef = doc(db, "replies", replyID);
+  await updateDoc(repliesRef, { replyContent: editedReply });
+  console.log("edited");
+  window.location.reload();
+};
+
 export const updateCommentVotesInDatabase = async (comment) => {
   const commentsCollectionRef = collection(db, "comments");
   const commentDoc = doc(commentsCollectionRef, comment.id);

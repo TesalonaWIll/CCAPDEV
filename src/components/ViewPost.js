@@ -12,13 +12,20 @@ import {
   handleUpvoteComment,
   handleDownvoteComment,
   handleCommentSubmit,
+  handleUpvoteReply,
+  handleDownvoteReply,
   handleAddReply,
-  deleteComment,
+  handleEditReply,
   checkIfUserUpvotedComment,
   checkIfUserDownvotedComment,
+  checkIfUserUpvotedReply,
+  checkIfUserDownvotedReply,
+  deleteComment,
+  deleteReply,
   refreshComments,
   refreshReplies,
 } from "../controller/CommentController";
+import { set } from "react-hook-form";
 
 const ViewPost = ({ user, username }) => {
   const location = useLocation();
@@ -29,9 +36,10 @@ const ViewPost = ({ user, username }) => {
   const [comments, setComments] = useState([...commentsLocation]);
   const [replies, setReplies] = useState([]);
   const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editedComment, setEditedComment] = useState("");
+  const [editedComment, setEditedComment] = useState();
   const [commentText, setCommentText] = useState("");
-  const [reply, setReply] = useState(null);
+  const [editingReplyId, setEditingReplyId] = useState(null);
+  const [editedReply, setEditedReply] = useState("");
   const [replyId, setReplyId] = useState(null);
 
   useEffect(() => {
@@ -176,7 +184,10 @@ const ViewPost = ({ user, username }) => {
                             <li>
                               <div
                                 className="dropdown-item d-flex align-items-center p-2"
-                                onClick={() => setEditingCommentId(comment.id)}
+                                onClick={() => {
+                                  setEditingCommentId(comment.id);
+                                  setEditedComment(comment.commentContent);
+                                }}
                               >
                                 <div className="spritesheet edit-icon me-3"></div>
                                 Edit
@@ -215,8 +226,11 @@ const ViewPost = ({ user, username }) => {
                             ></textarea>
                             <button
                               className="view-button"
-                              onClick={() => {
-                                handleEditComment(comment.id, editedComment);
+                              onClick={async () => {
+                                await handleEditComment(
+                                  comment.id,
+                                  editedComment
+                                );
                                 setEditingCommentId(null);
                               }}
                             >
@@ -300,115 +314,155 @@ const ViewPost = ({ user, username }) => {
                       return reply.commentID === comment.id;
                     })
                     .map((filteredReplies) => {
-                      console.log("here");
-                      console.log(filteredReplies);
                       return (
                         <div className="sub-comment" key={filteredReplies.id}>
-                        <div className="row">
-                        <div className="col-1 spritesheet user-profile"></div>
-                        <div className="col my-auto">
-                          <div className="d-flex justify-content-between">
-                            <div className="row view-username">
-                              @{filteredReplies.replyUser}
-                            </div>
-                            <div className="dropdown">
-                          <button
-                            className="btn spritesheet edit-post"
-                            type="button"
-                            id="edit-post-icon"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          ></button>
-                          <ul
-                            className="dropdown-menu"
-                            aria-labelledby="change-post"
-                          >
-                            <li>
-                              <div
-                                className="dropdown-item d-flex align-items-center p-2">
-                                <div className="spritesheet edit-icon me-3"></div>
-                                Edit
+                          <div className="row">
+                            <div className="col-1 spritesheet user-profile"></div>
+                            <div className="col my-auto">
+                              <div className="d-flex justify-content-between">
+                                <div className="row view-username">
+                                  @{filteredReplies.replyUser}
+                                </div>
+                                <div className="dropdown">
+                                  <button
+                                    className="btn spritesheet edit-post"
+                                    type="button"
+                                    id="edit-post-icon"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                  ></button>
+                                  <ul
+                                    className="dropdown-menu"
+                                    aria-labelledby="change-post"
+                                  >
+                                    <li>
+                                      <div
+                                        className="dropdown-item d-flex align-items-center p-2"
+                                        onClick={() => {
+                                          setEditingReplyId(filteredReplies.id);
+                                          setEditedReply(
+                                            filteredReplies.replyContent
+                                          );
+                                        }}
+                                      >
+                                        <div className="spritesheet edit-icon me-3"></div>
+                                        Edit
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <div className="dropdown-item d-flex align-items-center p-2">
+                                        <div className="spritesheet delete-icon me-3"></div>
+                                        Delete
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div>
-                            </li>
-                            <li>
-                              <div
-                                className="dropdown-item d-flex align-items-center p-2">
-                                <div className="spritesheet delete-icon me-3"></div>
-                                Delete
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                          </div>
-                      <div
-                        className="row view-comment-content">
-                          {filteredReplies.replyContent}
-                      </div>
-                      <div className="d-flex justify-content-between mt-3">
-                        <div className="d-flex">
-                          <div
-                            className={`spritesheet upvote${
-                              checkIfUserUpvotedComment(comment, user.uid)
-                                ? " active"
-                                : ""
-                            }`}
-                            onClick={async () => {
-                              const updatedComments = await handleUpvoteComment(
-                                currentPost.id,
-                                comment.id,
-                                user.uid
-                              );
-                              setComments(updatedComments);
-                            }}
-                          ></div>
+                              {editingReplyId === filteredReplies.id ? (
+                                <textarea
+                                  className="view-edit-reply"
+                                  type="text"
+                                  placeholder="Edit your reply..."
+                                  value={editedReply}
+                                  onChange={(e) =>
+                                    setEditedReply(e.target.value)
+                                  }
+                                />
+                              ) : (
+                                <div className="row view-comment-content">
+                                  {filteredReplies.replyContent}
+                                </div>
+                              )}
+                              {editingReplyId === filteredReplies.id && (
+                                <button
+                                  className="view-button"
+                                  onClick={async () => {
+                                    await handleEditReply(
+                                      filteredReplies.id,
+                                      editedReply
+                                    );
+                                    setEditingReplyId(null);
+                                    setEditedReply("");
+                                  }}
+                                >
+                                  Save
+                                </button>
+                              )}
+                              <div className="d-flex justify-content-between mt-3">
+                                <div className="d-flex">
+                                  <div
+                                    className={`spritesheet upvote${
+                                      checkIfUserUpvotedReply(
+                                        filteredReplies,
+                                        user.uid
+                                      )
+                                        ? " active"
+                                        : ""
+                                    }`}
+                                    onClick={async () => {
+                                      const updatedReplies =
+                                        await handleUpvoteReply(
+                                          comment.id,
+                                          filteredReplies.id,
+                                          user.uid
+                                        );
+                                      setReplies(updatedReplies);
+                                    }}
+                                  ></div>
 
-                          <div
-                            className={`spritesheet downvote${
-                              checkIfUserDownvotedComment(comment, user.uid)
-                                ? " active"
-                                : ""
-                            }`}
-                            onClick={async () => {
-                              const updatedComments =
-                                await handleDownvoteComment(
-                                  currentPost.id,
-                                  comment.id,
-                                  user.uid
-                                );
-                              setComments(updatedComments);
-                            }}
-                          ></div>
-                          <a
-                            onClick={() => setReplyId(comment.id)}
-                            className="comment-link"
-                          >
-                            Reply
-                          </a>
-                          {replyId === comment.id && (
-                            <form
-                              onSubmit={async (e) => {
-                                e.preventDefault();
-                                const updatedReplies = await handleAddReply(
-                                  comment.id,
-                                  e.target.elements.replyText.value,
-                                  username
-                                );
-                                setReplies(updatedReplies);
-                                setReplyId(null);
-                              }}
-                            >
-                              <input
-                                name="replyText"
-                                type="text"
-                                placeholder="Type your reply..."
-                              />
-                              <button type="submit">Submit</button>
-                            </form>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                                  <div
+                                    className={`spritesheet downvote${
+                                      checkIfUserDownvotedReply(
+                                        filteredReplies,
+                                        user.uid
+                                      )
+                                        ? " active"
+                                        : ""
+                                    }`}
+                                    onClick={async () => {
+                                      const updatedReplies =
+                                        await handleDownvoteReply(
+                                          comment.id,
+                                          filteredReplies.id,
+                                          user.uid
+                                        );
+                                      setReplies(updatedReplies);
+                                    }}
+                                  ></div>
+                                  <a
+                                    onClick={() => {
+                                      setReplyId(filteredReplies.id);
+                                    }}
+                                    className="comment-link"
+                                  >
+                                    Reply
+                                  </a>
+                                  {replyId === filteredReplies.id && (
+                                    <form
+                                      onSubmit={async (e) => {
+                                        e.preventDefault();
+                                        const updatedReplies =
+                                          await handleAddReply(
+                                            comment.id,
+                                            e.target.elements.replyText.value,
+                                            username
+                                          );
+                                        setReplies(updatedReplies);
+                                        setReplyId(null);
+                                      }}
+                                    >
+                                      <input
+                                        name="replyText"
+                                        type="text"
+                                        placeholder="Type your reply..."
+                                      />
+                                      <button type="submit">Submit</button>
+                                    </form>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       );
                     })}
