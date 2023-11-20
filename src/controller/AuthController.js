@@ -21,7 +21,12 @@ export const AuthListener = ({ setIsLoggedIn }) => {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-        if (location.pathname !== "/register" && location.pathname !== "/") {
+        if (
+          location.pathname !== "/register" &&
+          location.pathname !== "/about" &&
+          location.pathname !== "/contact-us" &&
+          location.pathname !== "/"
+        ) {
           navigate("/login");
         }
       }

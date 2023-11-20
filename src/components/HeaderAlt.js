@@ -25,9 +25,9 @@ const HeaderAlt = () => {
         />
       </div>
       <nav className="navbar">
-        <NavLink to="/" className="icon ms-4">
+        {/* <NavLink to="/" className="icon ms-4">
           <div className="spritesheet" id="notif"></div>
-        </NavLink>
+        </NavLink> */}
         <div className="dropdown ms-4">
           <button
             className="btn spritesheet user"
