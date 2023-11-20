@@ -303,18 +303,112 @@ const ViewPost = ({ user, username }) => {
                       console.log("here");
                       console.log(filteredReplies);
                       return (
-                        <div className="view-comments" key={filteredReplies.id}>
-                          <div className="row">
-                            <div className="col-1 spritesheet user-profile"></div>
-                            <div className="col my-auto">
-                              <div className="d-flex justify-content-between">
-                                <div className="row view-username">
-                                  @{filteredReplies.replyUser}
-                                </div>
-                                <p>{filteredReplies.replyContent}</p>
-                              </div>
+                        <div className="sub-comment" key={filteredReplies.id}>
+                        <div className="row">
+                        <div className="col-1 spritesheet user-profile"></div>
+                        <div className="col my-auto">
+                          <div className="d-flex justify-content-between">
+                            <div className="row view-username">
+                              @{filteredReplies.replyUser}
                             </div>
+                            <div className="dropdown">
+                          <button
+                            className="btn spritesheet edit-post"
+                            type="button"
+                            id="edit-post-icon"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          ></button>
+                          <ul
+                            className="dropdown-menu"
+                            aria-labelledby="change-post"
+                          >
+                            <li>
+                              <div
+                                className="dropdown-item d-flex align-items-center p-2">
+                                <div className="spritesheet edit-icon me-3"></div>
+                                Edit
+                              </div>
+                            </li>
+                            <li>
+                              <div
+                                className="dropdown-item d-flex align-items-center p-2">
+                                <div className="spritesheet delete-icon me-3"></div>
+                                Delete
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
                           </div>
+                      <div
+                        className="row view-comment-content">
+                          {filteredReplies.replyContent}
+                      </div>
+                      <div className="d-flex justify-content-between mt-3">
+                        <div className="d-flex">
+                          <div
+                            className={`spritesheet upvote${
+                              checkIfUserUpvotedComment(comment, user.uid)
+                                ? " active"
+                                : ""
+                            }`}
+                            onClick={async () => {
+                              const updatedComments = await handleUpvoteComment(
+                                currentPost.id,
+                                comment.id,
+                                user.uid
+                              );
+                              setComments(updatedComments);
+                            }}
+                          ></div>
+
+                          <div
+                            className={`spritesheet downvote${
+                              checkIfUserDownvotedComment(comment, user.uid)
+                                ? " active"
+                                : ""
+                            }`}
+                            onClick={async () => {
+                              const updatedComments =
+                                await handleDownvoteComment(
+                                  currentPost.id,
+                                  comment.id,
+                                  user.uid
+                                );
+                              setComments(updatedComments);
+                            }}
+                          ></div>
+                          <a
+                            onClick={() => setReplyId(comment.id)}
+                            className="comment-link"
+                          >
+                            Reply
+                          </a>
+                          {replyId === comment.id && (
+                            <form
+                              onSubmit={async (e) => {
+                                e.preventDefault();
+                                const updatedReplies = await handleAddReply(
+                                  comment.id,
+                                  e.target.elements.replyText.value,
+                                  username
+                                );
+                                setReplies(updatedReplies);
+                                setReplyId(null);
+                              }}
+                            >
+                              <input
+                                name="replyText"
+                                type="text"
+                                placeholder="Type your reply..."
+                              />
+                              <button type="submit">Submit</button>
+                            </form>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                         </div>
                       );
                     })}
