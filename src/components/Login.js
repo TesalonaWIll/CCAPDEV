@@ -1,7 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { handleSignIn } from "../controller/AuthController";
 
-function Login({ setLoginTrue }) {
+const Login = ({ setLoginTrue }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
   return (
     <div className="container-fluid">
       <div className="row p-5">
@@ -20,16 +26,35 @@ function Login({ setLoginTrue }) {
 
             <div className="d-flex flex-column align-items-center mt-48">
               <div className="input-field mt-4 mb-4">
-                <input type="text" required spellCheck="false" maxLength="60" />
-                <label>Username</label>
+                <input
+                  type="email"
+                  spellCheck="false"
+                  maxLength="60"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignIn(email, password, navigate, setLoginTrue);
+                    }
+                  }}
+                />
+                <label>Email</label>
               </div>
 
               <div className="input-field mt-4">
                 <input
                   type="password"
-                  required
                   spellCheck="false"
                   maxLength="60"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignIn(email, password, navigate, setLoginTrue);
+                    }
+                  }}
                 />
                 <label>Password</label>
               </div>
@@ -51,18 +76,16 @@ function Login({ setLoginTrue }) {
             </div>
 
             <div className="d-flex justify-content-center mt-48">
-              <NavLink to="/">
-                <button
-                  onClick={() => {
-                    setLoginTrue(true);
-                    console.log("clicked");
-                  }}
-                  className="main-button"
-                  id="login-button"
-                >
-                  LOGIN
-                </button>
-              </NavLink>
+              <button
+                onClick={() => {
+                  handleSignIn(email, password, navigate, setLoginTrue);
+                  console.log("clicked");
+                }}
+                className="main-button"
+                id="login-button"
+              >
+                LOGIN
+              </button>
             </div>
           </div>
 
@@ -82,6 +105,6 @@ function Login({ setLoginTrue }) {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

@@ -1,40 +1,140 @@
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Home from "./components/Home";
+import Login from "./components/Login";
 import Header from "./components/Header";
 import HeaderAlt from "./components/HeaderAlt";
-import Register from "./pages/Register";
+import Register from "./components/Register";
 import Confirmation from "./components/Confirmation";
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
-import ViewPost from "./pages/ViewPost";
-import posts from "./components/Posts";
-import comments from "./components/Comments";
-import SearchComment from "./pages/SearchComment";
-import SearchPost from "./pages/SearchPost";
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
+import ViewPost from "./components/ViewPost";
+import SearchComment from "./components/SearchComment";
+import SearchPost from "./components/SearchPost";
+import { getPosts } from "./controller/PostController";
+import { AuthListener } from "./controller/AuthController";
+import {
+  useCurrentUser,
+  getCurrentUserName,
+  getCurrentBio,
+  getCurrentUserPosts,
+} from "./controller/AuthController";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function App() {
+  const [post, setPost] = useState([]);
+  const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [post, setPost] = useState(posts);
-  const [comment, setComment] = useState(comments);
+  const [username, setUsername] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
+  const currentUser = useCurrentUser();
 
-  const setLoginTrue = (val = Boolean) => {
+  // set login status
+  const setLoginTrue = (val = false) => {
     setIsLoggedIn(val);
   };
+
+  // get current user
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    setUser(currentUser);
+  }, [currentUser]);
+
+  // fetch posts from database
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const posts = await getPosts();
+      setPost(posts);
+    };
+
+    fetchPosts();
+  }, []);
+
+  // get current user's username
+  useEffect(() => {
+    const fetchUsername = async () => {
+      if (!currentUser) {
+        return;
+      }
+
+      const result = await getCurrentUserName(currentUser);
+      setUsername(result);
+    };
+
+    fetchUsername();
+  }, [currentUser]);
+
+  // get current user's bio
+  useEffect(() => {
+    const fetchBio = async () => {
+      if (!currentUser) {
+        return;
+      }
+
+      const result = await getCurrentBio(currentUser);
+      setBio(result);
+    };
+
+    fetchBio();
+  }, [currentUser]);
+
+  // get current user's posts
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      if (!currentUser) {
+        return;
+      }
+
+      const result = await getCurrentUserPosts(currentUser);
+      setUserPosts(result);
+    };
+
+    fetchUserPosts();
+  }, [currentUser]);
 
   return (
     <div>
       <Router>
+        <AuthListener setIsLoggedIn={setIsLoggedIn} />
         {isLoggedIn ? <HeaderAlt element={setIsLoggedIn} /> : <Header />}
         <Routes>
-          <Route path="/" element={<Home post={post} setPost={setPost} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route
+            path="/"
+            element={<Home post={post} user={user} username={username} />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                post={post}
+                setPost={setPost}
+                user={user}
+                username={username}
+                bio={bio}
+                userPosts={userPosts}
+                setUserPosts={setUserPosts}
+              />
+            }
+          />
+          <Route
+            path="/edit-profile"
+            element={
+              <EditProfile
+                user={user}
+                username={username}
+                setUsername={setUsername}
+                bio={bio}
+                setBio={setBio}
+              />
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route
@@ -45,14 +145,7 @@ function App() {
           <Route path="/success" element={<Confirmation />} />
           <Route
             path="/view-post/:id"
-            element={
-              <ViewPost
-                post={post}
-                setPost={setPost}
-                comment={comment}
-                setComment={setComment}
-              />
-            }
+            element={<ViewPost user={user} username={username} />}
           />
           <Route path="/searchcomment" element={<SearchComment />} />
           <Route path="/searchpost" element={<SearchPost />} />

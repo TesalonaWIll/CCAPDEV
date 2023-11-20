@@ -1,13 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import iconDP from "../images/mikunakano.jpg";
 import { useState } from "react";
+import { updateUser } from "../controller/AuthController";
 
-const EditProfile = () => {
-  const [profilePic, setProfilePic] = useState(iconDP);
-  const onClear = () => {
-    setProfilePic(null);
-  };
+const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
   return (
     <div className="container-fluid">
       <div className="row mb-5">
@@ -24,25 +20,18 @@ const EditProfile = () => {
               <div></div>
             </div>
 
-            <div className="d-flex justify-content-start">
+            {/* <div className="d-flex justify-content-start">
               <div>
                 <h3 id="avatar-label">Avatar</h3>
               </div>
               <div className="d-flex flex-column justify-content-between">
-                <div
-                  className="edit-profile-pic"
-                  style={{ backgroundImage: `url(${profilePic})` }}
-                >
+                <div className="edit-profile-pic">
                   <div
                     className="spritesheet edit-profile"
                     id="edit-avatar"
                   ></div>
                 </div>
-                <button
-                  type="button"
-                  className="secondary-button mt-4"
-                  onClick={() => setProfilePic(null)}
-                >
+                <button type="button" className="secondary-button mt-4">
                   Remove Avatar
                 </button>
                 <div className="note">Optimal Size: 150px x 150px</div>
@@ -71,7 +60,7 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="separator-2"></div>
+            <div className="separator-2"></div> */}
 
             <div className="d-flex justify-content-start">
               <div>
@@ -79,7 +68,13 @@ const EditProfile = () => {
               </div>
               <div className="d-flex flex-column justify-content-between">
                 <form>
-                  <input type="text" id="username" className="short-input" />
+                  <input
+                    type="text"
+                    value={username || ""}
+                    id="username"
+                    className="short-input"
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </form>
                 <div className="note">Maximum Characters: 60</div>
               </div>
@@ -142,8 +137,10 @@ const EditProfile = () => {
                 <form>
                   <textarea
                     id="bio-input"
+                    value={bio || ""}
                     placeholder="Bio"
                     maxLength="250"
+                    onChange={(e) => setBio(e.target.value)}
                   ></textarea>
                 </form>
                 <div className="note">Maximum Characters: 150</div>
@@ -157,11 +154,14 @@ const EditProfile = () => {
                 type="button"
                 className="primary-button me-4"
                 id="apply-changes"
+                onClick={() => updateUser(user.uid, username, bio)}
               >
                 Apply Changes
               </button>
               <button
-                onClick={() => onClear()}
+                onClick={() => {
+                  setBio("");
+                }}
                 className="secondary-button"
                 id="clear-changes"
               >
