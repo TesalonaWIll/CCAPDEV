@@ -48,6 +48,16 @@ const HeaderAlt = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink className="dropdown-item" to="/about">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="dropdown-item" to="/contact-us">
+                Help
+              </NavLink>
+            </li>
+            <li>
               <button
                 className="dropdown-item"
                 onClick={() => {
@@ -59,9 +69,6 @@ const HeaderAlt = () => {
             </li>
           </ul>
         </div>
-        <NavLink to="#" className="ms-4">
-          FAQ
-        </NavLink>
       </nav>
     </header>
   );

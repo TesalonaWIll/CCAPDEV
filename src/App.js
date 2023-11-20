@@ -21,6 +21,8 @@ import {
   getCurrentBio,
   getCurrentUserPosts,
 } from "./controller/AuthController";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   const [post, setPost] = useState([]);
@@ -133,6 +135,8 @@ function App() {
               />
             }
           />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact-us" element={<Contact />} />
           <Route
             path="/login"
             element={<Login setLoginTrue={setLoginTrue} />}
