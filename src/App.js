@@ -13,6 +13,8 @@ import EditProfile from "./components/EditProfile";
 import ViewPost from "./components/ViewPost";
 import SearchComment from "./components/SearchComment";
 import SearchPost from "./components/SearchPost";
+import About from "./components/About";
+import Contact from "./components/Contact";
 import { getPosts } from "./controller/PostController";
 import { AuthListener } from "./controller/AuthController";
 import {
@@ -21,8 +23,6 @@ import {
   getCurrentBio,
   getCurrentUserPosts,
 } from "./controller/AuthController";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 
 function App() {
   const [post, setPost] = useState([]);

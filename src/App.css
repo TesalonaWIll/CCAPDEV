@@ -283,7 +283,7 @@ body {
 .spritesheet {
   background-image: url("../src/images/Spritesheet.svg");
   background-repeat: no-repeat;
-  background-size: 277px 308px;
+  background-size: 393px 308px;
 }
 
 #profile {
@@ -313,8 +313,8 @@ body {
 
 .profile-pic {
   background-image: url("../src/images/Spritesheet.svg");
-  background-size: 784px;
-  background-position: -190px -183px;
+  background-size: 1099px;
+  background-position: -187px -177px;
   background-repeat: no-repeat;
   width: 9.375rem;
   height: 9.375rem;
@@ -1451,6 +1451,10 @@ textarea {
   color: inherit;
 }
 
+.sub-comment {
+  margin-top: 16px;
+  margin-left: 70px;
+}
 /**media queries**/
 /**
 @media screen and (min-width: 1024px) and (max-width: 1919px) {

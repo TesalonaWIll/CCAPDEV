@@ -270,14 +270,15 @@ const ViewPost = ({ user, username }) => {
                           </a>
                           {replyId === comment.id && (
                             <form
-                              onSubmit={(e) => {
+                              onSubmit={async (e) => {
                                 e.preventDefault();
-                                handleAddReply(
+                                const updatedReplies = await handleAddReply(
                                   comment.id,
                                   e.target.elements.replyText.value,
                                   username
                                 );
-                                setReplyId(null); // Hide the form after submitting
+                                setReplies(updatedReplies);
+                                setReplyId(null);
                               }}
                             >
                               <input
@@ -288,36 +289,38 @@ const ViewPost = ({ user, username }) => {
                               <button type="submit">Submit</button>
                             </form>
                           )}
-                          {replies
-                            .filter((reply) => {
-                              return reply.commentID === comment.id;
-                            })
-                            .map((filteredReplies) => {
-                              console.log("here");
-                              console.log(filteredReplies);
-                              return (
-                                <div
-                                  className="view-comments"
-                                  key={filteredReplies.id}
-                                >
-                                  <div className="row">
-                                    <div className="col-1 spritesheet user-profile"></div>
-                                    <div className="col my-auto">
-                                      <div className="d-flex justify-content-between">
-                                        <div className="row view-username">
-                                          @{filteredReplies.replyUser}
-                                        </div>
-                                        <p>{filteredReplies.replyContent}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            })}
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  {/* FIX SUBCOMMENTS */}
+
+                  {replies
+                    .filter((reply) => {
+                      return reply.commentID === comment.id;
+                    })
+                    .map((filteredReplies) => {
+                      console.log("here");
+                      console.log(filteredReplies);
+                      return (
+                        <div className="view-comments" key={filteredReplies.id}>
+                          <div className="row">
+                            <div className="col-1 spritesheet user-profile"></div>
+                            <div className="col my-auto">
+                              <div className="d-flex justify-content-between">
+                                <div className="row view-username">
+                                  @{filteredReplies.replyUser}
+                                </div>
+                                <p>{filteredReplies.replyContent}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                  {/* FIX SUBCOMMENTS */}
                 </div>
               ))}
           </div>

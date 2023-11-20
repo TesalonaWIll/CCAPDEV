@@ -100,80 +100,75 @@ const Home = ({ post, user, username }) => {
 
             {posts.map((post) => {
               return (
-                <div to="view-post" className="post-wide" key={post.id}>
-                  <div className="row">
-                    <div className="col-1 spritesheet user-profile"></div>
-                    <div className="col my-auto">
-                      <div className="d-flex justify-content-between">
-                        <div className="row post-title">{post.postTitle}</div>
-                        {/* <div
-                          className="spritesheet edit-post"
-                          id="edit-post-icon"
-                        ></div> */}
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  onClick={() => goToViewPost(post, navigate)}
+                  key={post.id}
+                >
+                  <div to="view-post" className="post-wide">
+                    <div className="row">
+                      <div className="col-1 spritesheet user-profile"></div>
+                      <div className="col my-auto">
+                        <div className="d-flex justify-content-between">
+                          <div className="row post-title">{post.postTitle}</div>
+                        </div>
+                        <div className="row post-user">@{post.postUser}</div>
                       </div>
-                      <div className="row post-user">@{post.postUser}</div>
+                    </div>
+
+                    <div className="post-content">{post.postContent}</div>
+
+                    <div className="d-flex justify-content-between mt-4">
+                      <div className="d-flex">
+                        {user ? (
+                          <>
+                            <div
+                              className={`spritesheet upvote${
+                                checkIfUserUpvoted(post, user.uid)
+                                  ? " active"
+                                  : ""
+                              }`}
+                              onClick={async (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const updatedPosts = await handleUpvote(
+                                  post.id,
+                                  user.uid,
+                                  "Home"
+                                );
+                                setPosts(updatedPosts);
+                              }}
+                            ></div>
+
+                            <div
+                              className={`spritesheet downvote${
+                                checkIfUserDownvoted(post, user.uid)
+                                  ? " active"
+                                  : ""
+                              }`}
+                              onClick={async (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const updatedPosts = await handleDownvote(
+                                  post.id,
+                                  user.uid,
+                                  "Home"
+                                );
+                                setPosts(updatedPosts);
+                              }}
+                            ></div>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                        <div className="comment-link">
+                          {post.comments.length} comments
+                        </div>
+                      </div>
+                      <div className="post-time">{post.postTime}</div>
                     </div>
                   </div>
-
-                  {/* <div
-                    id="post-categories"
-                    className="d-flex justify-content-start mt-3"
-                  >
-                    <div className="category">Games</div>
-                    <div className="category">CS2</div>
-                  </div> */}
-
-                  <div className="post-content">{post.postContent}</div>
-
-                  <div className="d-flex justify-content-between mt-4">
-                    <div className="d-flex">
-                      {user ? (
-                        <>
-                          <div
-                            className={`spritesheet upvote${
-                              checkIfUserUpvoted(post, user.uid)
-                                ? " active"
-                                : ""
-                            }`}
-                            onClick={async () => {
-                              const updatedPosts = await handleUpvote(
-                                post.id,
-                                user.uid,
-                                "Home"
-                              );
-                              setPosts(updatedPosts);
-                            }}
-                          ></div>
-
-                          <div
-                            className={`spritesheet downvote${
-                              checkIfUserDownvoted(post, user.uid)
-                                ? " active"
-                                : ""
-                            }`}
-                            onClick={async () => {
-                              const updatedPosts = await handleDownvote(
-                                post.id,
-                                user.uid,
-                                "Home"
-                              );
-                              setPosts(updatedPosts);
-                            }}
-                          ></div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                      <NavLink
-                        onClick={() => goToViewPost(post, navigate)}
-                        className="comment-link"
-                      >
-                        {post.comments.length} comments
-                      </NavLink>
-                    </div>
-                    <div className="post-time">{post.postTime}</div>
-                  </div>
-                </div>
+                </NavLink>
               );
             })}
           </div>
