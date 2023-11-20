@@ -33,6 +33,11 @@ const Login = ({ setLoginTrue }) => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignIn(email, password, navigate, setLoginTrue);
+                    }
+                  }}
                 />
                 <label>Email</label>
               </div>
@@ -45,6 +50,11 @@ const Login = ({ setLoginTrue }) => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignIn(email, password, navigate, setLoginTrue);
+                    }
+                  }}
                 />
                 <label>Password</label>
               </div>

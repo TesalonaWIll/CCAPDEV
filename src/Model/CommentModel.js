@@ -22,6 +22,16 @@ export const fetchCommentsFromDatabase = async (postID) => {
   }));
 };
 
+export const fetchRepliesFromDatabase = async (commentID) => {
+  const repliesCollectionRef = collection(db, "replies");
+  const q = query(repliesCollectionRef, where("commentID", "==", commentID));
+  const data = await getDocs(q);
+  return data.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+};
+
 export const addCommentToDatabase = async (newComment) => {
   const commentsCollectionRef = collection(db, "comments");
   await addDoc(commentsCollectionRef, newComment);
@@ -37,7 +47,14 @@ export const addCommentsToPosts = async (postID) => {
   const postRef = doc(db, "posts", postID);
   await updateDoc(postRef, { comments: postComments });
   console.log("comments added");
-  window.location.reload();
+  /*   window.location.reload();
+   */
+};
+
+export const addReplyToDatabase = async (newReply) => {
+  const repliesCollectionRef = collection(db, "replies");
+  await addDoc(repliesCollectionRef, newReply);
+  console.log("replied");
 };
 
 export const updateCommentInDatabase = async (commentID, editedComment) => {
@@ -45,6 +62,18 @@ export const updateCommentInDatabase = async (commentID, editedComment) => {
   await updateDoc(commentsRef, { commentContent: editedComment });
   console.log("edited");
   window.location.reload();
+};
+
+export const updateCommentVotesInDatabase = async (comment) => {
+  const commentsCollectionRef = collection(db, "comments");
+  const commentDoc = doc(commentsCollectionRef, comment.id);
+
+  const updatedComment = {
+    upvotedBy: Array.isArray(comment.upvotedBy) ? comment.upvotedBy : [],
+    downvotedBy: Array.isArray(comment.downvotedBy) ? comment.downvotedBy : [],
+  };
+
+  await updateDoc(commentDoc, updatedComment);
 };
 
 export const deleteCommentFromDatabase = async (commentID) => {
@@ -60,5 +89,19 @@ export const deleteCommentFromDatabase = async (commentID) => {
       await updateDoc(postRef, { comments: arrayRemove(commentID) });
     }
   });
-  window.location.reload();
+};
+
+export const deleteReplyFromDatabase = async (replyID) => {
+  const repliesCollectionRef = collection(db, "replies");
+  const replyDoc = doc(repliesCollectionRef, replyID);
+  await deleteDoc(replyDoc);
+
+  const commentsCollectionRef = collection(db, "comments");
+  const commentSnapshot = await getDocs(commentsCollectionRef);
+  commentSnapshot.forEach(async (commentDoc) => {
+    if (commentDoc.data().replies.includes(replyID)) {
+      const commentRef = doc(db, "comments", commentDoc.id);
+      await updateDoc(commentRef, { replies: arrayRemove(replyID) });
+    }
+  });
 };

@@ -1,15 +1,29 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
 import {
+  getPosts,
   addPost,
+  sortPosts,
   handleUpvote,
   handleDownvote,
+  checkIfUserUpvoted,
+  checkIfUserDownvoted,
+  goToViewPost,
+  refreshPosts,
 } from "../controller/PostController";
 
 const Home = ({ post, user, username }) => {
+  const [posts, setPosts] = useState([...post]);
+  const navigate = useNavigate();
   const [postText, setPostText] = useState("");
   const [postTitle, setPostTitle] = useState("");
-  const [refresh, setRefresh] = useState(false);
+  const [sortedPosts, setSortedPosts] = useState([]);
+  useEffect(() => {
+    setPosts([...post]);
+  }, [post]);
+  useEffect(() => {
+    refreshPosts(setPosts, setSortedPosts);
+  }, [post, navigate]);
 
   return (
     <div className="container-fluid">
@@ -68,7 +82,6 @@ const Home = ({ post, user, username }) => {
                     className="primary-button"
                     onClick={() => {
                       addPost(postTitle, postText, username, user.uid);
-                      setRefresh((prev) => !prev);
                     }}
                   >
                     Post It!
@@ -80,12 +93,12 @@ const Home = ({ post, user, username }) => {
             )}
 
             <div className="separator">
-              <div className="filter">Recent Posts</div>
+              <div className="filter">All Posts</div>
               <div className="spritesheet category-button"></div>
               <div className="line-break flex-fill"></div>
             </div>
 
-            {post.map((post) => {
+            {posts.map((post) => {
               return (
                 <div to="view-post" className="post-wide" key={post.id}>
                   <div className="row">
@@ -118,19 +131,33 @@ const Home = ({ post, user, username }) => {
                         <>
                           <div
                             className={`spritesheet upvote${
-                              post.upvoted ? " active" : ""
+                              checkIfUserUpvoted(post, user.uid)
+                                ? " active"
+                                : ""
                             }`}
-                            onClick={() => {
-                              handleUpvote(post.id, user.id);
+                            onClick={async () => {
+                              const updatedPosts = await handleUpvote(
+                                post.id,
+                                user.uid,
+                                "Home"
+                              );
+                              setPosts(updatedPosts);
                             }}
                           ></div>
 
                           <div
                             className={`spritesheet downvote${
-                              post.downvoted ? " active" : ""
+                              checkIfUserDownvoted(post, user.uid)
+                                ? " active"
+                                : ""
                             }`}
-                            onClick={() => {
-                              handleDownvote(post.id, user.id);
+                            onClick={async () => {
+                              const updatedPosts = await handleDownvote(
+                                post.id,
+                                user.uid,
+                                "Home"
+                              );
+                              setPosts(updatedPosts);
                             }}
                           ></div>
                         </>
@@ -138,7 +165,7 @@ const Home = ({ post, user, username }) => {
                         <></>
                       )}
                       <NavLink
-                        to={`/view-post/${post.id}`}
+                        onClick={() => goToViewPost(post, navigate)}
                         className="comment-link"
                       >
                         {post.comments.length} comments
@@ -159,22 +186,19 @@ const Home = ({ post, user, username }) => {
               </div>
               <div className="line-break flex-fill"></div>
             </div>
-            {post
-              .sort((a, b) => b.upvotedBy.length - a.upvotedBy.length)
-              .slice(0, 3)
-              .map((post, index) => {
-                return (
-                  <div className="d-flex" key={post.id}>
-                    <div className="rank">{index + 1}</div>
-                    <div className="d-flex flex-column">
-                      <div className="d-flex align-items-center mb-1">
-                        <div className="spritesheet user-profile-dark"></div>
-                        <div className="d-flex flex-column align-items-start">
-                          <div className="popular-title">{post.postTitle}</div>
-                          <div className="popular-user">@{post.postUser}</div>
-                        </div>
+            {sortedPosts.slice(0, 3).map((post, index) => {
+              return (
+                <div className="d-flex" key={post.id}>
+                  <div className="rank">{index + 1}</div>
+                  <div className="d-flex flex-column">
+                    <div className="d-flex align-items-center mb-1">
+                      <div className="spritesheet user-profile-dark"></div>
+                      <div className="d-flex flex-column align-items-start">
+                        <div className="popular-title">{post.postTitle}</div>
+                        <div className="popular-user">@{post.postUser}</div>
                       </div>
-                      {/* <div
+                    </div>
+                    {/* <div
                         id="post-categories"
                         className="d-flex justify-content-start mt-1"
                       >
@@ -182,15 +206,13 @@ const Home = ({ post, user, username }) => {
                         <div className="category">K-pop</div>
                       </div> */}
 
-                      <div className="popular-content-container">
-                        <div className="popular-content">
-                          {post.postContent}
-                        </div>
-                      </div>
+                    <div className="popular-content-container">
+                      <div className="popular-content">{post.postContent}</div>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
             <div className="line-break flex-fill mt-2 mb-3"></div>
           </div>
         </div>

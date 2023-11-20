@@ -4,10 +4,12 @@ import {
 } from "../Model/PostModel";
 import {
   addPostToDatabase,
-  updatePostInDatabase,
+  updatePostVotesInDatabase,
   deletePostFromDatabase,
 } from "../Model/PostModel";
 import { useCurrentUser } from "./AuthController";
+import { useState } from "react";
+import { getComments } from "./CommentController";
 
 export const getPosts = async () => {
   try {
@@ -39,24 +41,23 @@ export const addPost = async (postTitle, postText, username, userID) => {
       postUser: username,
       postTime: postTime,
       comments: [],
-      downvoted: false,
-      upvoted: false,
       upvotedBy: [],
       downvotedBy: [],
     };
-    console.log(post, username);
     await addPostToDatabase(post, userID);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const updatePost = async (post) => {
-  try {
-    await updatePostInDatabase(post);
-  } catch (error) {
-    console.error(error);
-  }
+export const sortPosts = (posts) => {
+  return [...posts].sort(
+    (a, b) =>
+      b.upvotedBy.length -
+      b.downvotedBy.length +
+      b.comments.length -
+      (a.upvotedBy.length - a.downvotedBy.length + a.comments.length)
+  );
 };
 
 export const deletePost = async (postID) => {
@@ -68,33 +69,74 @@ export const deletePost = async (postID) => {
   }
 };
 
-export const handleUpvote = async (postID, userID) => {
+export const handleUpvote = async (postID, userID, caller) => {
   try {
     let posts = await getPosts();
-    posts.map((post) => {
+    let updatedPost;
+    for (let post of posts) {
       if (post.id === postID) {
-        post.upvoted = !post.upvoted;
-        post.downvoted = false;
-        post.upvotedBy.push(userID) && post.downvotedBy.pop(userID);
-        updatePostInDatabase(this.post);
+        if (!checkIfUserUpvoted(post, userID)) {
+          post.upvotedBy.push(userID);
+          const index = post.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            post.downvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = post.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            post.upvotedBy.splice(index, 1);
+          }
+        }
+        await updatePostVotesInDatabase(post);
+        updatedPost = post;
       }
-    });
+    }
+    return caller === "ViewPost" ? updatedPost : await getPosts();
   } catch (error) {
     console.error(error);
   }
 };
 
-export const handleDownvote = async (postID, userID) => {
+export const handleDownvote = async (postID, userID, caller) => {
   try {
     let posts = await getPosts();
-    posts.map((post) => {
+    let updatedPost;
+    for (let post of posts) {
       if (post.id === postID) {
-        post.downvoted = !post.downvoted;
-        post.upvoted = false;
-        post.downvotedBy.push(userID) && post.upvotedBy.pop(userID);
-        updatePostInDatabase(this.post);
+        if (!checkIfUserDownvoted(post, userID)) {
+          post.downvotedBy.push(userID);
+          const index = post.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            post.upvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = post.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            post.downvotedBy.splice(index, 1);
+          }
+        }
+        await updatePostVotesInDatabase(post);
+        updatedPost = post;
       }
-    });
+    }
+    return caller === "ViewPost" ? updatedPost : await getPosts();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const checkIfUserUpvoted = (post, userID) => {
+  return post.upvotedBy ? post.upvotedBy.includes(userID) : false;
+};
+
+export const checkIfUserDownvoted = (post, userID) => {
+  return post.downvotedBy ? post.downvotedBy.includes(userID) : false;
+};
+
+export const goToViewPost = async (post, navigate) => {
+  try {
+    const comments = await getComments(post.id);
+    navigate(`/view-post/${post.id}`, { state: { post, comments } });
   } catch (error) {
     console.error(error);
   }
@@ -122,4 +164,15 @@ export const handlePostEdit = async (post, newContent) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const refreshPosts = async (setPosts, setSortedPosts) => {
+  const updatedPosts = await getPosts();
+  setPosts(updatedPosts);
+  setSortedPosts(sortPosts(updatedPosts));
+};
+
+export const refreshPost = async (postID, setCurrentPost) => {
+  const updatedPost = await getCurrentPost(postID);
+  setCurrentPost(updatedPost);
 };

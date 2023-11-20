@@ -1,9 +1,14 @@
+import { set } from "react-hook-form";
 import {
   fetchCommentsFromDatabase,
+  fetchRepliesFromDatabase,
   addCommentToDatabase,
-  updateCommentInDatabase,
-  deleteCommentFromDatabase,
   addCommentsToPosts,
+  addReplyToDatabase,
+  updateCommentInDatabase,
+  updateCommentVotesInDatabase,
+  deleteCommentFromDatabase,
+  deleteReplyFromDatabase,
 } from "../Model/CommentModel";
 
 export const getComments = async (postID) => {
@@ -16,10 +21,33 @@ export const getComments = async (postID) => {
   }
 };
 
-export const deleteComment = async (commentID) => {
+export const getReplies = async (commentID) => {
+  try {
+    const replies = await fetchRepliesFromDatabase(commentID);
+    return replies;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const deleteComment = async (postID, commentID) => {
   try {
     console.log("deleting");
     await deleteCommentFromDatabase(commentID);
+    const comments = await getComments(postID);
+    return comments;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteReply = async (commentID, replyID) => {
+  try {
+    console.log("deleting");
+    await deleteReplyFromDatabase(replyID);
+    const replies = await getReplies(commentID);
+    return replies;
   } catch (error) {
     console.error(error);
   }
@@ -27,17 +55,17 @@ export const deleteComment = async (commentID) => {
 
 export const handleCommentSubmit = async (postID, username, commentText) => {
   try {
-    const comment = {
+    let comment = {
       postID: postID,
       commentContent: commentText,
       commentUser: username,
-      upvoted: false,
-      downvoted: false,
       upvotedBy: [],
       downvotedBy: [],
     };
     await addCommentToDatabase(comment);
     await addCommentsToPosts(postID);
+    comment = await getComments(postID);
+    return comment;
   } catch (error) {
     console.error(error);
   }
@@ -52,34 +80,99 @@ export const handleEditComment = async (commentID, editedComment) => {
   }
 };
 
-export const handleUpvoteComment = async (commentID, userID) => {
+export const handleUpvoteComment = async (postID, commentID, userID) => {
   try {
-    let comments = await getComments();
-    comments.map((comment) => {
+    let comments = await getComments(postID);
+    for (let comment of comments) {
       if (comment.id === commentID) {
-        comment.upvoted = !comment.upvoted;
-        comment.downvoted = false;
-        comment.upvotedBy.push(userID) && comment.downvotedBy.pop(userID);
-        updateCommentInDatabase(this.comment);
+        if (!checkIfUserUpvotedComment(comment, userID)) {
+          comment.upvotedBy.push(userID);
+          const index = comment.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            comment.downvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = comment.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            comment.upvotedBy.splice(index, 1);
+          }
+        }
+        await updateCommentVotesInDatabase(comment);
       }
-    });
+    }
+    comments = await getComments(postID);
+    return comments;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const handleDownvoteComment = async (commentID, userID) => {
+export const handleDownvoteComment = async (postID, commentID, userID) => {
   try {
-    let comments = await getComments();
-    comments.map((comment) => {
+    let comments = await getComments(postID);
+    for (let comment of comments) {
       if (comment.id === commentID) {
-        comment.downvoted = !comment.downvoted;
-        comment.upvoted = false;
-        comment.downvotedBy.push(userID) && comment.upvotedBy.pop(userID);
-        updateCommentInDatabase(this.comment);
+        if (!checkIfUserDownvotedComment(comment, userID)) {
+          comment.downvotedBy.push(userID);
+          const index = comment.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            comment.upvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = comment.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            comment.upvotedBy.splice(index, 1);
+          }
+        }
+        await updateCommentVotesInDatabase(comment);
       }
-    });
+    }
+    comments = await getComments(postID);
+    return comments;
   } catch (error) {
     console.error(error);
   }
+};
+
+export const handleAddReply = async (commentID, reply, username) => {
+  try {
+    let newReply = {
+      commentID: commentID,
+      replyContent: reply,
+      replyUser: username,
+      upvotedBy: [],
+      downvotedBy: [],
+    };
+    await addReplyToDatabase(newReply);
+    const replies = await getReplies(commentID);
+    return replies;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const checkIfUserUpvotedComment = (comment, userID) => {
+  if (comment && comment.upvotedBy) {
+    return comment.upvotedBy.includes(userID);
+  }
+  return false;
+};
+
+export const checkIfUserDownvotedComment = (comment, userID) => {
+  if (comment && comment.downvotedBy) {
+    return comment.downvotedBy.includes(userID);
+  }
+  return false;
+};
+
+export const refreshComments = async (postID, setComments) => {
+  const updatedComments = await getComments(postID);
+  setComments(updatedComments);
+};
+
+export const refreshReplies = async (comments, setReplies) => {
+  const updatedReplies = await Promise.all(
+    comments.map((comment) => getReplies(comment.id))
+  );
+  setReplies(updatedReplies.flat());
 };

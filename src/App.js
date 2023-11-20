@@ -36,6 +36,15 @@ function App() {
     setIsLoggedIn(val);
   };
 
+  // get current user
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    setUser(currentUser);
+  }, [currentUser]);
+
   // fetch posts from database
   useEffect(() => {
     const fetchPosts = async () => {
@@ -45,15 +54,6 @@ function App() {
 
     fetchPosts();
   }, []);
-
-  // get current user
-  useEffect(() => {
-    if (!currentUser) {
-      return;
-    }
-
-    setUser(currentUser);
-  }, [currentUser]);
 
   // get current user's username
   useEffect(() => {
@@ -141,7 +141,7 @@ function App() {
           <Route path="/success" element={<Confirmation />} />
           <Route
             path="/view-post/:id"
-            element={<ViewPost username={username} />}
+            element={<ViewPost user={user} username={username} />}
           />
           <Route path="/searchcomment" element={<SearchComment />} />
           <Route path="/searchpost" element={<SearchPost />} />

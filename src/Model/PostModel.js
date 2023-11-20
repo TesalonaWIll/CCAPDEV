@@ -13,11 +13,13 @@ export const fetchPostsFromDatabase = async () => {
   const postsCollectionRef = collection(db, "posts");
   const data = await getDocs(postsCollectionRef);
 
-  return data.docs.map((doc) => ({
+  const posts = data.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
     postTime: doc.data().postTime.toDate().toDateString(),
   }));
+
+  return posts;
 };
 
 export const fetchCategoriesFromDatabase = async () => {
@@ -45,11 +47,17 @@ export const updatePostContentInDatabase = async (postID, newContent) => {
   window.location.reload();
 };
 
-export const updatePostInDatabase = async (post) => {
+export const updatePostVotesInDatabase = async (post) => {
   const postsCollectionRef = collection(db, "posts");
   const postDoc = doc(postsCollectionRef, post.id);
-  await updateDoc(postDoc, post);
-  window.location.reload();
+
+  const updatedPost = {
+    upvotedBy: Array.isArray(post.upvotedBy) ? post.upvotedBy : [],
+    downvotedBy: Array.isArray(post.downvotedBy) ? post.downvotedBy : [],
+  };
+
+  await updateDoc(postDoc, updatedPost);
+  console.log("voted");
 };
 
 export const deletePostFromDatabase = async (postID) => {
