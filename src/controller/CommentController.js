@@ -7,6 +7,7 @@ import {
   addReplyToDatabase,
   updateCommentInDatabase,
   updateCommentVotesInDatabase,
+  updateReplyVotesInDatabase,
   deleteCommentFromDatabase,
   deleteReplyFromDatabase,
 } from "../Model/CommentModel";
@@ -151,6 +152,31 @@ export const handleAddReply = async (commentID, reply, username) => {
   }
 };
 
+export const handleUpovteReply = async (commentID, replyID, userID) => {
+  try {
+    let replies = await getReplies(commentID);
+    for (let reply of replies) {
+      if (reply.id === replyID) {
+        if (!checkIfUserUpvotedReply(reply, userID)) {
+          reply.upvotedBy.push(userID);
+          const index = reply.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.downvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = reply.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.upvotedBy.splice(index, 1);
+          }
+        }
+        await updateReplyVotesInDatabase(reply);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const checkIfUserUpvotedComment = (comment, userID) => {
   if (comment && comment.upvotedBy) {
     return comment.upvotedBy.includes(userID);
@@ -161,6 +187,20 @@ export const checkIfUserUpvotedComment = (comment, userID) => {
 export const checkIfUserDownvotedComment = (comment, userID) => {
   if (comment && comment.downvotedBy) {
     return comment.downvotedBy.includes(userID);
+  }
+  return false;
+};
+
+export const checkIfUserUpvotedReply = (reply, userID) => {
+  if (reply && reply.upvotedBy) {
+    return reply.upvotedBy.includes(userID);
+  }
+  return false;
+};
+
+export const checkIfUserDownvotedReply = (reply, userID) => {
+  if (reply && reply.downvotedBy) {
+    return reply.downvotedBy.includes(userID);
   }
   return false;
 };

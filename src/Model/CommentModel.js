@@ -76,6 +76,18 @@ export const updateCommentVotesInDatabase = async (comment) => {
   await updateDoc(commentDoc, updatedComment);
 };
 
+export const updateReplyVotesInDatabase = async (reply) => {
+  const repliesCollectionRef = collection(db, "replies");
+  const replyDoc = doc(repliesCollectionRef, reply.id);
+
+  const updatedReply = {
+    upvotedBy: Array.isArray(reply.upvotedBy) ? reply.upvotedBy : [],
+    downvotedBy: Array.isArray(reply.downvotedBy) ? reply.downvotedBy : [],
+  };
+
+  await updateDoc(replyDoc, updatedReply);
+};
+
 export const deleteCommentFromDatabase = async (commentID) => {
   const commentsCollectionRef = collection(db, "comments");
   const commentDoc = doc(commentsCollectionRef, commentID);
