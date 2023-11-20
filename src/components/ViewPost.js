@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   handleUpvote,
   handleDownvote,
@@ -28,6 +28,7 @@ import {
 import { set } from "react-hook-form";
 
 const ViewPost = ({ user, username }) => {
+  const { id } = useParams();
   const location = useLocation();
   const post = location.state ? location.state.post : null;
   const commentsLocation = location.state ? location.state.comments : [];
@@ -48,6 +49,9 @@ const ViewPost = ({ user, username }) => {
     }
   }, [post]);
   useEffect(() => {
+    refreshPost(id, setCurrentPost);
+  }, [id]);
+  useEffect(() => {
     if (post) {
       refreshComments(post.id, setComments);
     }
@@ -59,6 +63,7 @@ const ViewPost = ({ user, username }) => {
   }, [comments]);
 
   if (!user || !username || !currentPost) {
+    console.log(user, username, currentPost);
     return <div>Loading...</div>;
   }
   return (
