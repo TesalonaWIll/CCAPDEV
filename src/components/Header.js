@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { handlePostSearch } from "../controller/PostController";
 import logo from "../images/AvatarLogo.png";
 
 const Header = () => {
@@ -24,7 +23,7 @@ const Header = () => {
           }}
         />
       </div> */}
-      
+
       <nav className="navbar">
         <NavLink to="/about">About</NavLink>
         <NavLink className="ms-4" to="/contact-us">
