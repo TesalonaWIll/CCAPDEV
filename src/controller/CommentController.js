@@ -1,4 +1,3 @@
-import { set } from "react-hook-form";
 import {
   fetchCommentsFromDatabase,
   fetchRepliesFromDatabase,

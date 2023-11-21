@@ -31,7 +31,7 @@ export const AuthListener = ({ setIsLoggedIn }) => {
         }
       }
     });
-  }, [navigate, setIsLoggedIn]);
+  }, [navigate, setIsLoggedIn, locatoin.pathname]);
 
   return null;
 };
@@ -44,7 +44,7 @@ export const useCurrentUser = () => {
       setCurrentUser(user);
     });
     return unsubscribe;
-  }, [auth]);
+  }, []);
 
   return currentUser;
 };

@@ -7,8 +7,6 @@ import {
   updatePostVotesInDatabase,
   deletePostFromDatabase,
 } from "../Model/PostModel";
-import { useCurrentUser } from "./AuthController";
-import { useState } from "react";
 import { getComments } from "./CommentController";
 
 export const getPosts = async () => {

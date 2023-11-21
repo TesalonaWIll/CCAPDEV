@@ -3,12 +3,6 @@ import { handlePostSearch } from "../controller/PostController";
 import logo from "../images/AvatarLogo.png";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      navigate("/searchpost");
-    }
-  };
   return (
     <header className="header">
       <div>
@@ -17,7 +11,7 @@ const Header = () => {
           Home
         </NavLink>
       </div>
-      
+
       <div className="searchbar">
         <div className="search-icon"></div>
         <input
@@ -32,9 +26,15 @@ const Header = () => {
       </div>
       <nav className="navbar">
         <NavLink to="/about">About</NavLink>
-        <NavLink className="ms-4" to="/contact-us">Help</NavLink>
-        <NavLink className="ms-4" to="/login">Login</NavLink>
-        <NavLink className="ms-4" to="/register">Register</NavLink>
+        <NavLink className="ms-4" to="/contact-us">
+          Help
+        </NavLink>
+        <NavLink className="ms-4" to="/login">
+          Login
+        </NavLink>
+        <NavLink className="ms-4" to="/register">
+          Register
+        </NavLink>
       </nav>
     </header>
   );

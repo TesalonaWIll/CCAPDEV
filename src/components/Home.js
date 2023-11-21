@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import {
-  getPosts,
   addPost,
-  sortPosts,
   handleUpvote,
   handleDownvote,
   checkIfUserUpvoted,
