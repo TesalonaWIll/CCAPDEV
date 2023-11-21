@@ -1391,11 +1391,11 @@ textarea {
   margin-bottom: 24px;
 }
 
-.result-filter:hover,
+/* .result-filter:hover,
 .result-filter:active {
   background-color: #125053;
   color: #fff;
-}
+} */
 
 .result-post {
   background-color: #125053;
@@ -1404,6 +1404,11 @@ textarea {
   max-height: 320px;
   min-height: 144px;
   color: #fff;
+  cursor: pointer;
+}
+
+.result-post:hover {
+  background-color: #083e35;
 }
 
 .result-title {

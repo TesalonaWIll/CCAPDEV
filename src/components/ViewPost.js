@@ -62,7 +62,6 @@ const ViewPost = ({ user, username }) => {
   }, [comments]);
 
   if (!user || !username || !currentPost) {
-    console.log(user, username, currentPost);
     return <div>Loading...</div>;
   }
   return (

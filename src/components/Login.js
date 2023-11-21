@@ -14,8 +14,9 @@ const Login = ({ setLoginTrue }) => {
         <div className="col-7 d-flex flex-column align-content-center justify-content-center">
           <div className="welcome">Welcome to Ribbit!</div>
           <div className="welDisc">
-            Ribbit is a General Community something blabla enter <br />
-            some other dummy text i dont know what to write
+            Ribbit is a General Community Forum where communities can get
+            together and share their thoughts, ideas, and sentiments. People can
+            ask for help, advice, or even just be proud of their achievements!
           </div>
         </div>
 

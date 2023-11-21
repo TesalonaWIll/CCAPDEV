@@ -1,10 +1,9 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchPost = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchedPosts = location.state ? location.state.searchedPosts : [];
-  console.log(searchedPosts);
 
   return (
     <div className="container-fluid mb-5">
@@ -12,11 +11,11 @@ const SearchPost = () => {
         <div className="col-3"></div>
         <div className="col-6">
           <div className="d-flex justify-content-start">
-            <button className="result-filter" id="post-result">
-              <NavLink to="/searchpost" className="remove-deco">
-                Posts
-              </NavLink>
-            </button>
+            <div className="result-filter" id="post-result">
+              <div to="/searchpost" className="remove-deco">
+                Search results:
+              </div>
+            </div>
             {/* <button className="result-filter" id="comment-result">
               <NavLink to="/searchcomment" className="remove-deco">
                 Comments
