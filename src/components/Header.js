@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { handlePostSearch } from "../controller/PostController";
 import logo from "../images/AvatarLogo.png";
 
