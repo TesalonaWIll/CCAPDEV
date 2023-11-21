@@ -1455,6 +1455,14 @@ textarea {
   margin-top: 16px;
   margin-left: 70px;
 }
+.no-style-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
 /**media queries**/
 /**
 @media screen and (min-width: 1024px) and (max-width: 1919px) {

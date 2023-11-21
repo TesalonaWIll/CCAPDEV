@@ -279,12 +279,12 @@ const ViewPost = ({ user, username }) => {
                               setComments(updatedComments);
                             }}
                           ></div>
-                          <a
+                          <button
                             onClick={() => setReplyId(comment.id)}
-                            className="comment-link"
+                            className="comment-link no-style-button"
                           >
                             Reply
-                          </a>
+                          </button>
                           {replyId === comment.id && (
                             <form
                               onSubmit={async (e) => {
@@ -443,14 +443,14 @@ const ViewPost = ({ user, username }) => {
                                       setReplies(updatedReplies);
                                     }}
                                   ></div>
-                                  <a
+                                  <button
                                     onClick={() => {
                                       setReplyId(filteredReplies.id);
                                     }}
-                                    className="comment-link"
+                                    className="comment-link no-style-button"
                                   >
                                     Reply
-                                  </a>
+                                  </button>
                                   {replyId === filteredReplies.id && (
                                     <form
                                       onSubmit={async (e) => {
