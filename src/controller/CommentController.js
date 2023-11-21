@@ -63,6 +63,7 @@ export const handleCommentSubmit = async (postID, username, commentText) => {
       commentUser: username,
       upvotedBy: [],
       downvotedBy: [],
+      replies: [],
     };
     await addCommentToDatabase(comment);
     await addCommentsToPosts(postID);

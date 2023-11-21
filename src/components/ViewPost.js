@@ -25,7 +25,6 @@ import {
   refreshComments,
   refreshReplies,
 } from "../controller/CommentController";
-import { set } from "react-hook-form";
 
 const ViewPost = ({ user, username }) => {
   const { id } = useParams();
@@ -355,7 +354,17 @@ const ViewPost = ({ user, username }) => {
                                       </div>
                                     </li>
                                     <li>
-                                      <div className="dropdown-item d-flex align-items-center p-2">
+                                      <div
+                                        className="dropdown-item d-flex align-items-center p-2"
+                                        onClick={async () => {
+                                          const updatedReplies =
+                                            await deleteReply(
+                                              comment.id,
+                                              filteredReplies.id
+                                            );
+                                          setReplies(updatedReplies);
+                                        }}
+                                      >
                                         <div className="spritesheet delete-icon me-3"></div>
                                         Delete
                                       </div>
