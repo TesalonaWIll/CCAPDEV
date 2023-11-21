@@ -31,7 +31,7 @@ export const AuthListener = ({ setIsLoggedIn }) => {
         }
       }
     });
-  }, [navigate, setIsLoggedIn, locatoin.pathname]);
+  }, [navigate, setIsLoggedIn, location.pathname]);
 
   return null;
 };
