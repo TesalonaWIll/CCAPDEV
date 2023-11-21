@@ -12,7 +12,7 @@ const Header = () => {
         </NavLink>
       </div>
 
-      <div className="searchbar">
+      {/* <div className="searchbar">
         <div className="search-icon"></div>
         <input
           type="text"
@@ -23,7 +23,8 @@ const Header = () => {
             }
           }}
         />
-      </div>
+      </div> */}
+      
       <nav className="navbar">
         <NavLink to="/about">About</NavLink>
         <NavLink className="ms-4" to="/contact-us">
