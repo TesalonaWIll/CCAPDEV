@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { goToViewPost } from "../controller/PostController";
 
 const SearchPost = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const SearchPost = () => {
             <div
               key={post.id}
               className="result-post d-flex flex-column justify-content-between mb-3"
-              onClick={() => navigate(`/view-post/${post.id}`)}
+              onClick={() => goToViewPost(post, navigate)}
             >
               <div className="d-flex align-items-end">
                 <div className="result-title">{post.postTitle}</div>
