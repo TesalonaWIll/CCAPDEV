@@ -18,7 +18,6 @@ export const handleSignIn = async (email, password, navigate, setLoginTrue) => {
     navigate("/");
     setLoginTrue(true);
   } catch (error) {
-    console.log(error);
     alert("Invalid email or password");
   }
 };

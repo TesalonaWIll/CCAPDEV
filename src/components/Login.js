@@ -14,9 +14,8 @@ const Login = ({ setLoginTrue }) => {
         <div className="col-7 d-flex flex-column align-content-center justify-content-center">
           <div className="welcome">Welcome to Ribbit!</div>
           <div className="welDisc">
-            Ribbit is a General Community Forum where communities can get
-            together and share their thoughts, ideas, and sentiments. People can
-            ask for help, advice, or even just be proud of their achievements!
+            Ribbit is a General Community Forum where communities can get together and share their thoughts, ideas, and sentiments. People can ask for
+            help, advice, or even just be proud of their achievements!
           </div>
         </div>
 
@@ -61,26 +60,10 @@ const Login = ({ setLoginTrue }) => {
               </div>
             </div>
 
-            <div className="d-flex justify-content-around extra-buttons mt-2">
-              <form>
-                <input
-                  type="checkbox"
-                  id="remember"
-                  name="remember"
-                  value="true"
-                  className="my-auto checkmark"
-                />
-                <label htmlFor="remember">Remember me</label>
-              </form>
-
-              <NavLink to="/">Forgot Password?</NavLink>
-            </div>
-
             <div className="d-flex justify-content-center mt-48">
               <button
                 onClick={() => {
                   handleSignIn(email, password, navigate, setLoginTrue);
-                  console.log("clicked");
                 }}
                 className="main-button"
                 id="login-button"
@@ -90,10 +73,7 @@ const Login = ({ setLoginTrue }) => {
             </div>
           </div>
 
-          <div
-            className="d-flex align-content-center justify-content-center mt-4"
-            id="Group-1"
-          >
+          <div className="d-flex align-content-center justify-content-center mt-4" id="Group-1">
             <div className="flex-fill separator-3 my-auto"></div>
             <div className="Or me-4 ms-4">OR</div>
             <div className="flex-fill separator-3 my-auto"></div>

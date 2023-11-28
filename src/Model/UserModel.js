@@ -57,12 +57,7 @@ export class User {
   }
 
   static async signIn(email, password) {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      return userCredential.user;
-    } catch (error) {
-      console.error(error);
-    }
+    await signInWithEmailAndPassword(auth, email, password);
   }
 
   static async createUser(email, password, username) {

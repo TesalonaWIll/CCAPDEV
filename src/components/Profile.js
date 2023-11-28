@@ -6,7 +6,6 @@ const Profile = ({ post, username, bio, userPosts }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const postRef = useRef(null);
-  console.log(post, userPosts);
 
   return (
     <div className="container-fluid">

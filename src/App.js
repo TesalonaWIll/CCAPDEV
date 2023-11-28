@@ -93,12 +93,6 @@ function App() {
     fetchUserPosts();
   }, [currentUser, user]);
 
-  const loading = !post || !user || !username || !bio;
-
-  if (loading) {
-    return <div className="center">Loading...</div>; // Replace this with your loading component or spinner
-  }
-
   return (
     <div>
       <Router>

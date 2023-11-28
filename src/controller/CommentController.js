@@ -22,7 +22,6 @@ export const getReplies = async (commentID) => {
 
 export const deleteComment = async (postID, commentID) => {
   try {
-    console.log("deleting");
     await Comment.deleteCommentFromDatabase(commentID);
     const comments = await getComments(postID);
     return comments;
@@ -33,7 +32,6 @@ export const deleteComment = async (postID, commentID) => {
 
 export const deleteReply = async (commentID, replyID) => {
   try {
-    console.log("deleting");
     await Reply.deleteReplyFromDatabase(replyID);
     const replies = await getReplies(commentID);
     return replies;
@@ -100,7 +98,6 @@ export const handleDownvoteComment = async (postID, commentID, userID) => {
 export const handleAddReply = async (commentID, reply, username) => {
   try {
     const replies = await Reply.handleAddReply(commentID, reply, username);
-    console.log(replies);
     return replies;
   } catch (error) {
     console.error(error);

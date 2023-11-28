@@ -60,9 +60,6 @@ export class Comment {
 
     const postRef = doc(db, "posts", postID);
     await updateDoc(postRef, { comments: postComments });
-    console.log("comments added");
-    /*   window.location.reload();
-     */
   }
 
   static async deleteCommentFromDatabase(commentID) {
@@ -100,7 +97,6 @@ export class Comment {
 
   static async handleEditComment(comment, editedComment) {
     try {
-      console.log("editing");
       await comment.save({ commentContent: editedComment });
     } catch (error) {
       console.error(error);
@@ -218,7 +214,6 @@ export class Reply {
 
   static async handleEditReply(replyID, editedReply) {
     try {
-      console.log("editing");
       await this.updateReplyInDatabase(replyID, editedReply);
     } catch (error) {
       console.error(error);
@@ -256,13 +251,11 @@ export class Reply {
   static async addReplyToDatabase(newReply) {
     const repliesCollectionRef = collection(db, "replies");
     await addDoc(repliesCollectionRef, newReply);
-    console.log("replied");
   }
 
   static async updateReplyInDatabase(replyID, editedReply) {
     const repliesRef = doc(db, "replies", replyID);
     await updateDoc(repliesRef, { replyContent: editedReply });
-    console.log("edited");
     window.location.reload();
   }
 

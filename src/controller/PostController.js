@@ -44,7 +44,6 @@ export const sortPosts = (posts) => {
 
 export const deletePost = async (postID) => {
   try {
-    console.log("deleting");
     await Post.deletePostFromDatabase(postID);
     window.location.reload();
   } catch (error) {
@@ -115,7 +114,6 @@ export const handlePostSearch = async (searchTerm, navigate) => {
 
 export const handlePostEdit = async (post, newContent) => {
   try {
-    console.log("editing");
     await Post.updatePostContentInDatabase(post.id, newContent);
   } catch (error) {
     console.error(error);
