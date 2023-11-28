@@ -25,11 +25,7 @@ const SearchPost = () => {
           </div>
 
           {searchedPosts.map((post) => (
-            <div
-              key={post.id}
-              className="result-post d-flex flex-column justify-content-between mb-3"
-              onClick={() => goToViewPost(post, navigate)}
-            >
+            <div key={post.id} className="result-post d-flex flex-column justify-content-between mb-3" onClick={() => goToViewPost(post, navigate)}>
               <div className="d-flex align-items-end">
                 <div className="result-title">{post.postTitle}</div>
                 <div className="ms-3 result-post-user">by @{post.postUser}</div>

@@ -47,10 +47,7 @@ const Home = ({ post, user, username }) => {
                   </div>
                 </div>
 
-                <div
-                  id="post-categories"
-                  className="d-flex justify-content-start mt-3"
-                >
+                <div id="post-categories" className="d-flex justify-content-start mt-3">
                   {/* <div className="category-search">🔎 Search</div>
                   <div className="category">CS2</div> */}
                 </div>
@@ -100,19 +97,13 @@ const Home = ({ post, user, username }) => {
               .sort((a, b) => new Date(b.postTime) - new Date(a.postTime))
               .map((post) => {
                 return (
-                  <NavLink
-                    style={{ textDecoration: "none" }}
-                    onClick={() => goToViewPost(post, navigate)}
-                    key={post.id}
-                  >
+                  <NavLink style={{ textDecoration: "none" }} onClick={() => goToViewPost(post, navigate)} key={post.id}>
                     <div to="view-post" className="post-wide">
                       <div className="row">
                         <div className="col-1 spritesheet user-profile"></div>
                         <div className="col my-auto">
                           <div className="d-flex justify-content-between">
-                            <div className="row post-title">
-                              {post.postTitle}
-                            </div>
+                            <div className="row post-title">{post.postTitle}</div>
                           </div>
                           <div className="row post-user">@{post.postUser}</div>
                         </div>
@@ -125,37 +116,21 @@ const Home = ({ post, user, username }) => {
                           {user ? (
                             <>
                               <div
-                                className={`spritesheet upvote${
-                                  checkIfUserUpvoted(post, user.uid)
-                                    ? " active"
-                                    : ""
-                                }`}
+                                className={`spritesheet upvote${checkIfUserUpvoted(post, user.uid) ? " active" : ""}`}
                                 onClick={async (e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
-                                  const updatedPosts = await handleUpvote(
-                                    post.id,
-                                    user.uid,
-                                    "Home"
-                                  );
+                                  const updatedPosts = await handleUpvote(post.id, user.uid, "Home");
                                   setPosts(updatedPosts);
                                 }}
                               ></div>
 
                               <div
-                                className={`spritesheet downvote${
-                                  checkIfUserDownvoted(post, user.uid)
-                                    ? " active"
-                                    : ""
-                                }`}
+                                className={`spritesheet downvote${checkIfUserDownvoted(post, user.uid) ? " active" : ""}`}
                                 onClick={async (e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
-                                  const updatedPosts = await handleDownvote(
-                                    post.id,
-                                    user.uid,
-                                    "Home"
-                                  );
+                                  const updatedPosts = await handleDownvote(post.id, user.uid, "Home");
                                   setPosts(updatedPosts);
                                 }}
                               ></div>
@@ -163,9 +138,7 @@ const Home = ({ post, user, username }) => {
                           ) : (
                             <></>
                           )}
-                          <div className="comment-link">
-                            {post.comments.length} comments
-                          </div>
+                          <div className="comment-link">{post.comments.length} comments</div>
                         </div>
                         <div className="post-time">{post.postTime}</div>
                       </div>

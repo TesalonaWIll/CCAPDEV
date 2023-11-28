@@ -1,125 +1,328 @@
 import { db } from "./firebase";
-import {
-  doc,
-  getDocs,
-  updateDoc,
-  deleteDoc,
-  arrayRemove,
-  collection,
-  addDoc,
-  query,
-  where,
-} from "firebase/firestore";
+import { doc, getDocs, updateDoc, deleteDoc, collection, addDoc, query, where, arrayRemove } from "firebase/firestore";
 
-export const fetchCommentsFromDatabase = async (postID) => {
-  const commentsCollectionRef = collection(db, "comments");
-  const q = query(commentsCollectionRef, where("postID", "==", postID));
-  const data = await getDocs(q);
-  return data.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  }));
-};
+export class Comment {
+  constructor({ commentContent = "", commentUser = "", upvotedBy = [], downvotedBy = [], postID = "", replies = [], id = "" }) {
+    this.commentContent = commentContent;
+    this.commentUser = commentUser;
+    this.upvotedBy = upvotedBy;
+    this.downvotedBy = downvotedBy;
+    this.postID = postID;
+    this.replies = replies;
+    this.id = id;
+  }
 
-export const fetchRepliesFromDatabase = async (commentID) => {
-  const repliesCollectionRef = collection(db, "replies");
-  const q = query(repliesCollectionRef, where("commentID", "==", commentID));
-  const data = await getDocs(q);
-  return data.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-  }));
-};
+  static async fetchCommentsFromDatabase(postID) {
+    const commentsCollectionRef = collection(db, "comments");
+    const q = query(commentsCollectionRef, where("postID", "==", postID));
+    const data = await getDocs(q);
+    return data.docs.map(
+      (doc) =>
+        new Comment({
+          ...doc.data(),
+          id: doc.id,
+        })
+    );
+  }
 
-export const addCommentToDatabase = async (newComment) => {
-  const commentsCollectionRef = collection(db, "comments");
-  await addDoc(commentsCollectionRef, newComment);
-  console.log("commented");
-};
+  static async fetchRepliesFromDatabase(commentID) {
+    const repliesCollectionRef = collection(db, "replies");
+    const q = query(repliesCollectionRef, where("commentID", "==", commentID));
+    const data = await getDocs(q);
+    return data.docs.map(
+      (doc) =>
+        new Reply({
+          ...doc.data(),
+          id: doc.id,
+        })
+    );
+  }
 
-export const addCommentsToPosts = async (postID) => {
-  const commentsCollectionRef = collection(db, "comments");
-  const q = query(commentsCollectionRef, where("postID", "==", postID));
-  const querySnapshot = await getDocs(q);
-  const postComments = querySnapshot.docs.map((doc) => doc.id);
+  static async handleCommentSubmit(postID, username, commentText) {
+    let comment = new Comment({
+      postID: postID,
+      commentContent: commentText,
+      commentUser: username,
+      upvotedBy: [],
+      downvotedBy: [],
+    });
+    await comment.create();
+    await this.addCommentsToPosts(postID);
+    const comments = await this.fetchCommentsFromDatabase(postID);
+    return comments;
+  }
 
-  const postRef = doc(db, "posts", postID);
-  await updateDoc(postRef, { comments: postComments });
-  console.log("comments added");
-  /*   window.location.reload();
-   */
-};
+  static async addCommentsToPosts(postID) {
+    const commentsCollectionRef = collection(db, "comments");
+    const q = query(commentsCollectionRef, where("postID", "==", postID));
+    const querySnapshot = await getDocs(q);
+    const postComments = querySnapshot.docs.map((doc) => doc.id);
 
-export const addReplyToDatabase = async (newReply) => {
-  const repliesCollectionRef = collection(db, "replies");
-  await addDoc(repliesCollectionRef, newReply);
-  console.log("replied");
-};
+    const postRef = doc(db, "posts", postID);
+    await updateDoc(postRef, { comments: postComments });
+    console.log("comments added");
+    /*   window.location.reload();
+     */
+  }
 
-export const updateCommentInDatabase = async (commentID, editedComment) => {
-  const commentsRef = doc(db, "comments", commentID);
-  await updateDoc(commentsRef, { commentContent: editedComment });
-  console.log("edited");
-  window.location.reload();
-};
+  static async deleteCommentFromDatabase(commentID) {
+    const commentsCollectionRef = collection(db, "comments");
+    const commentDoc = doc(commentsCollectionRef, commentID);
+    await deleteDoc(commentDoc);
 
-export const updateReplyInDatabase = async (replyID, editedReply) => {
-  const repliesRef = doc(db, "replies", replyID);
-  await updateDoc(repliesRef, { replyContent: editedReply });
-  console.log("edited");
-  window.location.reload();
-};
+    const postsCollectionRef = collection(db, "posts");
+    const postSnapshot = await getDocs(postsCollectionRef);
+    postSnapshot.forEach(async (postDoc) => {
+      if (postDoc.data().comments.includes(commentID)) {
+        const postRef = doc(db, "posts", postDoc.id);
+        await updateDoc(postRef, { comments: arrayRemove(commentID) });
+      }
+    });
+  }
 
-export const updateCommentVotesInDatabase = async (comment) => {
-  const commentsCollectionRef = collection(db, "comments");
-  const commentDoc = doc(commentsCollectionRef, comment.id);
+  async create() {
+    const commentRef = collection(db, "comments");
+    const docRef = await addDoc(commentRef, {
+      commentContent: this.commentContent,
+      commentUser: this.commentUser,
+      upvotedBy: this.upvotedBy,
+      downvotedBy: this.downvotedBy,
+      postID: this.postID,
+      replies: this.replies,
+    });
+    this.id = docRef.id;
+  }
 
-  const updatedComment = {
-    upvotedBy: Array.isArray(comment.upvotedBy) ? comment.upvotedBy : [],
-    downvotedBy: Array.isArray(comment.downvotedBy) ? comment.downvotedBy : [],
-  };
+  async save(fieldsToUpdate) {
+    const commentRef = doc(db, "comments", this.id);
+    await updateDoc(commentRef, fieldsToUpdate);
+  }
 
-  await updateDoc(commentDoc, updatedComment);
-};
-
-export const updateReplyVotesInDatabase = async (reply) => {
-  const repliesCollectionRef = collection(db, "replies");
-  const replyDoc = doc(repliesCollectionRef, reply.id);
-
-  const updatedReply = {
-    upvotedBy: Array.isArray(reply.upvotedBy) ? reply.upvotedBy : [],
-    downvotedBy: Array.isArray(reply.downvotedBy) ? reply.downvotedBy : [],
-  };
-
-  await updateDoc(replyDoc, updatedReply);
-};
-
-export const deleteCommentFromDatabase = async (commentID) => {
-  const commentsCollectionRef = collection(db, "comments");
-  const commentDoc = doc(commentsCollectionRef, commentID);
-  await deleteDoc(commentDoc);
-
-  const postsCollectionRef = collection(db, "posts");
-  const postSnapshot = await getDocs(postsCollectionRef);
-  postSnapshot.forEach(async (postDoc) => {
-    if (postDoc.data().comments.includes(commentID)) {
-      const postRef = doc(db, "posts", postDoc.id);
-      await updateDoc(postRef, { comments: arrayRemove(commentID) });
+  static async handleEditComment(comment, editedComment) {
+    try {
+      console.log("editing");
+      await comment.save({ commentContent: editedComment });
+    } catch (error) {
+      console.error(error);
     }
-  });
-};
+  }
 
-export const deleteReplyFromDatabase = async (replyID) => {
-  const repliesCollectionRef = collection(db, "replies");
-  const replyDoc = doc(repliesCollectionRef, replyID);
-  await deleteDoc(replyDoc);
+  async updateComment(newContent) {
+    this.commentContent = newContent;
+    await this.save({ commentContent: this.commentContent });
+  }
 
-  const commentsCollectionRef = collection(db, "comments");
-  const commentSnapshot = await getDocs(commentsCollectionRef);
-  commentSnapshot.forEach(async (commentDoc) => {
-    if (commentDoc.data().replies.includes(replyID)) {
-      const commentRef = doc(db, "comments", commentDoc.id);
-      await updateDoc(commentRef, { replies: arrayRemove(replyID) });
+  async updateCommentVotes(upvotedBy, downvotedBy) {
+    this.upvotedBy = upvotedBy;
+    this.downvotedBy = downvotedBy;
+    await this.save({
+      upvotedBy: this.upvotedBy,
+      downvotedBy: this.downvotedBy,
+    });
+  }
+
+  async deleteComment() {
+    const commentRef = doc(db, "comments", this.id);
+    await deleteDoc(commentRef);
+  }
+
+  static async handleUpvoteComment(comment, userID) {
+    if (!this.checkIfUserUpvotedComment(comment, userID)) {
+      comment.upvotedBy.push(userID);
+      const index = comment.downvotedBy.indexOf(userID);
+      if (index > -1) {
+        comment.downvotedBy.splice(index, 1);
+      }
+    } else {
+      const index = comment.upvotedBy.indexOf(userID);
+      if (index > -1) {
+        comment.upvotedBy.splice(index, 1);
+      }
     }
-  });
-};
+    await comment.save({
+      upvotedBy: comment.upvotedBy,
+      downvotedBy: comment.downvotedBy,
+    });
+  }
+
+  static async handleDownvoteComment(comment, userID) {
+    if (!this.checkIfUserDownvotedComment(comment, userID)) {
+      comment.downvotedBy.push(userID);
+      const index = comment.upvotedBy.indexOf(userID);
+      if (index > -1) {
+        comment.upvotedBy.splice(index, 1);
+      }
+    } else {
+      const index = comment.downvotedBy.indexOf(userID);
+      if (index > -1) {
+        comment.downvotedBy.splice(index, 1);
+      }
+    }
+    await comment.save({
+      upvotedBy: comment.upvotedBy,
+      downvotedBy: comment.downvotedBy,
+    });
+  }
+
+  static checkIfUserUpvotedComment(comment, userID) {
+    if (comment && comment.upvotedBy) {
+      return comment.upvotedBy.includes(userID);
+    }
+    return false;
+  }
+
+  static checkIfUserDownvotedComment(comment, userID) {
+    if (comment && comment.downvotedBy) {
+      return comment.downvotedBy.includes(userID);
+    }
+    return false;
+  }
+}
+
+export class Reply {
+  constructor({ replyContent, replyUser, upvotedBy, downvotedBy, commentID, replies, id }) {
+    this.replyContent = replyContent;
+    this.replyUser = replyUser;
+    this.upvotedBy = upvotedBy;
+    this.downvotedBy = downvotedBy;
+    this.commentID = commentID;
+    this.replies = replies;
+    this.id = id;
+  }
+
+  static async fetchRepliesFromDatabase(commentID) {
+    const repliesCollectionRef = collection(db, "replies");
+    const q = query(repliesCollectionRef, where("commentID", "==", commentID));
+    const data = await getDocs(q);
+    return data.docs.map(
+      (doc) =>
+        new Reply({
+          ...doc.data(),
+          id: doc.id,
+        })
+    );
+  }
+
+  static async handleAddReply(commentID, reply, username) {
+    let newReply = {
+      commentID: commentID,
+      replyContent: reply,
+      replyUser: username,
+      upvotedBy: [],
+      downvotedBy: [],
+    };
+    await this.addReplyToDatabase(newReply);
+    const replies = await this.fetchRepliesFromDatabase(commentID);
+    return replies;
+  }
+
+  static async handleEditReply(replyID, editedReply) {
+    try {
+      console.log("editing");
+      await this.updateReplyInDatabase(replyID, editedReply);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static async updateReplyVotesInDatabase(reply) {
+    const repliesCollectionRef = collection(db, "replies");
+    const replyDoc = doc(repliesCollectionRef, reply.id);
+
+    const updatedReply = {
+      upvotedBy: Array.isArray(reply.upvotedBy) ? reply.upvotedBy : [],
+      downvotedBy: Array.isArray(reply.downvotedBy) ? reply.downvotedBy : [],
+    };
+
+    await updateDoc(replyDoc, updatedReply);
+  }
+
+  static async deleteReplyFromDatabase(replyID) {
+    const repliesCollectionRef = collection(db, "replies");
+    const replyDoc = doc(repliesCollectionRef, replyID);
+    await deleteDoc(replyDoc);
+
+    const commentsCollectionRef = collection(db, "comments");
+    const commentSnapshot = await getDocs(commentsCollectionRef);
+    commentSnapshot.forEach(async (commentDoc) => {
+      const commentData = commentDoc.data();
+      if (commentData.replies && commentData.replies.includes(replyID)) {
+        const commentRef = doc(db, "comments", commentDoc.id);
+        await updateDoc(commentRef, { replies: arrayRemove(replyID) });
+      }
+    });
+  }
+
+  static async addReplyToDatabase(newReply) {
+    const repliesCollectionRef = collection(db, "replies");
+    await addDoc(repliesCollectionRef, newReply);
+    console.log("replied");
+  }
+
+  static async updateReplyInDatabase(replyID, editedReply) {
+    const repliesRef = doc(db, "replies", replyID);
+    await updateDoc(repliesRef, { replyContent: editedReply });
+    console.log("edited");
+    window.location.reload();
+  }
+
+  static checkIfUserUpvotedReply(reply, userID) {
+    if (reply && reply.upvotedBy) {
+      return reply.upvotedBy.includes(userID);
+    }
+    return false;
+  }
+
+  static checkIfUserDownvotedReply(reply, userID) {
+    if (reply && reply.downvotedBy) {
+      return reply.downvotedBy.includes(userID);
+    }
+    return false;
+  }
+
+  static async handleUpvoteReply(commentID, replyID, userID) {
+    let replies = await this.fetchRepliesFromDatabase(commentID);
+    for (let reply of replies) {
+      if (reply.id === replyID) {
+        if (!this.checkIfUserUpvotedReply(reply, userID)) {
+          reply.upvotedBy.push(userID);
+          const index = reply.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.downvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = reply.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.upvotedBy.splice(index, 1);
+          }
+        }
+        await this.updateReplyVotesInDatabase(reply);
+      }
+    }
+    replies = await this.fetchRepliesFromDatabase(commentID);
+    return replies;
+  }
+
+  static async handleDownvoteReply(commentID, replyID, userID) {
+    let replies = await this.fetchRepliesFromDatabase(commentID);
+    for (let reply of replies) {
+      if (reply.id === replyID) {
+        if (!this.checkIfUserDownvotedReply(reply, userID)) {
+          reply.downvotedBy.push(userID);
+          const index = reply.upvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.upvotedBy.splice(index, 1);
+          }
+        } else {
+          const index = reply.downvotedBy.indexOf(userID);
+          if (index > -1) {
+            reply.downvotedBy.splice(index, 1);
+          }
+        }
+        await this.updateReplyVotesInDatabase(reply);
+      }
+    }
+    replies = await this.fetchRepliesFromDatabase(commentID);
+    return replies;
+  }
+}

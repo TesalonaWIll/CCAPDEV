@@ -7,8 +7,9 @@ const Confirmation = () => {
       <div className="row p-5">
         <div className="col-7 align-content-center justify-content-center mt-lg-5">
           <div className="welcome">Welcome to Ribbit!</div>
-          <div className="welDisc">Ribbit is a General Community something blabla enter <br />
-          some other dummy text i dont know what to write
+          <div className="welDisc">
+            Ribbit is a General Community something blabla enter <br />
+            some other dummy text i dont know what to write
           </div>
         </div>
 
@@ -19,11 +20,8 @@ const Confirmation = () => {
             <div className="d-flex  justify-content-center mt-4">
               <div id="goodToGo">You're good to go!</div>
             </div>
-            <NavLink
-              to="/login"
-              className="d-flex  justify-content-center mt-4"
-              id="backToLogin">
-              Go to Login
+            <NavLink to="/" className="d-flex  justify-content-center mt-4" id="backToLogin">
+              Go to the Homepage
             </NavLink>
           </div>
         </div>

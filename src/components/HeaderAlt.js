@@ -1,6 +1,6 @@
 import logo from "../images/AvatarLogo.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import { handleSignOut } from "../controller/AuthController";
+import { handleSignOut } from "../controller/UserController";
 import { handlePostSearch } from "../controller/PostController";
 
 const HeaderAlt = () => {
@@ -29,13 +29,7 @@ const HeaderAlt = () => {
           <div className="spritesheet" id="notif"></div>
         </NavLink> */}
         <div className="dropdown ms-4">
-          <button
-            className="btn spritesheet user"
-            type="button"
-            id="user-menu"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          ></button>
+          <button className="btn spritesheet user" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false"></button>
           <ul className="dropdown-menu dropdown-menu-lg-end mt-4">
             <li>
               <NavLink className="dropdown-item" to="/profile">

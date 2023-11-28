@@ -16,13 +16,7 @@ import SearchPost from "./components/SearchPost";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import { getPosts } from "./controller/PostController";
-import { AuthListener } from "./controller/AuthController";
-import {
-  useCurrentUser,
-  getCurrentUserName,
-  getCurrentBio,
-  getCurrentUserPosts,
-} from "./controller/AuthController";
+import { AuthListener, useCurrentUser, getCurrentUserProperty } from "./controller/UserController";
 
 function App() {
   const [post, setPost] = useState([]);
@@ -64,12 +58,12 @@ function App() {
         return;
       }
 
-      const result = await getCurrentUserName(currentUser);
+      const result = await getCurrentUserProperty(user, "username");
       setUsername(result);
     };
 
     fetchUsername();
-  }, [currentUser]);
+  }, [currentUser, user]);
 
   // get current user's bio
   useEffect(() => {
@@ -78,12 +72,12 @@ function App() {
         return;
       }
 
-      const result = await getCurrentBio(currentUser);
+      const result = await getCurrentUserProperty(user, "bio");
       setBio(result);
     };
 
     fetchBio();
-  }, [currentUser]);
+  }, [currentUser, user]);
 
   // get current user's posts
   useEffect(() => {
@@ -92,12 +86,18 @@ function App() {
         return;
       }
 
-      const result = await getCurrentUserPosts(currentUser);
+      const result = await getCurrentUserProperty(user, "posts");
       setUserPosts(result);
     };
 
     fetchUserPosts();
-  }, [currentUser]);
+  }, [currentUser, user]);
+
+  const loading = !post || !user || !username || !bio;
+
+  if (loading) {
+    return <div className="center">Loading...</div>; // Replace this with your loading component or spinner
+  }
 
   return (
     <div>
@@ -105,48 +105,15 @@ function App() {
         <AuthListener setIsLoggedIn={setIsLoggedIn} />
         {isLoggedIn ? <HeaderAlt element={setIsLoggedIn} /> : <Header />}
         <Routes>
-          <Route
-            path="/"
-            element={<Home post={post} user={user} username={username} />}
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                post={post}
-                setPost={setPost}
-                user={user}
-                username={username}
-                bio={bio}
-                userPosts={userPosts}
-                setUserPosts={setUserPosts}
-              />
-            }
-          />
-          <Route
-            path="/edit-profile"
-            element={
-              <EditProfile
-                user={user}
-                username={username}
-                setUsername={setUsername}
-                bio={bio}
-                setBio={setBio}
-              />
-            }
-          />
+          <Route path="/" element={<Home post={post} user={user} username={username} />} />
+          <Route path="/profile" element={<Profile post={post} username={username} bio={bio} userPosts={userPosts} />} />
+          <Route path="/edit-profile" element={<EditProfile user={user} username={username} setUsername={setUsername} bio={bio} setBio={setBio} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
-          <Route
-            path="/login"
-            element={<Login setLoginTrue={setLoginTrue} />}
-          />
+          <Route path="/login" element={<Login setLoginTrue={setLoginTrue} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/success" element={<Confirmation />} />
-          <Route
-            path="/view-post/:id"
-            element={<ViewPost user={user} username={username} />}
-          />
+          <Route path="/view-post/:id" element={<ViewPost user={user} username={username} />} />
           <Route path="/searchcomment" element={<SearchComment />} />
           <Route path="/searchpost" element={<SearchPost />} />
         </Routes>

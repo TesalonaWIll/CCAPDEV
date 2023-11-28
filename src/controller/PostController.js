@@ -1,17 +1,10 @@
-import {
-  fetchPostsFromDatabase,
-  updatePostContentInDatabase,
-} from "../Model/PostModel";
-import {
-  addPostToDatabase,
-  updatePostVotesInDatabase,
-  deletePostFromDatabase,
-} from "../Model/PostModel";
+import { Post } from "../Model/PostModel";
 import { getComments } from "./CommentController";
+import { addPostsToUser } from "./UserController";
 
 export const getPosts = async () => {
   try {
-    const posts = await fetchPostsFromDatabase();
+    const posts = await Post.fetchPostsFromDatabase();
     return posts;
   } catch (error) {
     console.error(error);
@@ -21,7 +14,7 @@ export const getPosts = async () => {
 
 export const getCurrentPost = async (postID) => {
   try {
-    const posts = await fetchPostsFromDatabase();
+    const posts = await Post.fetchPostsFromDatabase();
     const currentPost = posts.find((post) => post.id === postID);
     return currentPost;
   } catch (error) {
@@ -30,38 +23,30 @@ export const getCurrentPost = async (postID) => {
   }
 };
 
+export const getPostById = (posts, id) => {
+  return Post.getPostById(posts, id);
+};
+
 export const addPost = async (postTitle, postText, username, userID) => {
   try {
-    const postTime = new Date();
-    const post = {
-      postTitle: postTitle,
-      postContent: postText,
-      postUser: username,
-      postTime: postTime,
-      comments: [],
-      upvotedBy: [],
-      downvotedBy: [],
-    };
-    await addPostToDatabase(post, userID);
+    const post = Post.createPost(postTitle, postText, username);
+    await Post.addPostToDatabase(post, userID);
+    await addPostsToUser(username, userID);
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }
 };
 
 export const sortPosts = (posts) => {
-  return [...posts].sort(
-    (a, b) =>
-      b.upvotedBy.length -
-      b.downvotedBy.length +
-      b.comments.length -
-      (a.upvotedBy.length - a.downvotedBy.length + a.comments.length)
-  );
+  return Post.sortPosts(posts);
 };
 
 export const deletePost = async (postID) => {
   try {
     console.log("deleting");
-    await deletePostFromDatabase(postID);
+    await Post.deletePostFromDatabase(postID);
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }
@@ -73,19 +58,8 @@ export const handleUpvote = async (postID, userID, caller) => {
     let updatedPost;
     for (let post of posts) {
       if (post.id === postID) {
-        if (!checkIfUserUpvoted(post, userID)) {
-          post.upvotedBy.push(userID);
-          const index = post.downvotedBy.indexOf(userID);
-          if (index > -1) {
-            post.downvotedBy.splice(index, 1);
-          }
-        } else {
-          const index = post.upvotedBy.indexOf(userID);
-          if (index > -1) {
-            post.upvotedBy.splice(index, 1);
-          }
-        }
-        await updatePostVotesInDatabase(post);
+        post = Post.handleUpvote(post, userID);
+        await Post.updatePostVotesInDatabase(post);
         updatedPost = post;
       }
     }
@@ -101,19 +75,8 @@ export const handleDownvote = async (postID, userID, caller) => {
     let updatedPost;
     for (let post of posts) {
       if (post.id === postID) {
-        if (!checkIfUserDownvoted(post, userID)) {
-          post.downvotedBy.push(userID);
-          const index = post.upvotedBy.indexOf(userID);
-          if (index > -1) {
-            post.upvotedBy.splice(index, 1);
-          }
-        } else {
-          const index = post.downvotedBy.indexOf(userID);
-          if (index > -1) {
-            post.downvotedBy.splice(index, 1);
-          }
-        }
-        await updatePostVotesInDatabase(post);
+        post = Post.handleDownvote(post, userID);
+        await Post.updatePostVotesInDatabase(post);
         updatedPost = post;
       }
     }
@@ -124,11 +87,11 @@ export const handleDownvote = async (postID, userID, caller) => {
 };
 
 export const checkIfUserUpvoted = (post, userID) => {
-  return post.upvotedBy ? post.upvotedBy.includes(userID) : false;
+  return Post.checkIfUserUpvoted(post, userID);
 };
 
 export const checkIfUserDownvoted = (post, userID) => {
-  return post.downvotedBy ? post.downvotedBy.includes(userID) : false;
+  return Post.checkIfUserDownvoted(post, userID);
 };
 
 export const goToViewPost = async (post, navigate) => {
@@ -143,12 +106,7 @@ export const goToViewPost = async (post, navigate) => {
 export const handlePostSearch = async (searchTerm, navigate) => {
   try {
     let posts = await getPosts();
-    let searchedPosts = posts.filter((post) => {
-      return (
-        post.postTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.postContent.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    });
+    let searchedPosts = Post.handlePostSearch(posts, searchTerm);
     navigate("/searchpost", { state: { searchedPosts } });
   } catch (error) {
     console.error(error);
@@ -158,7 +116,7 @@ export const handlePostSearch = async (searchTerm, navigate) => {
 export const handlePostEdit = async (post, newContent) => {
   try {
     console.log("editing");
-    await updatePostContentInDatabase(post.id, newContent);
+    await Post.updatePostContentInDatabase(post.id, newContent);
   } catch (error) {
     console.error(error);
   }

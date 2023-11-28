@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleSignUp } from "../controller/AuthController";
+import { handleSignUp } from "../controller/UserController";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,9 +15,8 @@ const Register = () => {
         <div className="col-7 d-flex flex-column align-content-center justify-content-center">
           <div className="welcome">Welcome to Ribbit!</div>
           <div className="welDisc">
-            Ribbit is a General Community Forum where communities can get
-            together and share their thoughts, ideas, and sentiments. People can
-            ask for help, advice, or even just be proud of their achievements
+            Ribbit is a General Community Forum where communities can get together and share their thoughts, ideas, and sentiments. People can ask for
+            help, advice, or even just be proud of their achievements
           </div>
         </div>
 
@@ -28,38 +27,17 @@ const Register = () => {
 
             <div className="d-flex flex-column align-items-center mt-48">
               <div className="input-field mt-4 ">
-                <input
-                  type="text"
-                  value={username}
-                  spellCheck="false"
-                  maxLength="60"
-                  required
-                  onChange={(e) => setUsername(e.target.value)}
-                />
+                <input type="text" value={username} spellCheck="false" maxLength="60" required onChange={(e) => setUsername(e.target.value)} />
                 <label>Username *</label>
               </div>
 
               <div className="input-field mt-4">
-                <input
-                  type="email"
-                  value={email}
-                  spellCheck="false"
-                  maxLength="60"
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <input type="email" value={email} spellCheck="false" maxLength="60" required onChange={(e) => setEmail(e.target.value)} />
                 <label>Email *</label>
               </div>
 
               <div className="input-field mt-4">
-                <input
-                  type="password"
-                  value={password}
-                  spellCheck="false"
-                  maxLength="60"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <input type="password" value={password} spellCheck="false" maxLength="60" required onChange={(e) => setPassword(e.target.value)} />
                 <label>Password *</label>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { updateUser } from "../controller/AuthController";
+import { updateUser } from "../controller/UserController";
 
 const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
   return (

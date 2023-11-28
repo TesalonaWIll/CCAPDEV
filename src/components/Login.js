@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { handleSignIn } from "../controller/AuthController";
+import { handleSignIn } from "../controller/UserController";
 
 const Login = ({ setLoginTrue }) => {
   const [email, setEmail] = useState("");
