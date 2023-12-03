@@ -26,7 +26,7 @@ img {
     width: 255px;
     height: 207px;
 }
-p {
+.about-p {
     color: #032715;
     font-size: 24px;
     text-align: center;
@@ -34,6 +34,12 @@ p {
     z-index: 3;
     position: relative;
     top: -50px;
+}
+.list-header {
+    color: #032715;
+    font-size: 24px;
+    text-align: center;
+    padding: 0 250px 0 250px;
 }
 .mt-10 {
     margin-top: 10%;
@@ -83,4 +89,14 @@ p {
     width: 310px;
     font-size: 20px;
     color: #032715;
+}
+
+.repo-link {
+    background-color: #032715;
+    width: 25%;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
 }

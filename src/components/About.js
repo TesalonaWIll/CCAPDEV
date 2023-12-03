@@ -1,6 +1,7 @@
 import React from "react";
 import "../About.css";
 import ribbitLogo from "../images/Frame 7Logo.png";
+import { NavLink } from "react-router-dom";
 
 const About = () => {
   return (
@@ -12,11 +13,11 @@ const About = () => {
             <div className="a_Rec1">About Ribbit</div>
             <div className="a_Rec2" />
           </div>
-          <p>
+          <p className="about-p">
             Ribbit is a General Community Forum where communities can get together and share their thoughts, ideas, and sentiments. People can ask for
             help, advice, or even just be proud of their achievements!
           </p>
-          <p>Dependencies used for the web app:</p>
+          <p className="list-header">Dependencies used for the web app:</p>
           <ul>
             <li>@svgr/webpack</li>
             <li>@testing-library/jest-dom</li>
@@ -30,17 +31,22 @@ const About = () => {
             <li>react-router-dom</li>
             <li>web-vitals</li>
           </ul>
+    
+          <div className="d-flex flex-column align-items-center">
+            <p className="list-header mt-5">DevDependencies used for the web app:</p>
+            <ul>
+              <li>@babel/plugin-proposal-private-property-in-object</li>
+              <li>bootstrap</li>
+              <li>react-scripts</li>
+            </ul>
 
-          <p>DevDependencies used for the web app:</p>
-          <ul>
-            <li>@babel/plugin-proposal-private-property-in-object</li>
-            <li>bootstrap</li>
-            <li>react-scripts</li>
-          </ul>
+            <NavLink className="repo-link mt-3" to="https://github.com/TesalonaWIll/CCAPDEV">Github Repository</NavLink>
+          </div>
+          
         </div>
       </div>
       <div className="row p-5 mb-9">
-        <div className="d-flex flex-column align-items-center mt-10">
+        <div className="d-flex flex-column align-items-center mt-3">
           <div className="rec-container">
             <div className="a_Rec1">What Can I Do?</div>
             <div className="a_Rec2" />
