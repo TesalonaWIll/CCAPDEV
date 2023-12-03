@@ -115,17 +115,22 @@ export const handlePostSearch = async (searchTerm, navigate) => {
 export const handlePostEdit = async (post, newContent) => {
   try {
     await Post.updatePostContentInDatabase(post.id, newContent);
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }
 };
 
 export const refreshPosts = async (setPosts, setSortedPosts) => {
-  const updatedPosts = await getPosts();
-  setPosts(updatedPosts);
-  setSortedPosts(sortPosts(updatedPosts));
+  if (setSortedPosts) {
+    const updatedPosts = await getPosts();
+    setPosts(updatedPosts);
+    setSortedPosts(sortPosts(updatedPosts));
+  } else {
+    const updatedPosts = await getPosts();
+    setPosts(updatedPosts);
+  }
 };
-
 export const refreshPost = async (postID, setCurrentPost) => {
   const updatedPost = await getCurrentPost(postID);
   setCurrentPost(updatedPost);
