@@ -42,9 +42,8 @@ const Register = () => {
                 <label>Password *</label>
               </div>
             </div>
-
+            {isInvalid && <div className="login-error">Invalid login credentials</div>}
             <div className="d-flex justify-content-center mt-48">
-              {isInvalid && <p style={{ color: "red" }}>Invalid login credentials</p>}
               <button
                 onClick={() => {
                   handleSignUp(email, password, username, navigate, setIsInvalid);
