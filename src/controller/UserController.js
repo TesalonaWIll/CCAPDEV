@@ -12,23 +12,30 @@ export const updateUser = async (userId, username, bio) => {
   await User.updateUserInDatabase(userId, username, bio);
 };
 
-export const handleSignIn = async (email, password, navigate, setLoginTrue) => {
+export const handleSignIn = async (email, password, navigate, setLoginTrue, setIsInvalid) => {
   try {
     await User.signIn(email, password);
     navigate("/");
+    setIsInvalid(false);
     setLoginTrue(true);
   } catch (error) {
-    alert("Invalid email or password");
+    setIsInvalid(true);
+    console.log(error);
   }
 };
 
-export const handleSignUp = async (email, password, username, navigate) => {
+export const handleSignUp = async (email, password, username, navigate, setIsInvalid) => {
   try {
-    await User.createUser(email, password, username);
-    navigate("/success");
+    const user = await User.createUser(email, password, username);
+    if (user) {
+      setIsInvalid(false);
+      navigate("/success");
+    } else {
+      setIsInvalid(true);
+    }
   } catch (error) {
+    setIsInvalid(true);
     console.log(error);
-    alert("Invalid email or password");
   }
 };
 

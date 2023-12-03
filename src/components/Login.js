@@ -6,6 +6,7 @@ import { handleSignIn } from "../controller/UserController";
 const Login = ({ setLoginTrue }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -35,7 +36,7 @@ const Login = ({ setLoginTrue }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleSignIn(email, password, navigate, setLoginTrue);
+                      handleSignIn(email, password, navigate, setLoginTrue, setIsInvalid);
                     }
                   }}
                 />
@@ -52,7 +53,7 @@ const Login = ({ setLoginTrue }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleSignIn(email, password, navigate, setLoginTrue);
+                      handleSignIn(email, password, navigate, setLoginTrue, setIsInvalid);
                     }
                   }}
                 />
@@ -61,9 +62,10 @@ const Login = ({ setLoginTrue }) => {
             </div>
 
             <div className="d-flex justify-content-center mt-48">
+              {isInvalid && <p style={{ color: "red" }}>Invalid login credentials</p>}
               <button
                 onClick={() => {
-                  handleSignIn(email, password, navigate, setLoginTrue);
+                  handleSignIn(email, password, navigate, setLoginTrue, setIsInvalid);
                 }}
                 className="main-button"
                 id="login-button"

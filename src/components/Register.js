@@ -8,6 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
 
   return (
     <div className="container-fluid">
@@ -43,9 +44,10 @@ const Register = () => {
             </div>
 
             <div className="d-flex justify-content-center mt-48">
+              {isInvalid && <p style={{ color: "red" }}>Invalid login credentials</p>}
               <button
                 onClick={() => {
-                  handleSignUp(email, password, username, navigate);
+                  handleSignUp(email, password, username, navigate, setIsInvalid);
                 }}
                 className="main-button"
                 id="signup-button"
