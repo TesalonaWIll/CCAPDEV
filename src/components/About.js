@@ -13,10 +13,30 @@ const About = () => {
             <div className="a_Rec2" />
           </div>
           <p>
-            Ribbit is a General Community Forum where communities can get
-            together and share their thoughts, ideas, and sentiments. People can
-            ask for help, advice, or even just be proud of their achievements!
+            Ribbit is a General Community Forum where communities can get together and share their thoughts, ideas, and sentiments. People can ask for
+            help, advice, or even just be proud of their achievements!
           </p>
+          <p>Dependencies used for the web app:</p>
+          <ul>
+            <li>@svgr/webpack</li>
+            <li>@testing-library/jest-dom</li>
+            <li>@testing-library/react</li>
+            <li>@testing-library/user-event</li>
+            <li>eslint</li>
+            <li>firebase</li>
+            <li>react</li>
+            <li>react-dom</li>
+            <li>react-hook-form</li>
+            <li>react-router-dom</li>
+            <li>web-vitals</li>
+          </ul>
+
+          <p>DevDependencies used for the web app:</p>
+          <ul>
+            <li>@babel/plugin-proposal-private-property-in-object</li>
+            <li>bootstrap</li>
+            <li>react-scripts</li>
+          </ul>
         </div>
       </div>
       <div className="row p-5 mb-9">
@@ -31,28 +51,21 @@ const About = () => {
                 <div className="icon-container">
                   <div id="about-comment" className="spritesheet"></div>
                 </div>
-                <div className="text-box_1 text-center mt-4">
-                  Registered users can comment under posts
-                </div>
+                <div className="text-box_1 text-center mt-4">Registered users can comment under posts</div>
               </div>
 
               <div className="d-flex flex-column align-items-center">
                 <div className="icon-container">
                   <div id="about-post" className="spritesheet"></div>
                 </div>
-                <div className="text-box_2 text-center mt-4">
-                  Registered users can write their own posts with different
-                  categories they choose
-                </div>
+                <div className="text-box_2 text-center mt-4">Registered users can write their own posts with different categories they choose</div>
               </div>
 
               <div className="d-flex flex-column align-items-center">
                 <div className="icon-container">
                   <div id="about-vote" className="spritesheet"></div>
                 </div>
-                <div className="text-box_1 text-center mt-4">
-                  Registered users can like or dislike a post
-                </div>
+                <div className="text-box_1 text-center mt-4">Registered users can like or dislike a post</div>
               </div>
             </div>
           </div>
