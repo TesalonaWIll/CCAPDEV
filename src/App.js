@@ -100,7 +100,7 @@ function App() {
         {isLoggedIn ? <HeaderAlt element={setIsLoggedIn} /> : <Header />}
         <Routes>
           <Route path="/" element={<Home post={post} user={user} username={username} />} />
-          <Route path="/profile" element={<Profile post={post} username={username} bio={bio} userPosts={userPosts} />} />
+          <Route path="/profile" element={<Profile post={post} user={user} username={username} bio={bio} userPosts={userPosts} />} />
           <Route path="/edit-profile" element={<EditProfile user={user} username={username} setUsername={setUsername} bio={bio} setBio={setBio} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
