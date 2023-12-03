@@ -158,17 +158,18 @@ const Home = ({ post, user, username }) => {
             </div>
             {sortedPosts.slice(0, 3).map((post, index) => {
               return (
-                <div className="d-flex" key={post.id}>
-                  <div className="rank">{index + 1}</div>
-                  <div className="d-flex flex-column">
-                    <div className="d-flex align-items-center mb-1">
-                      <div className="spritesheet user-profile-dark"></div>
-                      <div className="d-flex flex-column align-items-start">
-                        <div className="popular-title">{post.postTitle}</div>
-                        <div className="popular-user">@{post.postUser}</div>
+                <NavLink style={{ textDecoration: "none" }} onClick={() => goToViewPost(post, navigate)} key={post.id}>
+                  <div className="d-flex" key={post.id}>
+                    <div className="rank">{index + 1}</div>
+                    <div className="d-flex flex-column">
+                      <div className="d-flex align-items-center mb-1">
+                        <div className="spritesheet user-profile-dark"></div>
+                        <div className="d-flex flex-column align-items-start">
+                          <div className="popular-title">{post.postTitle}</div>
+                          <div className="popular-user">@{post.postUser}</div>
+                        </div>
                       </div>
-                    </div>
-                    {/* <div
+                      {/* <div
                         id="post-categories"
                         className="d-flex justify-content-start mt-1"
                       >
@@ -176,11 +177,12 @@ const Home = ({ post, user, username }) => {
                         <div className="category">K-pop</div>
                       </div> */}
 
-                    <div className="popular-content-container">
-                      <div className="popular-content">{post.postContent}</div>
+                      <div className="popular-content-container">
+                        <div className="popular-content">{post.postContent}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </NavLink>
               );
             })}
             <div className="line-break flex-fill mt-2 mb-3"></div>
