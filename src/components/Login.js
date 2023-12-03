@@ -59,10 +59,10 @@ const Login = ({ setLoginTrue }) => {
                 />
                 <label>Password</label>
               </div>
+              
             </div>
-
+            {isInvalid && <div className="login-error">Wrong email or password</div>}
             <div className="d-flex justify-content-center mt-48">
-              {isInvalid && <p style={{ color: "red" }}>Invalid login credentials</p>}
               <button
                 onClick={() => {
                   handleSignIn(email, password, navigate, setLoginTrue, setIsInvalid);

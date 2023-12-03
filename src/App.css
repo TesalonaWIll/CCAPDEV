@@ -877,7 +877,7 @@ input:focus {
 }
 
 input:focus ~ label,
-input:valid ~ label {
+input:not([value=""]) ~ label {
   top: -8px;
   left: -5px;
   font-size: 16px;
@@ -1477,6 +1477,13 @@ textarea {
   font-size: 1.5em;
 }
 
+.login-error {
+  margin-top: 10px;
+  color: red;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
 /**media queries**/
 /**
 @media screen and (min-width: 1024px) and (max-width: 1919px) {
