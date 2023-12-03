@@ -1,6 +1,7 @@
 import React from "react";
 import "../About.css";
 import ribbitLogo from "../images/Frame 7Logo.png";
+import { NavLink } from "react-router-dom";
 
 const About = () => {
   return (
@@ -38,6 +39,8 @@ const About = () => {
               <li>bootstrap</li>
               <li>react-scripts</li>
             </ul>
+
+            <NavLink className="repo-link mt-3" to="https://github.com/TesalonaWIll/CCAPDEV">Github Repository</NavLink>
           </div>
           
         </div>

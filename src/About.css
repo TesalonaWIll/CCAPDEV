@@ -90,3 +90,13 @@ img {
     font-size: 20px;
     color: #032715;
 }
+
+.repo-link {
+    background-color: #032715;
+    width: 25%;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+}
