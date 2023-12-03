@@ -15,7 +15,7 @@ const Contact = () => {
               <div className="a_Rec1">Ribbit</div>
               <div className="a_Rec2" />
             </div>
-            <p>Got concerns? Send a message!</p>
+            <p className="contact-p">Got concerns? Send a message!</p>
           </div>
         </div>
 
