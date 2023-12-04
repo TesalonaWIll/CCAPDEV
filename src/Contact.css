@@ -51,6 +51,8 @@ img {
     border-radius: 10px;
     background: #FFF;
     padding: 40px;
+    display: flex;
+    flex-direction: column;
 }
 .text-input {
     width: 100%;
@@ -90,4 +92,27 @@ h1 {
 }
 .contents {
     height: 100%;
+}
+.send-button {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.05rem;
+    border-radius: 1.875rem;
+    padding: 5px 25px;
+    text-align: center;
+    max-width: fit-content;
+    background-color: #1F4A23;
+    border: 2px solid #1F4A23;
+}
+.send-button:hover {
+    background-color: #32773a;
+    color: #fff;
+    border: 2px solid #32773a;
+}
+  
+.send-button:active {
+    background-color: #32773a;
+    color: #fff;
+    border: 2px solid #01211c;
 }

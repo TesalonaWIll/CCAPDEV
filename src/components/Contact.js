@@ -1,6 +1,7 @@
 import React from "react";
 import "../Contact.css";
 import ribbitLogo from "../images/Frame 7Logo.png";
+import {checkEmpty} from "../controller/ContactController";
 
 const Contact = () => {
   return (
@@ -49,6 +50,8 @@ const Contact = () => {
 
             <h1 className="mt-4">Message</h1>
             <textarea id="c_message" placeholder="Write a message..." />
+
+            <div className="send-button mx-auto mt-3" onClick={checkEmpty}>SEND</div>
           </div>
         </div>
 
