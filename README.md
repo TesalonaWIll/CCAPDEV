@@ -3,7 +3,8 @@
 WebApp Link: https://ribbit-website.web.app/
 
 To run the application locally:
-*.env file required*
+
+*.env file required at root of directory*
 
 1. open the terminal in the root of the directory.
 2. run `npm install`.
