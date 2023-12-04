@@ -25,6 +25,10 @@ export class Comment {
     );
   }
 
+  static async getCommentById(comments, id) {
+    return comments.find((comment) => comment.id === id);
+  }
+
   static async fetchRepliesFromDatabase(commentID) {
     const repliesCollectionRef = collection(db, "replies");
     const q = query(repliesCollectionRef, where("commentID", "==", commentID));
@@ -197,6 +201,24 @@ export class Reply {
           id: doc.id,
         })
     );
+  }
+
+  static async fetchReplyFromDatabase(replyID) {
+    const repliesCollectionRef = collection(db, "replies");
+    const q = query(repliesCollectionRef, where("id", "==", replyID));
+    const data = await getDocs(q);
+    const replies = data.docs.map(
+      (doc) =>
+        new Reply({
+          ...doc.data(),
+          id: doc.id,
+        })
+    );
+    return replies[0];
+  }
+
+  static async getReplyById(replies, id) {
+    return replies.find((reply) => reply.id === id);
   }
 
   static async handleAddReply(commentID, reply, username) {

@@ -20,23 +20,40 @@ export const getReplies = async (commentID) => {
   }
 };
 
-export const deleteComment = async (postID, commentID) => {
+export const deleteComment = async (postID, comments, commentID, username) => {
   try {
+    const comment = await Comment.getCommentById(comments, commentID);
+    if (comment.commentUser !== username) {
+      alert("You do not have permission to delete this comment");
+      throw new Error("User does not have permission to delete this comment");
+    }
+
     await Comment.deleteCommentFromDatabase(commentID);
-    const comments = await getComments(postID);
-    return comments;
+    const updatedComments = await getComments(postID);
+    return updatedComments;
   } catch (error) {
+    const updatedComments = await getComments(postID);
     console.error(error);
+    return updatedComments;
   }
 };
 
-export const deleteReply = async (commentID, replyID) => {
+export const deleteReply = async (commentID, replies, replyID, username) => {
   try {
+    const reply = await Reply.getReplyById(replies, replyID);
+
+    if (reply.replyUser !== username) {
+      alert("You do not have permission to delete this reply");
+      throw new Error("User does not have permission to delete this reply");
+    }
+
     await Reply.deleteReplyFromDatabase(replyID);
-    const replies = await getReplies(commentID);
-    return replies;
+    const updatedReplies = await getReplies(commentID);
+    return updatedReplies;
   } catch (error) {
+    const updatedReplies = await getReplies(commentID);
     console.error(error);
+    return updatedReplies;
   }
 };
 
