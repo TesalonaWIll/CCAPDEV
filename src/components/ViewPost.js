@@ -145,13 +145,15 @@ const ViewPost = ({ user, username }) => {
                       <div className="d-flex justify-content-between">
                         <div className="row view-username">@{comment.commentUser}</div>
                         <div className="dropdown">
-                          <button
-                            className="btn spritesheet edit-post"
-                            type="button"
-                            id="edit-post-icon"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          ></button>
+                          {comment.commentUser === username ? (
+                            <button
+                              className="btn spritesheet edit-post"
+                              type="button"
+                              id="edit-post-icon"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            ></button>
+                          ) : null}
                           <ul className="dropdown-menu" aria-labelledby="change-post">
                             <li>
                               <div
@@ -255,13 +257,15 @@ const ViewPost = ({ user, username }) => {
                               <div className="d-flex justify-content-between">
                                 <div className="row view-username">@{filteredReply.replyUser}</div>
                                 <div className="dropdown">
-                                  <button
-                                    className="btn spritesheet edit-post"
-                                    type="button"
-                                    id="edit-post-icon"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                  ></button>
+                                  {filteredReply.replyUser === username ? (
+                                    <button
+                                      className="btn spritesheet edit-post"
+                                      type="button"
+                                      id="edit-post-icon"
+                                      data-bs-toggle="dropdown"
+                                      aria-expanded="false"
+                                    ></button>
+                                  ) : null}
                                   <ul className="dropdown-menu" aria-labelledby="change-post">
                                     <li>
                                       <div
