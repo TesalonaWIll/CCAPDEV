@@ -76,7 +76,11 @@ const Home = ({ post, user, username }) => {
                     type="button"
                     className="primary-button"
                     onClick={() => {
-                      addPost(postTitle, postText, username, user.uid);
+                      if (postTitle && postText && username && user.uid) {
+                        addPost(postTitle, postText, username, user.uid);
+                      } else {
+                        alert("All fields must be filled out");
+                      }
                     }}
                   >
                     Post It!

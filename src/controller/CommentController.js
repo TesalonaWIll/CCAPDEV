@@ -69,6 +69,7 @@ export const handleCommentSubmit = async (postID, username, commentText) => {
 export const handleEditComment = async (comment, editedComment) => {
   try {
     await Comment.handleEditComment(comment, editedComment);
+    window.location.reload();
   } catch (error) {
     console.error(error);
   }
