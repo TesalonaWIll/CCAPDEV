@@ -68,18 +68,55 @@ const Profile = ({ post, user, username, bio, userPosts }) => {
                                   id="edit-post-icon"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                  }}
                                 ></button>
-                                <ul className="dropdown-menu" aria-labelledby="change-post">
+                                <ul
+                                  className="dropdown-menu"
+                                  aria-labelledby="change-post"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                  }}
+                                >
                                   <li>
-                                    <div className="dropdown-item d-flex align-items-center p-2" onClick={() => setIsEditing(!isEditing)}>
-                                      <div className="spritesheet edit-icon me-3"></div>
+                                    <div
+                                      className="dropdown-item d-flex align-items-center p-2"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setIsEditing(!isEditing);
+                                      }}
+                                    >
+                                      <div
+                                        className="spritesheet edit-icon me-3"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                        }}
+                                      ></div>
                                       Edit
                                     </div>
                                   </li>
 
                                   <li>
-                                    <div className="dropdown-item d-flex align-items-center p-2" onClick={() => deletePost(post.id)}>
-                                      <div className="spritesheet delete-icon me-3"></div>
+                                    <div
+                                      className="dropdown-item d-flex align-items-center p-2"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        deletePost(post.id);
+                                      }}
+                                    >
+                                      <div
+                                        className="spritesheet delete-icon me-3"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                        }}
+                                      ></div>
                                       Delete
                                     </div>
                                   </li>
@@ -98,13 +135,35 @@ const Profile = ({ post, user, username, bio, userPosts }) => {
                           {isEditing ? (
                             <div className="d-flex flex-column">
                               <div>
-                                <textarea className="editing-post" value={editedContent} onChange={(e) => setEditedContent(e.target.value)} />
+                                <textarea
+                                  className="editing-post"
+                                  value={editedContent || post.postContent}
+                                  onChange={(e) => setEditedContent(e.target.value)}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                  }}
+                                />
                               </div>
                               <div className="d-flex justify-content-end">
-                                <button className="primary-button me-3" onClick={() => handlePostEdit(post, editedContent)}>
+                                <button
+                                  className="primary-button me-3"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    handlePostEdit(post, editedContent);
+                                  }}
+                                >
                                   Save
                                 </button>
-                                <button className="secondary-button" onClick={() => (isEditing ? setIsEditing(false) : null)}>
+                                <button
+                                  className="secondary-button"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    if (isEditing) setIsEditing(false);
+                                  }}
+                                >
                                   Cancel
                                 </button>
                               </div>
