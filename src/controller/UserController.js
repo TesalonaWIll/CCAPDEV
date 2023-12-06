@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { auth } from "../Model/firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { User } from "../Model/UserModel";
 
@@ -35,6 +35,31 @@ export const handleSignUp = async (email, password, username, navigate, setIsInv
     }
   } catch (error) {
     setIsInvalid(true);
+    console.log(error);
+  }
+};
+
+export const handleChangePassword = async (user, oldPassword, newPassword, confirm) => {
+  try {
+    if (!oldPassword || !newPassword || !confirm) {
+      alert("All fields must be filled out");
+      return;
+    }
+    if (newPassword !== confirm) {
+      alert("New password and confirm password do not match");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, user.email, oldPassword);
+    } catch (error) {
+      console.log(error);
+      alert("Old password is incorrect");
+      return;
+    }
+    await User.changePassword(user, oldPassword, newPassword);
+    alert("Password changed successfully!");
+  } catch (error) {
     console.log(error);
   }
 };

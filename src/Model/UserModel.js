@@ -1,6 +1,6 @@
 import { db, auth } from "../Model/firebase";
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
 
 export class User {
   constructor({ username, bio, posts, id }) {
@@ -71,6 +71,15 @@ export class User {
       return userCredential.user;
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  static async changePassword(user, oldPassword, newPassword) {
+    const credential = await signInWithEmailAndPassword(auth, user.email, oldPassword);
+    if (credential.user) {
+      await updatePassword(credential.user, newPassword);
+    } else {
+      throw new Error("Failed to sign in user");
     }
   }
 }

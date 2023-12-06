@@ -1,8 +1,13 @@
 import React from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { updateUser } from "../controller/UserController";
+import { updateUser, handleChangePassword } from "../controller/UserController";
 
 const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   return (
     <div className="container-fluid">
       <div className="row mb-5">
@@ -11,10 +16,7 @@ const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
         <div className="col-8" id="edit-profile-page">
           <div className="flex-column p-4">
             <div className="d-flex justify-content-between mb-5">
-              <NavLink
-                className="spritesheet back-button my-auto"
-                to="/profile"
-              ></NavLink>
+              <NavLink className="spritesheet back-button my-auto" to="/profile"></NavLink>
               <h2 id="edit-title">Edit Profile</h2>
               <div></div>
             </div>
@@ -67,13 +69,7 @@ const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
               </div>
               <div className="d-flex flex-column justify-content-between">
                 <form>
-                  <input
-                    type="text"
-                    value={username || ""}
-                    id="username"
-                    className="short-input"
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
+                  <input type="text" value={username || ""} id="username" className="short-input" onChange={(e) => setUsername(e.target.value)} />
                 </form>
                 <div className="note">Maximum Characters: 60</div>
               </div>
@@ -82,48 +78,51 @@ const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
             <div className="separator-2"></div>
 
             <div className="d-flex flex-column justify-content-between">
-              <div className="d-flex justify-content-start mb-4">
-                <div className="password-label">Old Password</div>
-                <div className="d-flex flex-column justify-content-between">
-                  <form>
-                    <input
-                      type="text"
-                      id="username"
-                      className="short-input"
-                      maxLength="60"
-                    />
-                  </form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleChangePassword(user, oldPassword, newPassword, confirmPassword);
+                }}
+              >
+                <div className="d-flex justify-content-start mb-4">
+                  <div className="password-label">Old Password</div>
+                  <input
+                    type="password"
+                    className="short-input"
+                    maxLength="60"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                  />
                 </div>
-              </div>
 
-              <div className="d-flex justify-content-start mb-4">
-                <div className="password-label">New Password</div>
-                <div className="d-flex flex-column justify-content-between">
-                  <form>
-                    <input
-                      type="text"
-                      id="username"
-                      className="short-input"
-                      maxLength="60"
-                    />
-                  </form>
-                  <div className="note">Maximum Characters: 60</div>
+                <div className="d-flex justify-content-start mb-4">
+                  <div className="password-label">New Password</div>
+                  <input
+                    type="password"
+                    className="short-input"
+                    maxLength="60"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
                 </div>
-              </div>
 
-              <div className="d-flex justify-content-start">
-                <div className="password-label">Confirm Password</div>
-                <div className="d-flex flex-column justify-content-between">
-                  <form>
-                    <input
-                      type="text"
-                      id="username"
-                      className="short-input"
-                      maxLength="60"
-                    />
-                  </form>
+                <div className="d-flex justify-content-start">
+                  <div className="password-label">Confirm Password</div>
+                  <input
+                    type="password"
+                    className="short-input"
+                    maxLength="60"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 </div>
-              </div>
+
+                <div className="d-flex justify-content-center mt-4">
+                  <button type="submit" className="primary-button me-4">
+                    Change Password
+                  </button>
+                </div>
+              </form>
             </div>
 
             <div className="separator-2"></div>
@@ -134,30 +133,26 @@ const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
               </div>
               <div className="d-flex flex-column justify-content-between flex-fill">
                 <form>
-                  <textarea
-                    id="bio-input"
-                    value={bio || ""}
-                    placeholder="Bio"
-                    maxLength="250"
-                    onChange={(e) => setBio(e.target.value)}
-                  ></textarea>
+                  <textarea id="bio-input" value={bio || ""} placeholder="Bio" maxLength="250" onChange={(e) => setBio(e.target.value)}></textarea>
                 </form>
                 <div className="note">Maximum Characters: 150</div>
               </div>
             </div>
 
-            <div className="d-flex p-5"></div>
+            <div className="d-flex p-3"></div>
 
             <div className="d-flex justify-content-center mb-2">
               <button
                 type="button"
                 className="primary-button me-4"
                 id="apply-changes"
-                onClick={() => updateUser(user.uid, username, bio)}
+                onClick={() => {
+                  updateUser(user.uid, username, bio);
+                }}
               >
                 Apply Changes
               </button>
-              <button
+              {/*               <button
                 onClick={() => {
                   setBio("");
                 }}
@@ -165,7 +160,7 @@ const EditProfile = ({ user, username, setUsername, bio, setBio }) => {
                 id="clear-changes"
               >
                 Clear Changes
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
