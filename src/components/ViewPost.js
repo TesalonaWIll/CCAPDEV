@@ -197,6 +197,7 @@ const ViewPost = ({ user, username }) => {
                               onClick={async () => {
                                 await handleEditComment(comment, editedComment);
                                 setEditingCommentId(null);
+                                setEditedComment(comment.commentContent);
                               }}
                             >
                               Save
